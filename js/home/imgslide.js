@@ -7,6 +7,7 @@ $(function (){
     })
     $("#img-slide").vegas({
         slides: datas,
+        preload: true,
         timer: false,
         overlay: false,
         delay: 6000,
