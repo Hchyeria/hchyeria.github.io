@@ -1,0 +1,132 @@
+
+#article-content{
+    margin-top: 25px;
+    width: 100%;
+    z-index 520
+    position: relative;
+    background-color: $theme-background-color;
+}
+
+.archive{
+    padding-top: 10px
+}
+.article-postimg img{
+    height: $archive-article-img-height;
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: 1s;
+}
+.img-big{
+    position relative
+    padding: 30% 0
+}
+.article-tags{
+    margin: 18px auto;
+    text-align: center;
+    font-size: .8em;
+}
+.article-tags span{
+    border: $theme-color solid 1px;
+    padding: 2px 5px
+}
+.article-title{
+    font-family: $font-bold
+    {font-latin-Blod}
+    font-size: 1.5em
+    width: 80%
+    max-width: @width
+    margin: 15px auto 10px auto
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $font-color
+}
+.article-title:hover + .dividded-sm {
+    width: 15%
+}
+.article-content{
+    font-size: 1em
+    width: 100%
+    margin-top: 25px
+    margin-bottom: 35px
+    padding: 0 4%
+    max-height: $archive-article-img-height*0.5;
+    overflow: hidden;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    -webkit-line-clamp: 4;
+    text-overflow: ellipsis;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+}
+.article-date{
+    width: 100%
+    margin: 10px auto  
+    text-align: center
+    {font-latin-Italic}
+    font-size: 0.76em
+}
+.article-date-icon{
+    font-size: 1em !important
+    margin-right: 1%;
+    position: relative;
+    top: 1px;    
+}
+.bodttom{
+    border-bottom: $theme-color solid 1px
+}
+.read-more{
+    width: 50%
+    margin: 25px auto 45px auto
+    text-align: center
+    font-size: 1em
+    cursor pointer
+    color: $font-color
+}
+.read-more:hover{
+    color: $theme-style-color
+    transform: scale(1.05)
+}
+.img-item-archive{
+  width: 35%;
+  padding: 4vh  
+}
+.img-item-archive img{
+    width: 100%    
+}
+.recent-post-item:not(.no-img):hover img{
+    transform: scale(1.1)
+    opacity 0.75
+}
+
+.read-more:before, .read-more:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border: 2px solid $text-highlight-color;
+    border-radius: 50%;
+    content: '';
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    transform: translateX(-50%) translateY(-50%) scale(0.2);
+    z-index: -99
+}
+.read-more:before {
+	width: 38px;
+	height: 38px;
+	border-width: 4px;
+	transform: translateX(-50%) translateY(-50%) scale(0.8);
+}
+.read-more:hover:before, .read-more:active:before,
+.read-more:hover:after, .read-more:active:after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}

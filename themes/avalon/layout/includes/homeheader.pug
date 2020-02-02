@@ -1,0 +1,14 @@
+#home-page-header.home-page-header
+  span
+    a#site-name(href=url_for('/'))
+      .logo-contain
+        img(src=url_for(theme.logo_normal) height='25')
+      if theme.logo_hover
+        .logo-contain
+          img(src=url_for(theme.logo_hover) height='25')
+  span
+    span.menus
+      each url, label in theme.menu
+        a(href=url)
+          li.site-page= label
+      

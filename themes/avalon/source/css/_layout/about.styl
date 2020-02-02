@@ -1,0 +1,131 @@
+#img-slide{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    position: absolute;
+    top: 0
+}
+#img-content{
+    position: relative;
+}
+.camera-top{
+    width: 100%
+    position: absolute
+    top: 0
+    z-index: 500
+}
+.camera-bottom{
+    width: 100%
+    position: absolute
+    bottom: 0
+    z-index: 500
+}
+.camera-contain{ 
+    width: 96%;
+    margin: 25px auto;
+    overflow: hidden;
+}
+#img-text-bottom {
+    {font-latin-Blod-Italic}
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    font-size: 0.6em;
+}
+.about-top-img {
+    overflow: hidden;
+    height: 100%;
+}
+.about-top-img img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+#about-content{
+    background-color: $theme-background-color
+    z-index: 520;
+    position: relative;
+}
+.about-content{
+    width: 80%
+    margin: 15px auto
+    padding: 10px;
+}
+#social-content{
+    color: $theme-style-color
+    text-align: center 
+    clear both
+}
+.social-content{
+    text-align: center
+}
+#social-content .iconfont {
+    font-size: 20px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px 10px;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    background-color: #eeeeee
+}
+#social-content .iconfont:before {
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translateX(-50%) translateY(-50%)
+}
+#social-content .iconfont:hover:before {
+    animation: spinAround 2s linear infinite
+}
+
+
+#social-content .iconfont:after {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    border: 2px solid $theme-style-color;
+    border-radius: 50%;
+    content: '';
+    opacity: 0;
+    transition: transform 0.2s, opacity 0.2s;
+    transform: translateX(-50%) translateY(-50%) scale(0.2);
+}
+#social-content .iconfont:hover, #social-content .iconfont:active {
+    color: $theme-background-color;
+    background-color: $theme-style-color
+}
+#social-content .iconfont:hover:after, #social-content .iconfont:hover:active {
+	transform: translateX(-50%) translateY(-50%) scale(1);
+	opacity: 1;
+}
+
+.social-text{
+    font-size: 10px   
+    margin-top: 10px
+}
+
+.personal-sign{
+    float: right;
+    margin: 6% 0 10%;
+    font-family: Calafia
+    font-size: 2em;
+    width: 14%
+    img {
+        width: 100%
+    }
+}
+.about-content{
+    width: 48%;
+    margin-left: 10%
+    padding: 5px 15px 15px 15px;
+    letter-spacing: $page-letter-spacing
+    line-height: $text-line-height
+}

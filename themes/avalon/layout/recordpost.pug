@@ -1,0 +1,23 @@
+extends includes/layout.pug
+include includes/mixins/picture.pug
+include includes/mixins/music.pug
+block content
+  include ./includes/mixins/recordItem.pug
+  if page.photos.length
+    .flex-row
+      .record-post-left
+        each photo, index in page.photos
+          .photo-container
+              +picture(url_for(page.path + photo), false)
+      .record-post-right
+        #title-data
+          .post-page-title= page.title
+          .dividded-sm
+          .post-page-date
+            .article-date(datetime=page.date.toJSON())= date(page.date, date_format)
+        .post-page-content
+          if page.hasMusic
+            +music(page.music)
+          != page.content
+
+

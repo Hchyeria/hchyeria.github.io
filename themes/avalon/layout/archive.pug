@@ -1,0 +1,19 @@
+
+extends includes/layout.pug
+
+block content
+  include ./includes/mixins/menubottom.pug
+  .img-item-archive
+    img(src='/img/article.png')
+  div.archive
+    include includes/mixins/articlepost.pug
+    if page.posts.length > 0
+      #acticle-posts
+        each post, index in page.posts.toArray()
+          - if (!post.photos.length)
+            +articlePost(post, index)(class="bodttom no-img")
+          - else
+            +articlePost(post, index)(class="bodttom")
+        include includes/pagination.pug
+    .menu-bottom
+      +menubottom('menu-bottom-icon', true)  

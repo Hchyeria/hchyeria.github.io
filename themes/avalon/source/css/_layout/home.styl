@@ -1,0 +1,151 @@
+#site-name{
+    width: 0;
+    display: block
+}
+#content-outer{
+    width: 100%;
+    margin-top: $header-hight
+    min-height: 700px
+}
+
+#article-contain{
+    width: 90%
+    margin: 0 auto;
+    padding-top: 25px
+}
+#recent-posts{
+    width: $index-article-contain-width;
+    margin: 0 auto;
+}
+.recent-index-item{
+    display: flex;
+    align-items: center;
+    margin: 45px 0;
+    flex: 1 0 auto;
+}
+.recent-index-item:not(.no-img):hover img{
+    transform: scale(1.1)
+    opacity 0.75
+}
+.recent-article-content{
+    @extend .article-content;
+    max-height: $index-article-img-height*0.5;
+    padding: 0
+    margin-bottom: 80px
+}
+$recent-article-contain-width = 58%
+$recent-article-img-width = 100% - $recent-article-contain-width
+.article-indeximg{
+    overflow hidden
+}
+.flex-link{
+    flex: 0 0 $recent-article-img-width;
+}
+
+.article-indeximg img{
+    width: 100%
+    height: $index-article-img-height;
+    object-fit: cover;
+    transition: 1s;
+}
+
+.recent-article-contain{
+    flex: 0 0 $recent-article-contain-width;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-width: $recent-article-contain-width;
+}
+.recent-article-contain-no-img{
+    @extend .recent-article-contain
+    max-width: 98%
+    padding-left: 0
+    width: @max-width
+}
+.recent-article-tags{
+    margin: 0 0 18px 0
+    font-size: .68em
+}
+.recent-article-tags span{
+    padding: 2px 8px
+    background-color: $font-color
+    color: $theme-background-color;
+}
+.recent-article-title{
+    @extend .article-title;
+    margin: 15px 0 0 0;
+    text-align: left;
+    width: 100%;
+    max-width: 100%
+}
+.recent-article-title:hover + .dividded-middle {
+    width: 30%
+}
+.recent-article-date{
+    @extend .article-date;
+    margin: 10px 0 0 0 
+    text-align: left;
+}
+.recent-read-more{
+    @extend .read-more;
+    margin: 28px 0 0 0
+    text-align: left
+    border: 2px solid $theme-style-color;
+    padding: 10px 15px;
+    color: $theme-style-color;
+    position relative
+}
+.recent-read-more:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    transition: all 0.3s;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: $theme-style-color;
+}
+.recent-read-more:hover:after {
+    width: 100%
+}
+.recent-read-more:hover{
+    color: $theme-background-color
+    border: 2px solid $theme-style-color;
+    background-color: $theme-style-color
+}
+.no-img-recent{
+    width: 60%
+    margin: 5px auto
+    display: flex
+    flex-wrap: wrap
+    align-items: flex-end
+}
+.find-more{
+    font-size: 1em;
+    padding: 5px;
+    text-align: center;
+    margin: 30px auto 40px auto;
+    font-family: $font-bold
+    {font-latin-Blod}
+    cursor pointer
+    width: max-content;
+}
+.find-more span{
+    color: $theme-background-color
+    background-color: $font-color
+    padding: 6px;
+    box-shadow: 2px 3px 0px 0px $theme-style-color
+}
+.find-more:hover{
+    transform: translateY(2px)
+}
+.find-more span:hover{
+    box-shadow: 1px 2px 0px 0px $theme-style-color;
+}
+.find-more span:active{
+    transform: translate(0, 2px);
+    box-shadow: 1px 2px 0px 0px $theme-style-color;
+}

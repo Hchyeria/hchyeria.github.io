@@ -1,0 +1,124 @@
+#page-header{
+  transition: all .2s
+  > span {
+    height 100%
+    font-size: .8em
+    > a {
+      height 100%
+      img {
+        height 100%
+        padding 2px
+      }
+    }
+  }
+}
+.page-header{
+    width 100%
+    height $header-hight
+    vertical-align: middle
+    position: fixed;
+    top: 0;
+    background-color: $header-background-color
+    z-index: 5200;
+}
+.header-shadow{
+    box-shadow: 0 0.01px 5px 0.5px $header-shadow-color;
+}
+.site-page{
+    {font-latin-medium}
+    font-size: 16px
+    display: inline-block;
+    margin: 0;
+    padding: 10px 40px 6px 40px
+    color: $font-color
+}
+.site-page:hover{
+    transition: 0.2s
+    color: $theme-style-color
+    border-bottom: 1px solid $theme-style-color
+}
+.site-page.active{
+    border-bottom: $theme-color solid 1px;
+}
+.site-mobile-page{
+    margin-bottom: 5px
+    color: $font-color
+    text-align: center
+    width: auto
+    margin: 5px auto
+}
+.site-mobile-page:hover{
+    transition: 0.2s
+    color: $theme-style-color
+    border-bottom: 1px solid $theme-style-color
+}
+#menu{
+    display: none
+}
+#menu + label {
+    position relative
+    display: inline-block;
+    cursor: pointer;
+    margin: 1.7em;
+    transition: all .5s;
+        div,
+        div:before,
+        div:after {
+        background: $font-color;
+        position: absolute;
+        height: 5px;
+        width: 50px;
+        border-radius: 4px;
+        transition: all .5s;
+        }
+}
+
+#menu + label {
+    div:first-child {
+        top: 0px;
+    }
+    div:nth-child(2) {
+        top: 10px;
+    }
+    div:nth-child(3) {
+        top: 20px;
+    }
+}
+#menu + label {
+    div {
+        transition: top .15s .17s, transform .12s .033s;
+    }
+    div:nth-child(3) {
+        transition: top .15s .17s, transform .17s;
+    }
+}
+
+#menu:checked + label {
+    div {
+        top: 10px;
+        transform: rotate(135deg);
+        transition: top .1s, transform .12s .1s;
+    }
+    div:nth-child(3) {
+        transform: rotate(225deg);
+        transition: top .1s, transform .17s .1s;
+    }
+}
+.home-page-header{
+    width: (0.90 * 0.74)*100%;
+    height $header-hight*2
+    margin: 60px auto 0;
+    .pull-left,.pull-right{
+        float: none  
+    }
+    .site-page{
+        padding: 10px 40px 6px 40px;
+    }
+    .logo-contain img{
+        height 60px  
+    }
+    i {
+        opacity 0
+        visibility hidden
+    }
+}

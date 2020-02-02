@@ -1,0 +1,13 @@
+extends includes/layout.pug
+
+block content
+  include ./includes/mixins/recordItem.pug
+  if record
+    - var postList = record.sort('date', -1).toArray(), count = Math.ceil(postList.length/theme.record_num)
+    #record-content(data-num=theme.record_num)
+      - for (var x = 0; x < count; ++x)
+        each post, index in postList.slice(x*theme.record_num, (x+1)*theme.record_num)
+          - if (x === 0)
+            +recordItem(post, false)
+          - else
+            +recordItem(post, true)

@@ -1,0 +1,54 @@
+extends includes/layout.pug
+include includes/mixins/picture.pug
+include includes/mixins/music.pug
+block content
+  include ./includes/mixins/menubottom.pug
+  include ./includes/mixins/comment.pug
+  article#post
+    .post-page-top-img
+      if page.photos.length
+        img(src=url_for(page.path + page.photos[0]))
+      else
+        img(src=url_for(theme.default_image))
+    - var tagsv = ''
+        each val, index in page.tags.data
+            - if(index === page.tags.data.length-1 )
+                - tagsv += val.name
+            - else
+                - tagsv += val.name + "/" 
+    #title-data
+      .post-page-tags= tagsv
+      .post-page-title= page.title
+      .dividded-sm
+    .post-page-date
+      .article-date(datetime=page.date.toJSON())= date(page.date, date_format)
+    .post-page-content
+      if page.hasMusic
+        +music(page.music)
+      != page.content
+      #pagination
+        .pagination
+          if(page.prev)
+            .prev-post-page.pull-left(title=page.prev.title)
+              a(href=url_for(page.prev.path)) PREV
+                i.material-icons.pull-left arrow_back
+          else
+            .prev-post-page.pull-left  PREV
+              i.material-icons.pull-left arrow_back
+          if(page.next)
+            .next-post-page.pull-right(title=page.next.title)
+              a(href=url_for(page.next.path)) NEXT 
+                i.material-icons.pull-right arrow_forward
+          else
+            .next-post-page.pull-right NEXT
+              i.material-icons.pull-right arrow_forward
+    .post-comment-contain
+      .comment-logo
+        img(src='/img/comments.png')
+      .comment-block#comment-block
+        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
+        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
+        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
+      include ./includes/postcomment.pug
+  .menu-bottom
+    +menubottom('menu-bottom-icon', false)

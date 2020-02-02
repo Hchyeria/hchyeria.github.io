@@ -1,0 +1,33 @@
+include ./picture.pug
+mixin articlePost(post, mainIndex)
+    - if (post.title)
+        .recent-post-item(class!=attributes.class)
+            if post.tags.data.length
+                - var tagsv = ''
+                each val, index in post.tags.data
+                    - if(index === post.tags.data.length-1 )
+                        - tagsv += val.name
+                    - else
+                        - tagsv += val.name + "/" 
+                .article-tags
+                    span= tagsv
+            if post.photos.length
+                a(href=url_for(post.path) target="_blank")
+                    .article-postimg
+                        .img-big.img-animation
+                            if mainIndex <= 2
+                                +picture(url_for(post.path + post.photos[0]), false)
+                            else
+                                +picture(url_for(post.path + post.photos[0]), true)
+            .article-title-contain
+                a(href=url_for(post.path) target="_blank")
+                    .article-title(title!=post.title)= post.title
+                    .dividded-sm
+            if post.date
+                .article-date(datetime=post.date.toJSON())
+                    i.material-icons.article-date-icon date_range
+                    = date(post.date, date_format)
+            .article-content= post.description || post.subtitle
+            a(href=url_for(config.root + post.path) target="_blank")
+                .read-more READ MORE
+            

@@ -1,0 +1,12 @@
+
+mixin comment(name, date, data)
+    .comment-item
+        picture
+            source(srcset='/img/default-avatar.png', type="image/webp")
+            source(srcset='/img/default-avatar.png', type="image/png")
+            img(src='/img/default-avatar.png')
+        .comment-data
+            .comment-title
+                span.comment-user-name= name
+                span.comment-user-date.comment-text= date
+            .comment-content= data

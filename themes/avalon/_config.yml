@@ -1,0 +1,120 @@
+# ---------------------------------------------------------------
+# Theme Core Configuration Settings
+# ---------------------------------------------------------------
+# Theme color for customize
+# Notice: color value must in double quotes like "#000" or may cause error!
+# ---------------
+
+theme_color:
+  main: "#000000"
+  style_color: "#fff100"
+  link_color: "#7cadda"
+  background_color: "#fefefe"
+  hr_color: "#e9e9e9"
+  mask_color: "rgba(0, 0, 0, 0.7)"
+  text_highlight_color: "rgba(255, 241, 0, 0.7)"
+  blockquote_color: "#5e5e5e"
+  selection_background_color: "#10141b"
+  selection_font_color: "#ffffff"
+
+# Progressive Web Apps
+android_theme_color: "#000000"
+ios_theme_color: "black" # choose default / black / black-translucent
+
+# Miscelaneous
+favicon: /avalon-favicon.ico
+logo_normal: /avalon-logo.svg
+default_image: /img/page-default.jpg
+author_image: /img/author.svg
+
+# Highlight theme
+# ---------------
+Highlight:
+  theme: default
+  csspath: /css/_highlight/highlight/styles/ # default
+  jsPath: 
+    - /js/assets/highlight.pack.js
+    - /js/assets/highlightjs-line-numbers.min.js # show line number
+
+# main menu navigation
+menu:
+  HOME: /
+  ARCHIVE: /archive
+  RECORD: /record
+  ABOUT: /about
+
+
+# stylesheets loaded in the <head>
+stylesheets:
+  - /css/index.css
+
+# scripts loaded in the end of the body
+scripts:
+  - /js/utils.js
+  - /js/plugins/lazyImg.js
+  - /js/core.js
+
+function_script:
+
+
+# img slide on about page setting
+slide_img:
+  enable: true
+  size: 4
+  scripts:
+    vegas: /js/assets/vegas.min.js
+    skrollr: /js/assets/skrollr.min.js
+    corejs: /js/home/imgslide.js
+  index_img:
+    - /img/slide/リズと青い鳥.png
+    - /img/slide/聲の形.png
+    - /img/slide/空の境界.jpg
+    - /img/slide/魔法使いの夜.jpg
+    - /img/slide/Kalafina.png
+    - /img/slide/Altria Pendragon.jpg
+    - /img/slide/Type-Moon 10th Anniversary Phantasm.jpg
+    - /img/slide/STEINS;GATE.jpg
+    - /img/slide/STEINS;GATE β 无限远点のアークライト.jpg
+
+# how many pages show on the homepage
+homepage_num: 10
+# how many itmes each load
+record_num: 5
+
+# cdn for third-party library
+# ---------------
+cdn:
+  css:
+    MaterialIcons: https://fonts.loli.net/icon?family=Material+Icons
+    google_font: https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,400,500,700,900|Open+Sans:400,400i,600,600i,700,700i,800,800i|Roboto+Mono:400,500&display=swap&subset=chinese-simplified
+  js:
+    zepto: /js/assets/zepto.min.js
+
+# ---------------
+
+social:
+  github: https://github.com/Hchyeria
+  email: mailto:hhh@hchyeria.com
+  linkedin: https://www.linkedin.com/in/%E5%8D%83%E6%85%A7-%E9%BB%84-1ba88815a/
+  weibo: 
+  twitter: https://twitter.com/ryoogikizuna
+  stackOverflow: 
+  youtube: 
+  instagram: https://www.instagram.com/hchyeria/
+  bilibili: 
+  
+
+# strings
+theme_strings:
+  contact_me: You can contact me by these ways
+  read_more: 查看更多文章
+  comment: 有什么想说的？欢迎留言。
+
+# Friends
+friends: 
+
+# function
+mathjax:
+  enable: true # or false
+  cdn: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' # required
+

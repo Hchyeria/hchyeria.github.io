@@ -1,0 +1,65 @@
+.vegas-animation-cutomkenburnsDown {
+    animation: cutomkenburnsDown ease-out;
+}
+
+@keyframes cutomkenburnsDown {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.img-animation-show{
+    animation: imgBig 5s forwards
+}
+
+@keyframes imgBig {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.right-show{
+    animation: rightshow 1s forwards
+}
+@keyframes rightshow{
+    0% {
+        transform: translateX(57px) rotate(175deg);
+    }
+    100% {
+        transform: translateX(0) rotate(0);
+    }
+}
+.reserve-right-show{
+    animation: rerightshow 1s forwards
+}
+@keyframes rerightshow{
+    0% {
+        transform: translateX(0) rotate(0);
+    }
+    100% {
+        transform: translateX(57px) rotate(175deg);
+    }
+}
+
+@keyframes showfrombottomleft{
+    0% {
+        transform: translate(-100%, 100%);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes spinAround {
+	from {
+		transform: translateX(-50%) translateY(-50%) rotate(0deg)
+	}
+	to {
+		transform: translateX(-50%) translateY(-50%) rotate(360deg);
+	}
+}

@@ -1,0 +1,86 @@
+style.
+  #loading {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: #eeeeee;
+    z-index: 9999;
+    height: 1000%;
+    opacity: 0.8
+  }
+  .load-container {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    color: #ff3333;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+  }
+  #load-text {
+    font-style: italic;
+    font-weight: 800;
+    font-size: 2em;
+    margin-right: 20px;
+  }
+  #taiji{
+    width: 0;
+    height: 50px;
+    border-left: 25px solid #fff;
+    border-right: 25px solid #ff3333;
+    border-radius: 100%;
+    box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+    animation: spinAround2 2s linear infinite;
+    align-self: flex-end;
+  }
+  #yin{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background: #ff3333;
+    margin: 0px 0 0 -12.5px;
+  }
+  #yin:after{
+    position: absolute;
+    margin: 6.25px 0 0 6.25px;
+    content: " ";
+    width: 12.5px;
+    height: 12.5px;
+    border-radius: 100%;
+    background: #fff;
+  }
+  #yang{
+    position: absolute;
+    margin: 25px 0 0 -12.5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background: #fff;
+  }
+  #yang:after{
+    position: absolute;
+    margin: 6.25px 0 0 6.25px;
+    content: " ";
+    width: 12.5px;
+    height: 12.5px;
+    border-radius: 100%;
+    background: #ff3333;
+  }
+
+  @keyframes spinAround2 {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+#loading
+  .load-container
+    #load-text 少女祈祷中...
+    #taiji
+      #yin
+      #yang

@@ -1,0 +1,9 @@
+mixin picture(src, isdata)
+    if isdata
+        img.lazy-img.blur-img(data-src=src)
+    else
+        picture
+            source(srcset=src, type="image/webp")
+            source(srcset=src, type="image/png")
+            img.blur-img(srcset=src)
+

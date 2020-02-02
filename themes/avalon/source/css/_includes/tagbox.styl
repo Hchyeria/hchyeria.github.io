@@ -1,0 +1,108 @@
+.tag-box{
+    font-size: 1.1em;
+    padding: 4% 4% 2% 15%;
+    color: $tag-item-color
+    a {
+        color: $tag-item-color
+    }
+    ul {
+        margin-top: 4%
+    }
+    display: none
+    transition: all 0.5s
+}
+.tag-list-title{
+    {font-latin-Blod}
+    font-size: 1.2em;
+    display: flex;
+    span {
+        margin-left: 5px;
+    }
+}
+.tag-list-item,.archive-list-item{
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+
+}
+
+.tag-list-count,.archive-list-count{
+    color: #ffffff;
+    background-color: #000000;
+    padding: 2px 6px;
+    font-size: 0.4em;
+    margin-left: 5%;
+}
+.menu-bottom {
+    width: fit-content;
+    background-color: $theme-background-color
+    box-shadow: $block-shadow
+    position fixed
+    bottom 0
+    padding: 10px 5px 0 2px;
+    width: fit-content
+    max-width: 24%
+    z-index: 999
+    input {
+        display: none;
+    }
+}
+
+.menu-icon-bottom{
+    label {
+        position: relative;
+        width: 30px;
+        height: 22px;
+        display: inline-block;
+        cursor: pointer;
+        margin: 5px;
+        transition: all .5s;
+        text-align: left;
+            div:first-child {
+                top: 0px;
+            }
+            div:nth-child(2) {
+                top: 8px;
+            }
+            div:nth-child(3) {
+                top: 16px;
+            }
+    }
+}
+#menu-bottom-icon {
+    cursor pointer    
+}
+#menu-bottom-icon + .tag-box + .menu-icon-bottom label {
+    div,
+    div:before,
+    div:after {
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        border-radius: 4px;
+        transition: all .5s;
+        background-color: $tag-item-color
+    }
+    div:nth-child(3) {
+        transition: top .15s .17s, transform .17s;
+    }
+}
+
+#menu-bottom-icon:checked + .tag-box + .menu-icon-bottom label {
+    div {
+        top: 10px;
+        transform: rotate(135deg);
+        transition: top .1s, transform .12s .1s;
+    }
+    div:nth-child(3) {
+        transform: rotate(225deg);
+        transition: top .1s, transform .17s .1s;
+    }
+}
+
+#menu-bottom-icon:checked + .tag-box {
+    display: block
+    animation showfrombottomleft .5s forwards 
+}
+
+

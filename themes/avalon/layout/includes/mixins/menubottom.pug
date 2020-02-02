@@ -1,0 +1,12 @@
+
+mixin menubottom(id, isTag)
+  input(type="checkbox" id=id)
+  if isTag
+    include ../tagbox.pug
+  else
+    include ../postcontentlist.pug
+  .menu-icon-bottom
+    label(for=id)
+      div
+      div
+      div

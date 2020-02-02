@@ -1,0 +1,89 @@
+.post-send-comment{
+    width: 50%
+    margin: 0 auto;
+    textarea{
+        overflow: auto;
+        width: 100%;
+        outline: none;
+        padding: 10px;
+        border: solid 1.4px #000000;
+    }
+    input{
+        outline: none;
+        padding: 10px;
+        border: none
+        width: 100%;
+    }
+    .comment-text{
+        text-align: center
+        margin-bottom: 20px
+    }
+    
+} 
+.user-data{
+    display: flex
+    justify-content: space-around 
+    margin: 16px 0 40px 0; 
+}
+.user-name,.user-contact{
+    border-bottom: solid 1.4px #000000;
+    width: 24%
+}    
+.post-comment-contain{
+    width: 90%
+    margin: 0 auto    
+    
+}
+.comment-block{
+    width: 60%
+    margin: 4% auto 6%;
+}
+.comment-logo{
+    width: 24%
+    margin: 10px auto
+    img {
+        width: 100%
+    }
+}
+.comment-item{
+    display: flex
+    margin-bottom: 40px;
+    padding: 25px;
+    box-shadow: $block-shadow
+    img {
+        margin: 0 auto
+    }
+}
+.comment-item:hover, .comment-item:active{
+    box-shadow: $block-shadow-active
+}
+.comment-data{
+    width: 80%;
+    margin-left: 20px;
+}
+.comment-text{
+    {font-latin-Italic}
+    font-size: 0.8em
+    color: $theme-style-color
+}
+.comment-user-name{
+    {font-latin-ExtraBold}
+    margin-right: 2%;
+} 
+.comment-content{
+    margin-top: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-size: 0.8em;    
+}
+.comment-title{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end
+    span {
+        margin-bottom: 5px
+    }
+}

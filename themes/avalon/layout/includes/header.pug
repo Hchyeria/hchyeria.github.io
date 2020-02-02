@@ -1,0 +1,22 @@
+#page-header.page-header.header-shadow
+  span.pull-left 
+    a#site-name(href=url_for('/'))
+      .logo-contain#logo-normal
+        img(src=url_for(theme.logo_normal) height='25')
+      if theme.logo_hover
+        .logo-contain#logo-hover
+          img(src=url_for(theme.logo_hover) height='25')
+  i.material-icons.toggle-menu(aria-hidden="1") menu
+  span.pull-right#site-nav
+    span.menus
+      each url, label in theme.menu
+        a(href=url)
+          li.site-page= label
+#menu-mobile.hidden
+  .pull-right
+    each url, label in theme.menu
+      a(href=url)
+        li.site-mobile-page= label
+      
+
+        

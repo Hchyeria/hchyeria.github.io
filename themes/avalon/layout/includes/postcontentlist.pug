@@ -1,0 +1,7 @@
+- var content_list = toc(page.content, { list_number:false })
+.tag-box
+    if content_list
+        .tag-list-title 
+            i.material-icons view_list
+            span Contents
+        .tag-list-container!= content_list

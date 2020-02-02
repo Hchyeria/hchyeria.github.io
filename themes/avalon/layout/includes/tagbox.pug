@@ -1,0 +1,17 @@
+
+- var tagsList = list_tags()
+- var archivesList = list_archives()
+
+
+.tag-box
+    #tagsList
+        .tag-list-title 
+            i.material-icons local_offer
+            span Tags
+        .tag-list-container!= tagsList
+    #archivesList
+        .tag-list-title 
+            i.material-icons timeline
+            span Timeline
+        .tag-list-container
+            ul.archive-list!= archivesList

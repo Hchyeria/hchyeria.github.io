@@ -1,0 +1,24 @@
+extends includes/layout.pug
+include includes/mixins/music.pug
+mixin addIcon(val)
+    if theme.social[val]
+      a(href!=theme.social[val] target="_blank" title=val.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()))
+        span.iconfont(class!= attributes.class? (attributes.class + ' ' + 'icon-' + val) : ('icon-' + val))
+
+block content
+  if theme.slide_img.enable && theme.slide_img.index_img.length
+    include includes/imgslide.pug
+  #about-content(data-0="top:0px" data-100="top:-200px")
+    .about-content
+      if page.hasMusic
+        +music(page.music)
+      != page.content
+      .personal-sign
+        img(src=url_for(theme.author_image))
+    #social-content
+      .social-content
+        each item in Object.keys(theme.social)
+          +addIcon(item)
+      .social-text= theme.theme_strings.contact_me
+      
+

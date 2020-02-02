@@ -1,0 +1,13 @@
+include ./mixins/indexpost.pug
+
+- var defalt = page.posts.toArray()
+#recent-posts
+  each post, index in defalt
+    - if (post.photos.length)
+      +articleIndex(post, index)
+    - else
+      +articleIndex(post, index)(class='no-img')
+.dividded-big
+.find-more
+  a(href=url_for(config.root + config.archive_dir +  "/"))
+    span= theme.theme_strings.read_more

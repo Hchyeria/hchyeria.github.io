@@ -1,0 +1,125 @@
+
+- var pageTitle = page.title || config.title  || ''
+- if (is_archive()) pageTitle = 'Archive'
+- if (is_tag()) pageTitle = 'Tag: ' + page.tag
+- if (is_category()) pageTitle = 'Category: ' + page.category
+- if (is_month()) pageTitle += ': ' + page.month + '/' + page.year
+- if (is_year()) pageTitle += ': ' + page.year
+- var pageDescription = page.description || page.title || config.description || ''
+- var pageKeywords = (config.keywords || []).join(',')
+- if (page.tags && page.tags.data) pageKeywords = page.tags.data.map(function(tag) {return tag.name;}).join()
+- 
+  var pageAuthor = config.author,
+  isPost = !!(page.layout === 'post'),
+  isAbout = !!(page.title === 'About'),
+  isRecord = !!(page.title === 'Record'),
+  isRecordPost = !!(page.layout === 'recordpost');
+
+doctype html
+html(lang=config.language)
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge, chrome=1")
+    meta(name="renderer" content="webkit")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    meta(name="applicable-device" content="pc, mobile")
+    meta(name="MobileOptimized" content="width")
+    meta(name="HandheldFriendly" content="true")
+    meta(name="description" content=pageDescription)
+    meta(name="theme-color" content=theme.android_theme_color)
+    meta(name="apple-mobile-web-app-status-bar-style" content=theme.ios_theme_color)
+    meta(name="keywords" content=pageKeywords)
+    meta(name="author" content=pageAuthor)
+    meta(name="copyright" content=pageCopyright)
+    title= pageTitle
+    !=favicon_tag(theme.favicon || config.favicon || '/avalon-favicon.ico')
+    if theme.stylesheets !== undefined && theme.stylesheets.length > 0
+      //- stylesheets list from config.yml
+      each url in theme.stylesheets
+          link(rel='stylesheet', href=url_for(url))
+    if theme.cdn
+      each item in theme.cdn.css
+        if item
+          link(rel='stylesheet', href=item)
+
+  body
+    include ./header.pug
+    include ./loading.pug
+    #content-outer
+      #content-inner
+        if body
+          div!= body
+        else
+          block content
+    i.material-icons.hidden#go-up(aria-hidden="1") expand_less
+    footer
+      include ./footer.pug
+    //- scripts list from config.yml
+    if theme.cdn.js
+      each item in theme.cdn.js
+        if item
+          script(src=url_for(item))
+    if theme.scripts && theme.scripts.length > 0
+      each url in theme.scripts
+          script(src=url_for(url))
+    if isAbout && theme.slide_img.enable && theme.slide_img.index_img.length
+      - var slidPart = theme.slide_img.index_img
+      - for (var i = 0; i < theme.slide_img.size; i++)
+        - var indexTemp = Math.floor(Math.random() * (slidPart.length - i) + i)
+        - var temp = slidPart[indexTemp]
+        - slidPart[indexTemp] = slidPart[i]
+        - slidPart[i] = temp
+        - slidPart = slidPart.slice(0, theme.slide_img.size)
+      script(id='field-source', data-fields=JSON.stringify(slidPart), data-scripts=JSON.stringify(theme.slide_img.scripts)).
+        if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            document.addEventListener('DOMContentLoaded', function() {
+              (function (){
+                var script = JSON.parse($('#field-source')[0].dataset.scripts),
+                    temp = Object.keys(script),
+                    temp_length = Object.keys(script).length;
+                var count = 0;
+                var createScript = function(ele) {
+                  var new_script = document.createElement("script")
+                  new_script.src = script[ele];
+                  new_script.onload = function (){
+                    count++;
+                    bar();
+                  }
+                  document.getElementsByTagName("body")[0].appendChild(new_script)
+                }
+                var bar = function() {
+                  if(count === temp_length-1){
+                    createScript(temp[temp_length-1])
+                  }
+                }
+                return (function (){
+                  for(var i = 0; i < temp_length-1; ++i){
+                    var ele = temp[i]
+                    createScript(ele)
+                  }
+                })();
+            })();
+          });
+        }
+        
+    if is_home()
+      script(src=url_for("/js/home/home.js"))
+    if isPost
+      script(src=url_for('/js/postpage/postpage.js'))
+    if page.hascode
+      if theme.Highlight.jsPath && theme.Highlight.jsPath.length > 0
+        each url in theme.Highlight.jsPath
+          script(src=url_for(url))
+      script(src=url_for('/js/function/highlight/hljs.js'))
+    if page.hascode && theme.mathjax.enable
+      script(src=url_for(theme.mathjax.cdn))
+    if isAbout
+      script(src=url_for(theme.slide_img.scripts.skrollr))
+      script(src=url_for('/js/about/about.js'))
+    if isRecord
+      script(src=url_for('/js/plugins/masonry.js'))
+      script(src=url_for('/js/record/record.js'))
+    if is_archive()
+      script(src=url_for('/js/archive/archive.js'))
+    
+        

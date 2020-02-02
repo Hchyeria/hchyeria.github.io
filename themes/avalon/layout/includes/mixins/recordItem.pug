@@ -1,0 +1,11 @@
+include picture.pug
+mixin recordItem(post, data)
+    .record-item(class='hidden')&attributes(data? {} : {'data-load': ''})
+        a(href=url_for(config.root + post.path) target="_blank")
+            +picture(url_for(post.path + post.photos[0]), false)
+        .record-intro
+            if post.title
+                .record-title(title!=post.title)= post.title
+            if post.date
+                .record-date(datetime=post.date.toJSON())= date(post.date, date_format)
+            .record-content= post.description || post.subtitle

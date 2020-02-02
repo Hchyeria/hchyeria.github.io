@@ -1,0 +1,35 @@
+- var archivePath = '/' + config.archive_dir + '/page/'
+#pagination
+    .pagination
+        if(page.prev)
+            .prev-post-page.pull-left
+                a(href=url_for(page.prev_link)) PREV
+                    i.material-icons.pull-left arrow_back
+        else
+            .prev-post-page.pull-left  PREV
+                i.material-icons.pull-left arrow_back
+        .pag-num.pull-left
+            if (page.current === 1)
+                span.item-list-page-num.active(title=1) 1
+                - for (var i=2;i<=page.total;i++)
+                    a(href=url_for(archivePath + i + '/'))
+                        span.item-list-page-num(title=i)= i
+            else
+                - for (var i = 1; i < page.current; i++)
+                    if (i === 1)
+                        a(href=url_for('/' + config.archive_dir + '/'))
+                            span.item-list-page-num(title=1) 1
+                    else
+                        a(href=url_for(archivePath + i + '/'))
+                            span.item-list-page-num(title=i)= i
+                span.item-list-page-num.active(title=page.current)= page.current
+                - for (var i = page.current + 1; i <= page.total; i++)
+                    a(href=url_for(archivePath + i + '/'))
+                        span.item-list-page-num(title=i)= i
+        if (page.next && page.current !== page.total)
+            .next-post-page.pull-right
+                a(href=url_for(page.next_link)) NEXT 
+                    i.material-icons.pull-right arrow_forward
+        else
+            .next-post-page.pull-right NEXT
+                i.material-icons.pull-right arrow_forward

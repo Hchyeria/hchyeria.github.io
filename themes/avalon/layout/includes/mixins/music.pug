@@ -1,0 +1,16 @@
+
+mixin music(data)
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css')
+    script(src='https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js')
+    #aplayer
+    script(id='music-source', data-src=JSON.stringify(data)).
+        document.addEventListener('DOMContentLoaded', function() { 
+            var data = JSON.parse($('#music-source')[0].dataset.src)
+            const ap = new APlayer({
+                container: document.getElementById('aplayer'),
+                theme: '#fff100',
+                listFolded: true,
+                audio: data
+            });
+        })
+        

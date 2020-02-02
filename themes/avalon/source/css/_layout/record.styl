@@ -1,0 +1,82 @@
+.record-item img{
+    width: 100%;
+}
+#record-content{
+    margin: 0 auto;
+    padding-top: 14px;
+}
+.record-intro{
+    position: absolute;
+    bottom: 0;
+    background-color: $mask-color
+    width: 100%;
+    color: $mask-font-color;
+    padding: 6% 8%;  
+    visibility: hidden
+    opacity 0
+    transition: all .4s
+    transform: translate(0, 100%)
+}
+.record-title{
+    {font-latin-Blod}
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.record-date{
+    font-size: 0.76em;
+    margin: 4px 0 2px 0
+    {font-latin-Light-Italic}
+}
+.record-content{
+    margin-top: 5px
+    overflow: hidden;
+    font-size: 0.8em;
+    letter-spacing: 0.8px;
+    max-height: 50%
+}
+
+.record-item:hover .record-intro, .record-item:active .record-intro{
+    opacity 1
+    visibility: visible
+    transition: all .4s
+    transform: translate(0, 0)
+}
+#record-content{
+    width: 90%;  
+}
+.record-item{
+    transition: all 0.4s;
+    box-shadow: $block-shadow
+    overflow: hidden;
+    width: 24%
+}
+.record-item:hover{
+    box-shadow: $block-shadow-active
+    transform: translateY(-10px)
+}
+
+.photo-container{
+    img{
+        width: 100%
+    }
+}
+.flex-row{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 4%;   
+}
+.record-post-left{
+    width: 26%    
+}
+.record-post-right{
+    width: 74%
+    .post-page-title{
+        width: 100%
+    }
+}
+.photo-container{
+    margin-bottom: 10px    
+}
