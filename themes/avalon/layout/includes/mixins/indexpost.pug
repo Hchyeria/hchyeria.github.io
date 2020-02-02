@@ -3,7 +3,7 @@ mixin articleIndex(post, mainIndex)
     - if (post.title)
         .recent-index-item(class!=attributes.class)
             if post.photos.length
-                a(href=url_for(post.path) target="_blank" class='flex-link')
+                a(href=url_for(post.path) class='flex-link')
                     .article-indeximg
                         .img-big-index.img-animation
                             if mainIndex <= 2
@@ -20,7 +20,7 @@ mixin articleIndex(post, mainIndex)
                             - tagsv += val.name + "/" 
                     .recent-article-tags
                         span= tagsv
-                a(href=url_for(post.path) target="_blank")
+                a(href=url_for(post.path))
                     .recent-article-title(title=post.title)= post.title
                     .dividded-middle
                 if post.date
@@ -28,6 +28,6 @@ mixin articleIndex(post, mainIndex)
                         i.material-icons.article-date-icon date_range
                         = date(post.date, date_format)
                 .recent-article-content= post.description || post.subtitle
-                a(href=url_for(config.root + post.path) target="_blank")
+                a(href=url_for(config.root + post.path))
                     span.recent-read-more READ MORE
             

@@ -12,7 +12,7 @@ mixin articlePost(post, mainIndex)
                 .article-tags
                     span= tagsv
             if post.photos.length
-                a(href=url_for(post.path) target="_blank")
+                a(href=url_for(post.path))
                     .article-postimg
                         .img-big.img-animation
                             if mainIndex <= 2
@@ -20,7 +20,7 @@ mixin articlePost(post, mainIndex)
                             else
                                 +picture(url_for(post.path + post.photos[0]), true)
             .article-title-contain
-                a(href=url_for(post.path) target="_blank")
+                a(href=url_for(post.path))
                     .article-title(title!=post.title)= post.title
                     .dividded-sm
             if post.date
@@ -28,6 +28,6 @@ mixin articlePost(post, mainIndex)
                     i.material-icons.article-date-icon date_range
                     = date(post.date, date_format)
             .article-content= post.description || post.subtitle
-            a(href=url_for(config.root + post.path) target="_blank")
+            a(href=url_for(config.root + post.path))
                 .read-more READ MORE
             
