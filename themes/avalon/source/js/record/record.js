@@ -88,12 +88,11 @@ document.addEventListener('DOMContentLoaded',function(){
     var loadMoreCount = loadMore();
 
     function setup() {
-        var nodeWidth = globalData.width
         var column1 = 1, column2 = 2, column3 = 4, gap = 10;
         var cases = [
-            { mediaMaxWidth: '768', columns: column1, gap: gap },
-            { mediaMaxWidth: '980', columns: column2, gap: gap },
-            { mediaMaxWidth: '1024', columns: column3, gap: gap }
+            { mediaMaxWidth: '768', columns: column1, gap: gap, containerWidth: .9, width: 1 },
+            { mediaMaxWidth: '980', columns: column2, gap: gap, containerWidth: .9, width: 0.48 },
+            { mediaMaxWidth: '1024', columns: column3, gap: gap, containerWidth: .9, width: 0.24 }
           ]
         
         var masonry = Masonry({
