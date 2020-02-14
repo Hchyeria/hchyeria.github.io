@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded',function(){
     function loadMore() {
         var num = document.querySelector(container).getAttribute("data-num")
         return function () {
-            var unLoadImg =toArray(document.querySelectorAll(`.${item}:not([data-load=''])`)).slice(0, num)
+            var unLoadImg = toArray(document.querySelectorAll(`.${item}:not([data-load=''])`)).slice(0, num)
             if(!unLoadImg.length) return;
             var temp = []
             unLoadImg.forEach(ele =>{
@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
         var setHeight = function() {
             if(masonry.getMaxColumnHeight() - globalData.height < 0.5){
-                imgComplete(loadMoreCount(), masonry.update, setHeight)()
+
+                loadMoreCount() && imgComplete(loadMoreCount(), masonry.update, setHeight)()
             }
         }
 

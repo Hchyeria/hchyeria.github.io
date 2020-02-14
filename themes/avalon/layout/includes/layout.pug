@@ -41,10 +41,12 @@ html(lang=config.language)
       each item in theme.cdn.css
         if item
           link(rel='stylesheet', href=item)
-
+    
   body
     include ./header.pug
     include ./loading.pug
+    script(class="remove-item").
+      document.getElementById("load-process").style.width = '20%'
     #content-outer
       #content-inner
         if body
@@ -52,25 +54,27 @@ html(lang=config.language)
         else
           block content
     i.material-icons.hidden#go-up(aria-hidden="1") expand_less
+    script(class="remove-item").
+      document.getElementById("load-process").style.width = '40%'
     footer
       include ./footer.pug
+    script(class="remove-item").
+      document.getElementById("load-process").style.width = '50%'
     //- scripts list from config.yml
     if theme.cdn.js
       each item in theme.cdn.js
         if item
           script(src=url_for(item))
+    script(class="remove-item").
+      document.getElementById("load-process").style.width = '65%'
     if theme.scripts && theme.scripts.length > 0
       each url in theme.scripts
           script(src=url_for(url))
+    script(class="remove-item").
+      document.getElementById("load-process").style.width = '80%'
     if isAbout && theme.slide_img.enable && theme.slide_img.index_img.length
       - var slidPart = theme.slide_img.index_img
-      - for (var i = 0; i < theme.slide_img.size; i++)
-        - var indexTemp = Math.floor(Math.random() * (slidPart.length - i) + i)
-        - var temp = slidPart[indexTemp]
-        - slidPart[indexTemp] = slidPart[i]
-        - slidPart[i] = temp
-        - slidPart = slidPart.slice(0, theme.slide_img.size)
-      script(id='field-source', data-fields=JSON.stringify(slidPart), data-scripts=JSON.stringify(theme.slide_img.scripts)).
+      script(id='field-source', data-fields=JSON.stringify(slidPart), data-scripts=JSON.stringify(theme.slide_img.scripts), data-size=theme.slide_img.size).
         if(!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
             document.addEventListener('DOMContentLoaded', function() {
               (function (){
@@ -121,5 +125,12 @@ html(lang=config.language)
       script(src=url_for('/js/record/record.js'))
     if is_archive()
       script(src=url_for('/js/archive/archive.js'))
+    script(class="remove-item").
+      document.addEventListener('DOMContentLoaded',function() {
+        document.getElementById("load-process").style.width = '100%'
+        $("#loading").remove()
+        $(".remove-item").remove()
+      })
+    
     
         

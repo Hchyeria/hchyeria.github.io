@@ -64,7 +64,7 @@ slide_img:
   scripts:
     vegas: /js/assets/vegas.min.js
     skrollr: /js/assets/skrollr.min.js
-    corejs: /js/home/imgslide.js
+    corejs: /js/about/img-slide.js
   index_img:
     - /img/slide/リズと青い鳥.png
     - /img/slide/聲の形.png

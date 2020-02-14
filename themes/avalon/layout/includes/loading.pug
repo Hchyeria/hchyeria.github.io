@@ -1,4 +1,4 @@
-style.
+style(class="remove-item").
   #loading {
     width: 100%;
     position: absolute;
@@ -68,7 +68,15 @@ style.
     border-radius: 100%;
     background: #ff3333;
   }
-
+  #load-process {
+    width: 0;
+    height: 4px;
+    background-color: #ff3333;
+    position: fixed;
+    border-radius: 2px;
+    transition: width .2s
+  }
+  
   @keyframes spinAround2 {
     from {
       transform: rotate(0deg)
@@ -79,6 +87,7 @@ style.
   }
 
 #loading
+  #load-process
   .load-container
     #load-text 少女祈祷中...
     #taiji

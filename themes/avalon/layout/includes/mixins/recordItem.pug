@@ -1,8 +1,8 @@
-include picture.pug
+include ./addImg.pug
 mixin recordItem(post, data)
     .record-item(class='hidden')&attributes(data? {} : {'data-load': ''})
         a(href=url_for(config.root + post.path))
-            +picture(url_for(post.path + post.photos[0]), false)
+            +addImg(url_for(post.path + post.photos[0]))
         .record-intro
             if post.title
                 .record-title(title!=post.title)= post.title

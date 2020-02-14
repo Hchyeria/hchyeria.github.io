@@ -1,0 +1,5 @@
+mixin addImg(src)
+    picture
+        source(srcset=src, type="image/webp")
+        source(srcset=src, type="image/png")
+        img(srcset=src)

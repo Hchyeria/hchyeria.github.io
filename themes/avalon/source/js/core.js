@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded',function() {
-    $("#loading").addClass('remove')
     $("#id-yer").text(new Date().getFullYear());
     $(".material-icons.toggle-menu").on("click", function(e){
         e.preventDefault();
