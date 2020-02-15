@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var loadMoreCount = loadMore();
 
     function setup() {
+        $(".load-container").remove()
         var column1 = 1, column2 = 2, column3 = 4, gap = 10;
         var cases = [
             { mediaMaxWidth: '768', columns: column1, gap: gap, containerWidth: .9, width: 1 },

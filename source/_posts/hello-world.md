@@ -18,6 +18,7 @@ music: [
         cover: '/music/reflexion,allegretto,you.jpg'
     }
 ]
+date: August 7, 2018
 ---
 
 # Causation
