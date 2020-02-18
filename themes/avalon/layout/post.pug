@@ -1,9 +1,22 @@
 extends includes/layout.pug
 include includes/mixins/picture.pug
 include includes/mixins/music.pug
+
 block content
   include ./includes/mixins/menubottom.pug
   include ./includes/mixins/comment.pug
+  - 
+    function findPage(page, type) {
+      if (!page) {
+        return false
+      }
+      if (!page.record) {
+        return page;
+      }
+      return findPage(page[type], type)
+    }
+  - var isPrev = findPage(page.prev, 'prev')
+  - var isNext = findPage(page.next, 'next')
   article#post
     .post-page-top-img
       if page.photos.length
@@ -28,16 +41,16 @@ block content
       != page.content
       #pagination
         .pagination
-          if(page.prev)
-            .prev-post-page.pull-left(title=page.prev.title)
-              a(href=url_for(page.prev.path)) PREV
+          if(isPrev)
+            .prev-post-page.pull-left(title=isPrev.title)
+              a(href=url_for(isPrev.path)) PREV
                 i.material-icons.pull-left arrow_back
           else
             .prev-post-page.pull-left  PREV
               i.material-icons.pull-left arrow_back
-          if(page.next)
-            .next-post-page.pull-right(title=page.next.title)
-              a(href=url_for(page.next.path)) NEXT 
+          if(isNext)
+            .next-post-page.pull-right(title=isNext.title)
+              a(href=url_for(isNext.path)) NEXT 
                 i.material-icons.pull-right arrow_forward
           else
             .next-post-page.pull-right NEXT

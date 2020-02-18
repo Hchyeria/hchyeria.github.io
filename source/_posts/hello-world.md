@@ -28,9 +28,9 @@ date: August 7, 2018
 <div align=center class="img-undertext">初版设计图<div class="img-undertext-divi">
 
 从零开始写一个主题，工程量真的很庞大。我断断续续写了快一年，上学的时间没写，也就一个寒暑假时间，但是相当折磨人。还好坚持写完了。
-本次主题最大的挑战是增加了<span class="text-highlight">Record</span>板块，因为我想记录一些生活上值得记录的事，比如参加的比赛，做过的海报等。这是不足以写一篇博客文章来记录，于是索性新开了一个板块。具体实现是从Post文章里面筛选一部分出来，本质上是Post的子集。
+本次主题最大的挑战是增加了<span class="text-highlight">Record</span>板块，因为我想记录一些生活上值得记录的事，比如参加的比赛，做过的海报等。这是不足以写一篇博客文章来记录，于是索性新开了一个板块。具体实现是从 Post 文章里面筛选一部分出来，本质上是 Post 的子集。
 
-但是这么瞎操作就会导致站内一些变量的inconsistence，比如文章返回的应该是不包括Record的内容，但是实际上会全部返回。这会连带其他页面也会出现相应的问题。我找了半天解决办法，最终写了一个脚本利用Hexo的<span class="text-highlight">template_locals</span>钩子，更新相应的变量。使他们保持一致。
+但是这么瞎操作就会导致站内一些变量的 inconsistence，比如文章返回的应该是不包括 Record 的内容，但是实际上会全部返回。这会连带其他页面也会出现相应的问题。我找了半天解决办法，最终写了一个脚本利用 Hexo 的<span class="text-highlight">template_locals</span>钩子，更新相应的变量。使他们保持一致。
 
 ```javascript
 var page_num = 10
