@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded',function() {
-    $("#loading").addClass('remove')
     $("#id-yer").text(new Date().getFullYear());
     $(".material-icons.toggle-menu").on("click", function(e){
         e.preventDefault();
@@ -52,9 +51,14 @@ document.addEventListener('DOMContentLoaded',function() {
             if ($('.menu-bottom').is(':hover') && $(".menu-bottom").height() >= window.innerHeight) {
                 $('.menu-bottom').css({'height': '90%', 'overflow-y': 'scroll'})
             }
-            $('.menu-bottom').css({'min-width': '44%', 'width': '44%'})
+            var width = document.body.clientWidth || document.documentElement.clientWidth
+            if (width < 1000) {
+                $('.menu-bottom').css({'min-width': '44%'})
+            } else {
+                $('.menu-bottom').css({'min-width': '15%'})
+            }
         } else {
-            $('.menu-bottom').css({'height': '', 'overflow-y': '', 'min-width': '', 'width': 'fit-content'})
+            $('.menu-bottom').css({'height': '', 'overflow-y': '', 'min-width': ''})
         }
     })
 

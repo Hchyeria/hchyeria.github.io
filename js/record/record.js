@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded',function(){
     function loadMore() {
         var num = document.querySelector(container).getAttribute("data-num")
         return function () {
-            var unLoadImg =toArray(document.querySelectorAll(`.${item}:not([data-load=''])`)).slice(0, num)
+            var unLoadImg = toArray(document.querySelectorAll(`.${item}:not([data-load=''])`)).slice(0, num)
             if(!unLoadImg.length) return;
             var temp = []
             unLoadImg.forEach(ele =>{
@@ -88,12 +88,12 @@ document.addEventListener('DOMContentLoaded',function(){
     var loadMoreCount = loadMore();
 
     function setup() {
-        var nodeWidth = globalData.width
+        $(".load-container").remove()
         var column1 = 1, column2 = 2, column3 = 4, gap = 10;
         var cases = [
-            { mediaMaxWidth: '768', columns: column1, gap: gap },
-            { mediaMaxWidth: '980', columns: column2, gap: gap },
-            { mediaMaxWidth: '1024', columns: column3, gap: gap }
+            { mediaMaxWidth: '768', columns: column1, gap: gap, containerWidth: .9, width: 1 },
+            { mediaMaxWidth: '980', columns: column2, gap: gap, containerWidth: .9, width: 0.48 },
+            { mediaMaxWidth: '1024', columns: column3, gap: gap, containerWidth: .9, width: 0.24 }
           ]
         
         var masonry = Masonry({
@@ -105,7 +105,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
         var setHeight = function() {
             if(masonry.getMaxColumnHeight() - globalData.height < 0.5){
-                imgComplete(loadMoreCount(), masonry.update, setHeight)()
+
+                loadMoreCount() && imgComplete(loadMoreCount(), masonry.update, setHeight)()
             }
         }
 

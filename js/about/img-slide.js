@@ -2,6 +2,15 @@ $(function (){
     $("#img-content").css({"height": globalData.height*0.80})
     var datas = []
     var fields = JSON.parse($('#field-source')[0].dataset.fields)
+    var size = +$('#field-source')[0].dataset.size
+    for (var i = 0; i < size; i++) {
+        var indexTemp = Math.floor(Math.random() * (fields.length - i) + i)
+        var temp = fields[indexTemp]
+        fields[indexTemp] = fields[i]
+        fields[i] = temp
+        fields = fields.slice(0, size)
+    }
+    
     fields.forEach(ele =>{
         datas.push({src: ele})
     })
@@ -16,6 +25,7 @@ $(function (){
         animationRegister: ['vegas-animation-cutomkenburnsDown']
     })
     var s = skrollr.init();
+    $('#field-source').remove()
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
     var ele = $('.vegas-container')[0]
     function changeText() {
@@ -40,4 +50,5 @@ $(function (){
         subtree: true,
         characterData: true,
     });
+
 })

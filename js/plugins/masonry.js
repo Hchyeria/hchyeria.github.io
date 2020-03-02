@@ -18,6 +18,7 @@ function Masonry(options) {
         nodeHeights,
         nodeTop,
         nodeWidth,
+        oldNodeWidth,
         nodeLeft;
 
     var options = options || {}
@@ -35,17 +36,16 @@ function Masonry(options) {
             ? toArray(container.children).filter(node => node.hasAttribute(`${blockLoad}`) && !node.hasAttribute(`${packed}`))
             : toArray(container.children).filter(node => !node.hasAttribute(`${packed}`))
     }
-    var screenWidth
+    var screenWidth = document.body.clientWidth || document.documentElement.clientWidth
     
     var setup = [
         setChooseCaseIndex,
         setChooseCaseDetail,
-        setColumnHeights
+        setColumnHeights,
     ]
 
     var run = [
-        setNodes,
-        setNodeWidth,
+        initialWidth,
         setNodeHeights,
         setNodePosition,
         setContainerStyles
@@ -78,17 +78,31 @@ function Masonry(options) {
         columnHeights = fillArray(chooseCaseDetail.columns)
     }
 
-    function setNodeWidth (){
-        nodeWidth = nodes[0].clientWidth
-    }
 
     function setNodes() {
         nodes = selectors[persist ? 'new' : 'all']()
     }
 
+    function initialWidth() {
+        setNodes()
+        var w = chooseCaseDetail.containerWidth * screenWidth
+        container.style.width = w + 'px'
+        nodes.forEach(ele => {
+            ele.style.width = (chooseCaseDetail.width * w) + 'px'
+        })
+        oldNodeWidth = nodeWidth
+        nodeWidth = chooseCaseDetail.width * w
+    }
+
+    
+
     function setNodeHeights() {
         if (!nodes.length) return;
-        nodeHeights = nodes.map(element => element.clientHeight)
+        if (isResize) {
+            nodeHeights = nodeHeights.map(element => nodeWidth * (element / oldNodeWidth))
+        } else {
+            nodeHeights = nodes.map(element => element.clientHeight)
+        }
     }
     
     function getMaxColumnHeight(){
@@ -123,13 +137,13 @@ function Masonry(options) {
         });
     }
 
-    function runSeries(functions) {
-        functions.forEach(func => func())
+    function runSeries(runs) {
+        runs.forEach(func => func())
     }
 
     function initial(callback) {
         persist = false
-        runSeries(setup.concat(run));
+        runSeries(setup.concat(run))
         callback && callback()
     }
 
@@ -145,15 +159,17 @@ function Masonry(options) {
 
     var debounce = function(func) {
         var timeout, timestamp
-        var wait = 99;
+        var wait = 100;
         var run = function(){
+            clearTimeout(timeout)
             timeout = null
             func && func()
         };
         var later = function() {
             var last = Date.now() - timestamp
             if (last < wait) {
-                setTimeout(later, wait - last)
+                clearTimeout(timeout)
+                timeout = setTimeout(later, wait)
             } else {
                 (requestIdleCallback || run)(run)
             }
@@ -172,12 +188,8 @@ function Masonry(options) {
 
     var resizeFrame = function() {
         isResize = true
-        screenWidth = document.body.clientWidth || document.documentElement.clientWidth
-
-        if (chooseCaseIndex !== getChooseCaseIndex()) {
-            initial()
-        }
-        
+        screenWidth = document.body.clientWidth || document.documentElement.clientWidth    
+        initial()
     }
     window.addEventListener('resize', debounce(resizeFrame), false)
 
