@@ -1,6 +1,3 @@
-
-
-
 var page_num = hexo.config.per_page
 var record;
 var archiveDir = hexo.config.archive_dir
@@ -37,22 +34,3 @@ hexo.extend.filter.register('template_locals', function(locals) {
     return locals;
 });
 
-
-// -
-// function binarySearch(array, left, right, target) {
-//   var mid = left + ((right - left) >> 1)
-//   while (left <= right) {
-//     if (array[mid].date.millisecond() === target..millisecond()) {
-//       return mid
-//     } else if (array[mid].date.millisecond() > target.millisecond()) {
-//       left = mid + 1
-//     } else {
-//       right = mid - 1
-//     }
-//   }
-//   return -1
-// }
-// var posts = site.posts.toArray()
-// var indexPost = binarySearch(posts, 0, posts.length - 1, page.date)
-// var isPrev = indexPost !== -1 && indexPost !== 0 ? posts[indexPost - 1] : false
-// var isNext = indexPost !== -1 && indexPost !== posts.length - 1 ? posts[indexPost + 1] : false

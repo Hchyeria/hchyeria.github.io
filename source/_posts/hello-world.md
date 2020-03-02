@@ -33,29 +33,33 @@ date: August 7, 2018
 但是这么瞎操作就会导致站内一些变量的 inconsistence，比如文章返回的应该是不包括 Record 的内容，但是实际上会全部返回。这会连带其他页面也会出现相应的问题。我找了半天解决办法，最终写了一个脚本利用 Hexo 的<span class="text-highlight">template_locals</span>钩子，更新相应的变量。使他们保持一致。
 
 ```javascript
-var page_num = 10
+var page_num = hexo.config.per_page
 var record;
-hexo.extend.filter.register('template_locals', function(locals){
+var archiveDir = hexo.config.archive_dir
+var archiveDirRe = new RegExp(hexo.config.archive_dir + '(/([0-9])+)+(/)?')
+
+hexo.extend.filter.register('template_locals', function(locals) {
     var posts = locals.site.posts
     var page = locals.page
     var real_posts = posts.filter(ele => !ele.record).sort('date', -1)
     var record_posts = posts.filter(ele => ele.record)
     locals.site.posts = real_posts
     var real_length = real_posts.length
-    var res = /archive(\/([0-9])+)+(\/)?/
+    
     if (page.base === '') {
         locals.page.posts = real_posts.slice(0, page_num)
     }
-    if (page.base === 'archive/') {  
+    if (page.base === archiveDir + '/') {  
         page.total = Math.ceil(real_length / page_num)
         locals.page.posts = real_posts.slice((page.current - 1) * page_num, page.current * page_num)
     }
-    if (res.test(page.base)) {
+    if (archiveDirRe.test(page.base)) {
         locals.page.posts = page.posts.filter(ele => !ele.record).sort('date', -1)
         if (!page.posts.length) {
             delete locals[page]
         }
     }
+
     if (record_posts.length > 0) {
         locals.record = record_posts
         record = record_posts
