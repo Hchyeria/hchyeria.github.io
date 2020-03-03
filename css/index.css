@@ -1418,6 +1418,9 @@ blockquote::before {
 .tag-list-title span {
   margin-left: 5px;
 }
+.tag-list-title .material-icons {
+  font-size: inherit;
+}
 .tag-list-item,
 .archive-list-item {
   margin: 2px 0;
