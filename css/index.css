@@ -204,7 +204,6 @@
   }
 }
 * {
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-size: 14.8px;
   transition: 0.2s ease-out;
   box-sizing: border-box;
@@ -233,6 +232,7 @@
   color: #fff;
 }
 body {
+  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   background-color: #fefefe;
 }
 ul {
@@ -1048,11 +1048,20 @@ strong {
 .post-page-content li {
   margin-left: 8%;
 }
+.hljs,
+.hljs-ln-code {
+  font-size: 1em;
+  letter-spacing: normal !important;
+  line-height: 1.5;
+  font-family: 'Source Code Pro', monospace, Monaco, Consolas, Menlo, "PingFang SC", 'Helvetica Neue For Number' !important;
+}
 pre,
 code,
 tt {
-  font-size: 14px;
-  font-family: "Roboto Mono", monospace, Monaco, Consolas, Menlo, "PingFang SC", 'Helvetica Neue For Number' !important;
+  font-size: 1em;
+  letter-spacing: normal !important;
+  line-height: 1.5;
+  font-family: 'Source Code Pro', monospace, Monaco, Consolas, Menlo, "PingFang SC", 'Helvetica Neue For Number' !important;
 }
 code {
   overflow-x: auto;
