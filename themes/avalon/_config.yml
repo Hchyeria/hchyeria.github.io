@@ -86,7 +86,7 @@ record_num: 5
 cdn:
   css:
     MaterialIcons: https://fonts.loli.net/icon?family=Material+Icons
-    google_font: https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,400,500,700,900|Open+Sans:400,400i,600,600i,700,700i,800,800i|Roboto+Mono:400,500&display=swap&subset=chinese-simplified
+    google_font: https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,400,500,700,900|Open+Sans:400,400i,600,600i,700,700i,800,800i|Source+Code+Pro&display=swap&subset=chinese-simplified
   js:
     zepto: /js/assets/zepto.min.js
 
