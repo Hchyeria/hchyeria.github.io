@@ -1405,6 +1405,11 @@ blockquote::before {
 .comment-title span {
   margin-bottom: 5px;
 }
+#post-view {
+  color: #a0a0a0;
+  font-size: 0.86em;
+  margin-top: 10px;
+}
 .tag-box {
   font-size: 1.1em;
   padding: 4% 4% 2% 15%;
