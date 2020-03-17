@@ -4,6 +4,7 @@ include includes/mixins/music.pug
 
 block content
   include ./includes/mixins/recordItem.pug
+  script(defer, src='/js/comment/view.js')
   if page.photos.length
     .flex-row.record-flex-row
       .record-post-left
