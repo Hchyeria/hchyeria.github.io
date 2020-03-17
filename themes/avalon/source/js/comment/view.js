@@ -15,5 +15,5 @@ $(function () {
     }
 
     requestIdleCallback ? requestIdleCallback(getView) : setTimeout(getView, 1000)
-}
+})
 
