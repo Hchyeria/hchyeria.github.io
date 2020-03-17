@@ -37,7 +37,7 @@ $(function () {
                 dom += commentComponent(jsonData.username, jsonData.createTime, jsonData.content)
             })
 
-            document.getElementById('comment-block').appendChild(dom)
+            $('#comment-block').append($(dom))
         }
     })
 
@@ -46,19 +46,18 @@ $(function () {
         .then(res => res.json())
         .then(jsonData => {
             if (jsonData.status) {
-                document.getElementById('post-view').textContent = jsonData.data
+                document.getElementById('post-view').textContent = 'view ' + jsonData.data
             }
         })
     }
 
     requestIdleCallback ? requestIdleCallback(getView) : setTimeout(getView, 1000)
 
-    $('#send-comment').on('click', function(e) {
-        e.preventDefault()
-        let comment = $('#comment-data').trim()
-        let name = $('#user-name').trim()
-        let contact = $('#user-contact').trim()
-        if (!comment) {
+    const sendMsg = function() {
+        let content = $('#comment-data').val().trim()
+        let name = $('#user-name').val().trim()
+        let contact = $('#user-contact').val().trim()
+        if (!content) {
             $('#comment-data').css('border', 'solid 1.4px yellow')
             return
         }
@@ -78,7 +77,9 @@ $(function () {
             body: formData
         })
 
-        document.getElementById('comment-block').appendChild(commentComponent(name, createTime, content))
+        $('#comment-block').append($(commentComponent(name, createTime, content)))
     
-    })
+    }
+
+    $('#send-comment').on('click', debounce(sendMsg))
 })
