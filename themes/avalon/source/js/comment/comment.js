@@ -28,14 +28,14 @@ $(function () {
         `
     }
 
-    let dom
     fetch(`${BASE_URL}comment?pid=${postId}`)
     .then(res => res.json())
     .then(jsonData => {
         if (jsonData.status) {
+            let dom = ''
             let data = jsonData.data
             data.forEach(ele => {
-                dom += commentComponent(data.username, data.createTime, data.content)
+                dom += commentComponent(ele.username, ele.createTime, ele.content)
             })
 
             $('#comment-block').append($(dom))
