@@ -33,8 +33,9 @@ $(function () {
     .then(res => res.json())
     .then(jsonData => {
         if (jsonData.status) {
-            jsonData.forEach(ele => {
-                dom += commentComponent(jsonData.username, jsonData.createTime, jsonData.content)
+            let data = jsonData.data
+            data.forEach(ele => {
+                dom += commentComponent(data.username, data.createTime, data.content)
             })
 
             $('#comment-block').append($(dom))
