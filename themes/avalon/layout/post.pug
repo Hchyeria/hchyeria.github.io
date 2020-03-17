@@ -39,7 +39,7 @@ block content
       if page.hasMusic
         +music(page.music)
       != page.content
-      #post-view 5
+      #post-view 
       #pagination
         .pagination
           if(isPrev)
@@ -60,9 +60,6 @@ block content
       .comment-logo
         img(src='/img/comments.png')
       .comment-block#comment-block
-        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
-        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
-        +comment('Hchyeria', String.prototype.split.call(new Date(), ' ').slice(1, 5).join(' '), "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈")
       include ./includes/postcomment.pug
   .menu-bottom
     +menubottom('menu-bottom-icon', false)
