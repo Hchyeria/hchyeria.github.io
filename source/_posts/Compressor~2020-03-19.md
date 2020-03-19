@@ -11,12 +11,12 @@ abbrlink: 62841
 ---
 博主最近完成了程序设计实践3。选择的题目是编写一个压缩软件。借此机会学习了Huffman 算法和 LZ77 算法。
 
-# Huffman 压缩算法
-## Huffman 编码介绍
+## Huffman 压缩算法
+### Huffman 编码介绍
 Huffman编码就是一种效率很高的编码方式，该方法完全依据字符出现概率来构造异字头的平均长度最短的码字。
 相比较使用固定长度的**定长编码**方式，使用**变长的编码**方式能够节省很多空间。而使用变长编码可能会导致歧义，比如字母 a 用0表示，字母b用1表示，字母 c 用01表示，那么 abc 可以表示为0101，而0101可以解析成 cab，abab，这就会引起分歧。于是又引入了**前缀码**的概念。前缀码定义：任何一个字符的编码都不能是其它任何字符的编码的前缀。Huffman 编码就是一种能够使用最短的位数来编码文件的前缀码 。
 Huffman编码需要牺牲一部分体积来储存 Huffman 编码树的信息。
-## 如何构建 Huffman 编码树
+### 如何构建 Huffman 编码树
 Huffman 编码为每个字母分配编码，编码长度取决于在被压缩文件中对应字母的出现的频率，也就是权重（weight）。Huffman 编码树是满二叉树，有最小外部路径权重。每一个叶节点对应于一个字母，叶节点的权重就是对应的字母出现的频率。下图将解释一下什么是最小外部路径权重，并且 Huffman 编码的过程。
 <div align=center><img class="post-img-big" src="/posts/62841/1.png" />
 <div align=center class="img-undertext">最小外部路径权重<div class="img-undertext-divi">
@@ -28,11 +28,10 @@ Huffman 编码为每个字母分配编码，编码长度取决于在被压缩文
 <div align=center><img class="post-img-big" src="/posts/62841/2.png" />
 <div align=center class="img-undertext">构建过程<div class="img-undertext-divi">
 
-
-# LZ77 压缩算法
-## 几个术语介绍
-lookahead buffer等待编码的区域。search buffer 已经编码的区域，搜索缓冲区。滑动窗口指定大小的窗，包含“搜索缓冲区”（左） + “待编码区”（右）。游标cursor 编码位置
-## 编码过程
+## LZ77 压缩算法
+### 几个术语介绍
+lookahead buffer 等待编码的区域。search buffer 已经编码的区域，搜索缓冲区。滑动窗口指定大小的窗，包含“搜索缓冲区”（左） + “待编码区”（右）。游标 cursor 编码位置
+### 编码过程
 **主要步骤：**
 1. 设置游标为输入流的开始
 2. 在待编码区查找搜索缓冲区中的最大匹配字符串
@@ -260,5 +259,5 @@ class LZ77Compressor:
 
 ```
 
-# 源码
+## 源码
 [Github 源码地址](https://github.com/Hchyeria/Compressor-software)

@@ -8,5 +8,10 @@
                 a(href='http://hexo.io' target="_blank")  Hexo
             span  with theme
                 a  Avalon
-    .footer-first 推荐使用 Chrome / Safari 访问
+    .footer-first 
+        .pull-left 推荐使用 Chrome / Safari 访问
+        if theme.theme_strings.filing
+            .pull-right 
+                span
+                    a(href='http://www.beian.miit.gov.cn' target="_blank")=theme.theme_strings.filing
     .footer-first 欢迎反馈BUG Orz

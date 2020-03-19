@@ -10,7 +10,7 @@ tags:
 date: 'December 2, 2019'
 abbrlink: 11971
 ---
-# Backpack (0-1 knapsack problem)
+## Backpack (0-1 knapsack problem)
 [LintCode 92 Backpack](https://www.lintcode.com/problem/backpack/description)
 单次选择，最大体积。
 **Question**
@@ -26,7 +26,8 @@ O(n x m) memory is also acceptable if you do not know how to optimize memory.
 
 这个比较简单。直接上 Code。
 这里将 2D-array 优化到了 1D-array。需要**倒序内层循环**。
-在第 i 层循环初 dp[j] 存的相当于 dp[i - 1][j] 的值，因为在更新dp[j]时用到了 dp[j - A[i]], 由于**内层循环倒序**，dp[j - A[i]] 未更新，代表了dp[i-1][j - A[i]]，也就是 Old 的值。
+在第 i 层循环初 dp[j] 存的相当于 dp[i - 1][j] 的值，因为在更新dp[j]时用到了 dp[j - A[i]], 由于**内层循环倒序**
+dp[j - A[i]] 未更新，代表了dp[i-1][j - A[i]]，也就是 Old 的值。
 ```java
 public int backPack(int m, int[] A) {
     if (m <= 0) {
@@ -54,12 +55,13 @@ public int backPack(int m, int[] A) {
     return res;
 }
 ```
-# Backpack II (0-1 knapsack problem)
+## Backpack II (0-1 knapsack problem)
 单次选择，最大价值。出现了，经典背包问题。
 [LintCode 125 Backpack II](https://www.lintcode.com/problem/backpack-ii/description)
 最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放，也即0 or 1。
-子问题定义状态：即 `F[i, v]` 表示前 i 件物品放入一个容量为 v 的背包可以获得 的最大价值
-其状态转移方程便是： `F[i, v] = max{F[i − 1, v], F[i − 1, v − Ci ] + Wi}`
+子问题定义状态：即 F[i, v] 表示前 i 件物品放入一个容量为 v 的背包可以获得 的最大价值
+其状态转移方程便是： F[i, v] = max{F[i − 1, v], F[i − 1, v − Ci ] + Wi}
+
 ```java
 // 1D DP space Optimized
 public int backPackII(int m, int[] A, int[] V) {
@@ -80,7 +82,8 @@ public int backPackII(int m, int[] A, int[] V) {
     return dp[m];
 }
 ```
-# Backpack III (unbounded knapsack problem (UKP))
+
+## Backpack III (unbounded knapsack problem (UKP))
 [完全背包问题](https://www.lintcode.com/problem/backpack-iii/description)
 **Description**
 Givenn_kind of items with size Aiand value Vi(each item has an infinite number available) and a backpack with size_m. What's the maximum value can you put into the backpack?
@@ -88,32 +91,30 @@ You cannot divide item into small pieces and the total size of items you choose 
 **Example**
 Given 4 items with size[2, 3, 5, 7]and value[1, 5, 2, 4], and a backpack with size10. The maximum value is15.
 
-将其视为多重背包变形，每种物品取的上限是 `m / A[i]`。
-可以无限使用物品, 就失去了 last i, last unique item的意义: 因为可以重复使用. 所以可以转换一个角度:
+将其视为多重背包变形，每种物品取的上限是 m / A[i]。
+可以无限使用物品, 就失去了 last i, last unique item 的意义: 因为可以重复使用. 所以可以转换一个角度:
 1. 用 i 种 物品, 拼出 j 大小, 并且满足题目条件 (max value)。 这里因为item i可以无限次使用, 所以考虑使用了多少次K。
-2. k虽然可以无限, 但是也被 `k * A[i]`所限制: 最大不能超过背包大小。
-`dp[i][j]`: 前i种物品, fill weight j 的背包, 最大价值是多少。
-`dp[i][j] = max {dp[i - 1][j - k*A[i-1]] + k*V[i-1]}, k >= 0, k <= j / A[i-1]`
+2. k虽然可以无限, 但是也被 k \* A[i] 所限制: 最大不能超过背包大小。
+dp[i][j]: 前i种物品, fill weight j 的背包, 最大价值是多少。
+dp[i][j] = max {dp[i - 1][j - k\*A[i-1]] + k\*V[i-1]}, k >= 0, k <= j / A[i-1]
 Time: O(nmk)
 如果k = 0 或者 1, 其实就是 Backpack II: 0-1背包，拿或者不拿
-
-## 时间复杂度优化
+### 时间复杂度优化
 优化时间复杂度, 通过画图或者数学公式递推发现:
-所计算的 `(dp[i - 1][j - k*A[i - 1]] + k * V[i - 1])` ，其实跟同一行的 `dp[i][j-A[i-1]]` 那个格子相比, 就多出了 `V[i-1]`
+所计算的 (dp[i - 1][j - k\*A[i - 1]] + k \* V[i - 1]) ，其实跟同一行的 dp[i][j-A[i-1]] 那个格子相比, 就多出了 V[i-1]
 所以没必要每次都 loop over k times
-简化: `dp[i][j]` 其中一个可能就是: `dp[i][j - A[i - 1]] + V[i - 1]`
-Time: `O(mn)`
-Space: `O(mn)`
-
-## 空间复杂度优化
+简化: dp[i][j] 其中一个可能就是: dp[i][j - A[i - 1]] + V[i - 1]
+Time: O(mn)
+Space: O(mn)
+### 空间复杂度优化
 空间优化到1维数组
 根据上一个优化的情况, 画出 2 rows 网格
-发现 `dp[i][j]` 取决于: 
-1. `dp[i - 1][j]`
-2. `dp[i][j - A[i - 1]]`
-其中: dp[i - 1][j] 是上一轮 (i-1) 的结算结果, `dp[i][j - A[i - 1]]` 是这轮已经算好的结果。所以我们只需要**正序内层循环**即可。
-Time: `O(mn)`
-Space: `O(m)`
+发现 dp[i][j] 取决于: 
+1. dp[i - 1][j]
+2. dp[i][j - A[i - 1]]
+其中: dp[i - 1][j] 是上一轮 (i-1) 的结算结果, dp[i][j - A[i - 1]] 是这轮已经算好的结果。所以我们只需要**正序内层循环**即可。
+Time: O(mn)
+Space: O(m)
 
 ```java
 /**
@@ -167,7 +168,7 @@ public class Solution {
 ```
 详细可以参考[这篇文章](https://aaronice.gitbooks.io/lintcode/content/dynamic_programming/backpack-iii.html)
 
-# Backpack IV (UKP) / Coin Change II
+## Backpack IV (UKP) / Coin Change II
 **Description**
 [LeetCode 518 Coin Change 2](https://leetcode.com/problems/coin-change-2/)
 Given n items with size nums[i] which an integer array and all positive numbers, no duplicates. An integer target denotes the size of a backpack. Find the number of possible fill the backpack.
@@ -197,7 +198,7 @@ public int change(int amount, int[] coins) {
     // Time = O(m * n)
     // Space = O(n)
 ```
-# Backpack V (0/1 Knapsack Problem)
+## Backpack V (0/1 Knapsack Problem)
 单次选择, 装满可能性总数
 [LintCode 563 Backpack V](https://www.lintcode.com/problem/backpack-v/description)
 ```java
@@ -220,7 +221,7 @@ public int backPackV(int[] nums, int target) {
         return dp[target];
     }
 ```
-# Backpack VI / Combination Sum IV
+## Backpack VI / Combination Sum IV
 重复选择, 不同排列, 装满可能性总数
 [LeetCode 377 Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)
 ```java
@@ -252,5 +253,5 @@ public int backPackV(int[] nums, int target) {
     // Space = O(target)
 ```
 
-# Backpack VII (bounded knapsack problem (BKP))
+## Backpack VII (bounded knapsack problem (BKP))
 [800. Backpack IX](https://www.lintcode.com/problem/backpack-ix/description)

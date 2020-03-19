@@ -7,24 +7,24 @@ description: 并查集算法
 tags:
   - Algorithm
   - Data Structure
-date: 'September 4, 2019'
+date: September 4, 2019
 abbrlink: 57807
 ---
 
 这几天忙着做专业课程设计2。学习了很多有意思的算法和数据结构。在此记录一下。
 这篇是关于 Union-Find（并查集）。
 
-# Intro
+## Intro
 Union-Find is a special tree structure (child point to parent), fast to check the connect in a network.
 Method:
 1. union(p, q)		  -> 	O(h)
 2. isConnected(p, q)  ->    O(h)
 Worse case, it may be union to a linked list, so we should use **size** to optimize.
 
-## Optimize size
+### Optimize size
 `size[i]`: represents the size of a union find set. But use size may be uncorrected in some situations, for example, the tree with smaller size but has large depth. So we can use `height` to decide which one to merge.
 
-## Optimize rank
+### Optimize rank
 `rank[i]`: represent the height of a union find set
 ```java
 public void unionElements(int p, int q) {
@@ -44,7 +44,7 @@ public void unionElements(int p, int q) {
     }
 }
 ```
-## Path Compression
+### Path Compression
 1. union(p, q)		    -> 	    O(log\*n) --> log* : iterated logarithm 
 2. isConnected(p, q)    ->      O(log\*n)
 
@@ -73,8 +73,8 @@ private int find(int p) {
     return p;
 }
 ```
-# Question
-## 课设的题目
+## Question
+### 课设的题目
 题目要求
 “熊猫烧香”是在网络中传播的一种著名病毒，因为图标是一只可爱的熊猫而得名。该病毒比较难以处理的一个原因是它有很多变种。
 现在某实验室的网络就不幸感染了这种病毒。从下图中可以看到，实验室的机器排列为一个M行N列的矩阵，每台机器只和它相邻的机器直接相连。开始时有T台机器被感染，每台遭遇的熊猫变种类型都不同，分别记为Type1，Type2，… Typer，每台机器都具有一定级别的防御能力，将防御级别记为L(0 < L <1000）。
@@ -309,7 +309,7 @@ class Nimaya:
         return len(temp)
 ```
 
-## LeetCode
+### LeetCode
 [827 Making A Large Island](https://leetcode.com/problems/making-a-large-island/)
 实际上这道题还有更好的解法，这里只是做一个并查集的练习。
 ```java
