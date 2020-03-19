@@ -6,8 +6,8 @@ hasmath: false
 author: Hchyeria
 description: 第一篇博客，记录搭建历程。
 tags:
-    - 技术
-    - 感想
+    - Tech
+    - Feeling
 photos: ["/main.jpg", "/1.png"]
 hasMusic: true
 music: [
