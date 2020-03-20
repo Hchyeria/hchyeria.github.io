@@ -136,7 +136,12 @@ public int backPackII(int m, int[] A, int[] V) {
 <p>将其视为多重背包变形，每种物品取的上限是 m / A[i]。<br>可以无限使用物品, 就失去了 last i, last unique item 的意义: 因为可以重复使用. 所以可以转换一个角度:</p>
 <ol>
 <li>用 i 种 物品, 拼出 j 大小, 并且满足题目条件 (max value)。 这里因为item i可以无限次使用, 所以考虑使用了多少次K。</li>
-<li>k虽然可以无限, 但是也被 k * A[i] 所限制: 最大不能超过背包大小。<br>dp[i][j]: 前i种物品, fill weight j 的背包, 最大价值是多少。<br>dp[i][j] = max {dp[i - 1][j - k*A[i-1]] + k*V[i-1]}, k &gt;= 0, k &lt;= j / A[i-1]<br>Time: O(nmk)<br>如果k = 0 或者 1, 其实就是 Backpack II: 0-1背包，拿或者不拿<h3 id="时间复杂度优化"><a href="#时间复杂度优化" class="headerlink" title="时间复杂度优化"></a>时间复杂度优化</h3>优化时间复杂度, 通过画图或者数学公式递推发现:<br>所计算的 (dp[i - 1][j - k*A[i - 1]] + k * V[i - 1]) ，其实跟同一行的 dp[i][j-A[i-1]] 那个格子相比, 就多出了 V[i-1]<br>所以没必要每次都 loop over k times<br>简化: dp[i][j] 其中一个可能就是: dp[i][j - A[i - 1]] + V[i - 1]<br>Time: O(mn)<br>Space: O(mn)<h3 id="空间复杂度优化"><a href="#空间复杂度优化" class="headerlink" title="空间复杂度优化"></a>空间复杂度优化</h3>空间优化到1维数组<br>根据上一个优化的情况, 画出 2 rows 网格<br>发现 dp[i][j] 取决于: </li>
+<li>k虽然可以无限, 但是也被 k * A[i] 所限制: 最大不能超过背包大小。<br>dp[i][j]: 前i种物品, fill weight j 的背包, 最大价值是多少。<br>dp[i][j] = max {dp[i - 1][j - k*A[i-1]] + k*V[i-1]}, k &gt;= 0, k &lt;= j / A[i-1]</li>
+</ol>
+<p>Time: O(nmk)<br>如果k = 0 或者 1, 其实就是 Backpack II: 0-1背包，拿或者不拿</p>
+<h3 id="时间复杂度优化"><a href="#时间复杂度优化" class="headerlink" title="时间复杂度优化"></a>时间复杂度优化</h3><p>优化时间复杂度, 通过画图或者数学公式递推发现:<br>所计算的 (dp[i - 1][j - k*A[i - 1]] + k * V[i - 1]) ，其实跟同一行的 dp[i][j-A[i-1]] 那个格子相比, 就多出了 V[i-1]<br>所以没必要每次都 loop over k times<br>简化: dp[i][j] 其中一个可能就是: dp[i][j - A[i - 1]] + V[i - 1]<br>Time: O(mn)<br>Space: O(mn)</p>
+<h3 id="空间复杂度优化"><a href="#空间复杂度优化" class="headerlink" title="空间复杂度优化"></a>空间复杂度优化</h3><p>空间优化到1维数组<br>根据上一个优化的情况, 画出 2 rows 网格<br>发现 dp[i][j] 取决于: </p>
+<ol>
 <li>dp[i - 1][j]</li>
 <li>dp[i][j - A[i - 1]]<br>其中: dp[i - 1][j] 是上一轮 (i-1) 的结算结果, dp[i][j - A[i - 1]] 是这轮已经算好的结果。所以我们只需要<strong>正序内层循环</strong>即可。<br>Time: O(mn)<br>Space: O(m)</li>
 </ol>
