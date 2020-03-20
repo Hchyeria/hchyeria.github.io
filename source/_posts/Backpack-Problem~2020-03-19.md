@@ -97,6 +97,7 @@ Given 4 items with size[2, 3, 5, 7]and value[1, 5, 2, 4], and a backpack with si
 2. k虽然可以无限, 但是也被 k \* A[i] 所限制: 最大不能超过背包大小。
 dp[i][j]: 前i种物品, fill weight j 的背包, 最大价值是多少。
 dp[i][j] = max {dp[i - 1][j - k\*A[i-1]] + k\*V[i-1]}, k >= 0, k <= j / A[i-1]
+
 Time: O(nmk)
 如果k = 0 或者 1, 其实就是 Backpack II: 0-1背包，拿或者不拿
 ### 时间复杂度优化
