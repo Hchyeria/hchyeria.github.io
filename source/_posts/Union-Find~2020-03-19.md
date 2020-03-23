@@ -433,7 +433,7 @@ class Solution {
     
 }
 ```
-#### 	128	Longest Consecutive Sequence
+#### 128 Longest Consecutive Sequence
 [LeetCode 128 Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence)
 ```java
 class Solution {
@@ -538,7 +538,7 @@ class Solution {
 }
 ```
 
-#### 
+#### Number of Islands II
 [LeetCode 305 Number of Islands II](https://leetcode.com/problems/number-of-islands-ii)
 ```java
 public class Solution {
@@ -625,6 +625,156 @@ public class Solution {
 
     // Time = O(n * 4 * log*(n))
     // Space = O(n)
+}
+```
+#### Connecting Graph III
+[LeetCode 591 Connecting Graph III](https://www.lintcode.com/problem/connecting-graph-iii/description)
+
+```java
+public class ConnectingGraph3 {
+    /**
+     * @param a: An integer
+     * @param b: An integer
+     * @return: nothing
+     */
+    
+    private int[] parent;
+    private int count;
+    
+    private int find(int i) {
+        while (parent[i] != i) {
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
+        return i;
+    }
+    
+    public ConnectingGraph3(int n) {
+        // initialize your data structure here.
+        parent = new int[n + 1];
+        count = n;
+        for (int i = 0; i <= n; ++i) {
+            parent[i] = i;
+        }
+    }
+    
+    public void connect(int a, int b) {
+        // write your code here
+        int i = find(a);
+        int j = find(b);
+        if (i == j) {
+            return;
+        }
+        parent[i] = j;
+        count--;
+    }
+
+    /**
+     * @return: An integer
+     */
+    public int query() {
+        // write your code here
+        return count;
+    }
+}
+```
+#### Redundant Connection
+[LeetCode 684 Redundant Connection](https://leetcode.com/problems/redundant-connection/)
+```java
+class Solution {
+    
+    private int[] parent;
+    
+    private int find(int i) {
+        while (parent[i] != i) {
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
+        return i;
+    }
+    
+    boolean union(int i, int j) {
+        int q = find(i);
+        int p = find(j);
+        if (q == p) {
+            return false;
+        }
+        parent[q] = p;
+        
+        return true;
+    }
+    
+    public int[] findRedundantConnection(int[][] edges) {
+        if (edges == null || edges.length == 0) {
+            return new int[2];
+        }
+        int m = edges.length;
+        int n = edges[0].length;
+        parent = new int[m * n + 1];
+        for (int i = 1; i <= m * n; ++i) {
+            parent[i] = i;
+        }
+        
+        for (int[] edge : edges) {
+            if (!union(edge[0], edge[1])) {
+                return edge;
+            }
+        }
+        
+        return new int[2];
+    }
+}
+```
+
+#### Redundant Connection II
+[LeetCode 685 Redundant Connection II](https://leetcode.com/problems/redundant-connection-ii/)
+```java
+class Solution {
+    
+    private int[] parent;
+    
+    public int[] findRedundantDirectedConnection(int[][] edges) {
+        int m = edges.length;
+        int n = edges[0].length;
+        
+        parent = new int[m * n + 1];
+        
+        int[] can1 = {-1, -1};
+        int[] can2 = {-1, -1};
+        
+        for (int[] edge : edges) {
+            if (parent[edge[1]] == 0) {
+                parent[edge[1]] = edge[0];
+            } else {
+                can2 = new int[] {edge[0], edge[1]};
+                can1 = new int[] {parent[edge[1]], edge[1]};
+                edge[1] = 0;
+            }
+        }
+        
+        for (int i = 1; i <= m * n; ++i) {
+            parent[i] = i;
+        }
+        
+        for (int[] edge : edges) {
+            if (find(edge[0]) == edge[1]) {
+                if (can1[0] == -1) {
+                    return edge;
+                }
+                return can1;
+            }
+            parent[edge[1]] = edge[0];
+        }
+        return can2;
+    }
+    
+    private int find(int i) {
+        while (parent[i] != i) {
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        }
+        return i;
+    }
 }
 ```
 
