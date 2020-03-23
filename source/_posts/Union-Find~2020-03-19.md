@@ -310,6 +310,7 @@ class Nimaya:
 ```
 
 ### LeetCode
+#### 827 Making A Large Island
 [827 Making A Large Island](https://leetcode.com/problems/making-a-large-island/)
 实际上这道题还有更好的解法，这里只是做一个并查集的练习。
 ```java
@@ -432,4 +433,199 @@ class Solution {
     
 }
 ```
+#### 	128	Longest Consecutive Sequence
+[LeetCode 128 Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence)
+```java
+class Solution {
+    // Solution 1: HashMap
+    public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0, res = 0;
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                continue;
+            }
+            int left = map.getOrDefault(num - 1, 0);
+            int right = map.getOrDefault(num + 1, 0);
+            sum = left + right + 1;
+            res = Math.max(res, sum);
+            
+            if (left > 0) {
+                map.put(num - left, sum);
+            }
+            if (right > 0) {
+                map.put(num + right, sum);
+            }
+            map.put(num, sum);
+        }
+        return res;
+    }
+    // Time = O(n)
+    // Space = O(n)
+
+    private static class UnionFind {
+        int[] parent;
+        
+        UnionFind(int n) {
+            parent = new int[n];
+            Arrays.fill(parent, -1);
+        }
+        
+        void union(int i, int j) {
+            int m = find(i);
+            int n = find(j);
+            if (parent[m] <= parent[n]) {
+                parent[m] += parent[n];
+                parent[n] = m;
+            } else {
+                parent[n] += parent[m];
+                parent[m] = n;
+            }
+        }
+        
+        int find(int i) {
+            while (parent[i] >= 0) {
+                int temp = parent[i];
+                if (parent[temp] < 0) {
+                    i = temp;
+                    break;
+                }
+                parent[i] = parent[temp];
+                i = parent[i];
+            }
+            return i;
+        }
+        
+        int maxSize() {
+            int res = 0;
+            for (int i : parent) {
+                res = Math.min(res, i);
+            }
+            return -res;
+        }
+        
+    }
+    // Solution 2: UnionFind
+    public int longestConsecutive2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        int n = nums.length;
+        UnionFind unionFind = new UnionFind(n);
+        for (int i = 0; i < n; ++i) {
+            if (map.containsKey(nums[i])) {
+                continue;
+            }
+            map.put(nums[i], i);
+            Integer left = map.get(nums[i] - 1);
+            if (left != null) {
+                unionFind.union(i, left);
+            }
+            Integer right = map.get(nums[i] + 1);
+            if (right != null) {
+                unionFind.union(i, right);
+            }
+        }
+        return unionFind.maxSize();
+    }
+
+    // Time = O(n * log*(n))
+    // Space = O(n)
+}
+```
+
+#### 
+[LeetCode 305 Number of Islands II](https://leetcode.com/problems/number-of-islands-ii)
+```java
+public class Solution {
+    /**
+     * @param n: An integer
+     * @param m: An integer
+     * @param operators: an array of point
+     * @return: an integer array
+     */
+     
+    private static class UnionFind {
+        int[] parent;
+        int count;
+        
+        UnionFind(int n) {
+            parent = new int[n];
+        }
+        
+        void addLand(int i) {
+            if (parent[i] > 0) {
+                return;
+            }
+            parent[i] = i;
+            count++;
+        }
+        
+        int find(int i) {
+            while (parent[i] != i) {
+                parent[i] = parent[parent[i]];
+                i = parent[i];
+            }
+            return i;
+        }
+        
+        void union(int i, int j) {
+            int q = find(i);
+            int p = find(j);
+            if (q != p) {
+                parent[q] = p;
+                count--;
+            }
+        } 
+        
+        int numberOfLand() {
+            return count;
+        }
+        
+        boolean isLand(int i) {
+            return parent[i] > 0;
+        }
+    }
+    
+    private static final int[][] DIRS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private int row, col;
+    public List<Integer> numIslands2(int n, int m, Point[] operators) {
+        // write your code here
+        if ((n == 0 && m == 0) || operators == null || operators.length == 0) {
+            return Collections.emptyList();
+        }
+        row = n;
+        col = m;
+        UnionFind uf = new UnionFind(row * col + 1);
+        List<Integer> res = new ArrayList<>();
+        for (Point p : operators) {
+            int position = p.x * col + p.y + 1;
+            uf.addLand(position);
+            
+            for (int[] d : DIRS) {
+                int x = p.x + d[0];
+                int y = p.y + d[1];
+                if (isArea(x, y) && uf.isLand(x * col + y + 1)) {
+                    uf.union(position, x * col + y + 1);
+                } 
+            } 
+            res.add(uf.numberOfLand());
+        }
+        
+        return res;
+    }
+    
+    private boolean isArea(int x, int y) {
+        return x >= 0 && x < row && y >= 0 && y < col;
+    }
+
+    // Time = O(n * 4 * log*(n))
+    // Space = O(n)
+}
+```
+
 [Github 源码地址](https://github.com/Hchyeria/some-data-structure-and-algorithm)
