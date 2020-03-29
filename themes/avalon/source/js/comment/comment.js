@@ -55,9 +55,9 @@ $(function () {
     requestIdleCallback ? requestIdleCallback(getView) : setTimeout(getView, 1000)
 
     const sendMsg = function() {
-        let content = $('#comment-data').val().trim()
-        let name = $('#user-name').val().trim()
-        let contact = $('#user-contact').val().trim()
+        let content = escape($('#comment-data').val().trim())
+        let name = escape($('#user-name').val().trim())
+        let contact = escape($('#user-contact').val().trim())
         if (!content) {
             $('#comment-data').css('border', 'solid 1.4px yellow')
             return
