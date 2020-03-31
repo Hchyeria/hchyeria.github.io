@@ -8,7 +8,7 @@ block content
   div.archive
     include includes/mixins/articlepost.pug
     if page.posts.length > 0
-      #acticle-posts
+      article#acticle-posts
         each post, index in page.posts.toArray()
           - if (!post.photos.length)
             +articlePost(post, index)(class="bodttom no-img")
