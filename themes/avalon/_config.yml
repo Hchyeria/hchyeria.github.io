@@ -104,6 +104,10 @@ social:
   instagram: https://www.instagram.com/hchyeria/
   bilibili: 
   
+google_analytics:
+  enable: true
+  url: https://www.googletagmanager.com/gtag/js?id=UA-162425093-1
+  uid: UA-162425093-1
 
 # strings
 theme_strings:

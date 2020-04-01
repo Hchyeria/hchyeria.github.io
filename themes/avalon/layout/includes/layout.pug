@@ -131,6 +131,16 @@ html(lang=config.language)
         $("#loading").remove()
         $(".remove-item").remove()
       })
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    if theme.google_analytics.enable
+      script(src=theme.google_analytics.url, async='')
+      script(id='google-analytics', data-uid=theme.google_analytics.uid). 
+        window.dataLayer = window.dataLayer || []
+        var uid = $('#google-analytics')[0].dataset.uid
+        function gtag(){dataLayer.push(arguments)}
+        gtag('js', new Date())
+        gtag('config', uid)
+
     
     
         
