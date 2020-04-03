@@ -24,6 +24,7 @@ Merge Sort 应该对大部分人来说是小菜一碟。分分钟就写出来了
 * 奇偶数的情况
 * 交换完，必须保证始终是配对的
 上 code
+
 ```java
 public String backMergeSort(String input) {
         if (input == null || input.length() <= 1) {
