@@ -3,6 +3,7 @@ var record;
 var archiveDir = hexo.config.archive_dir
 var archiveDirRe = new RegExp(hexo.config.archive_dir + '(/([0-9])+)+(/)?')
 
+
 hexo.extend.filter.register('template_locals', function(locals) {
     var posts = locals.site.posts
     var page = locals.page
