@@ -1,13 +1,14 @@
 ---
 title: Merge-Sort
-date: March 25, 2020
+date: 'March 25, 2020'
 hascode: true
 hasmath: false
 author: Hchyeria
-description: 巧用 Merge Sort 解决一些难题 
+description: 巧用 Merge Sort 解决一些难题
 tags:
   - Algorithm
   - Sort
+abbrlink: 27188
 ---
 
 Merge Sort 应该对大部分人来说是小菜一碟。分分钟就写出来了。但是 Merge Sort 也能变得很难，难点在它的精髓。
