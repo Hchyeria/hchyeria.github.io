@@ -232,7 +232,7 @@
   color: #fff;
 }
 body {
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   background-color: #fefefe;
 }
 ul {
@@ -306,7 +306,7 @@ img {
 .dividded-big {
   width: 5%;
   margin: 0 auto;
-  height: 2.4px;
+  height: 0.1rem;
   background-color: #000;
 }
 .dividded-middle {
@@ -554,7 +554,7 @@ h4 {
 }
 .article-title,
 .recent-article-title {
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 1.5em;
@@ -666,7 +666,7 @@ h4 {
 .footer-first {
   margin-bottom: 5px;
   overflow: hidden;
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-size: 0.8rem;
   font-style: normal;
   font-weight: 700;
@@ -707,7 +707,7 @@ h4 {
 }
 .site-page {
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
   display: inline-block;
   margin: 0;
@@ -925,7 +925,7 @@ h4 {
   padding: 5px;
   text-align: center;
   margin: 30px auto 40px auto;
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: 700;
   cursor: pointer;
@@ -1030,9 +1030,9 @@ h4 {
   text-align: center;
 }
 .post-page-title {
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.8em;
   width: 90%;
   margin: 0 auto 10px auto;
@@ -1042,9 +1042,9 @@ h4 {
   font-size: 0.4rem;
   text-align: center;
   margin: 15px auto 10px auto;
-  font-family: 'Open Sans', 'Noto Sans SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
+  font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, 'Open Sans', '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   display: inline-block;
 }
 .post-page-content {
