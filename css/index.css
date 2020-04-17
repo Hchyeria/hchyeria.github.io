@@ -204,7 +204,7 @@
   }
 }
 * {
-  font-size: 14.8px;
+  font-size: 14px;
   transition: 0.2s ease-out;
   box-sizing: border-box;
 }
@@ -953,7 +953,7 @@ h4 {
 #acticle-posts {
   width: 46%;
   margin: 0 auto;
-  font-size: 14.8px;
+  font-size: 14px;
 }
 .article-postimg {
   overflow: hidden;
