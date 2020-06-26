@@ -122,5 +122,5 @@ friends:
 # function
 mathjax:
   enable: true # or false
-  cdn: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' # required
+  cdn: https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_CHTML # required
 
