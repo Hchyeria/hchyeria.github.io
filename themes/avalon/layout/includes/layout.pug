@@ -115,7 +115,7 @@ html(lang=config.language)
         each url in theme.Highlight.jsPath
           script(src=url_for(url))
       script(src=url_for('/js/function/highlight/hljs.js'))
-    if page.hascode && theme.mathjax.enable
+    if page.hasmath && theme.mathjax.enable
       script(src=url_for(theme.mathjax.cdn))
     if isAbout
       script(src=url_for(theme.slide_img.scripts.skrollr))
