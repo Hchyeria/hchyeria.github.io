@@ -204,7 +204,6 @@
   }
 }
 * {
-  font-size: 14.4px;
   transition: 0.2s ease-out;
   box-sizing: border-box;
 }
@@ -230,6 +229,9 @@
 * ::-webkit-selection {
   background: #10141b;
   color: #fff;
+}
+html {
+  font-size: 88%;
 }
 body {
   font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
@@ -953,7 +955,7 @@ h4 {
 #acticle-posts {
   width: 46%;
   margin: 0 auto;
-  font-size: 14.4px;
+  font-size: 88%;
 }
 .article-postimg {
   overflow: hidden;

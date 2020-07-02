@@ -91,36 +91,36 @@
 <li>交换完，必须保证始终是配对的<br>上 code</li>
 </ul>
 <pre><code class="lang-java">public String backMergeSort(String input) {
-        if (input == null || input.length() &lt;= 1) {
-            return input;
-        }
-        char[] in = input.toCharArray();
-        convert(in, 0, in.length - 1);
-        return new String(in, 0, in.length);
+    if (input == null || input.length() &lt;= 1) {
+        return input;
     }
+    char[] in = input.toCharArray();
+    convert(in, 0, in.length - 1);
+    return new String(in, 0, in.length);
+}
 
-    private void convert(char[] input, int left, int right) {
-        if (right - left &lt;= 1) {
-            return;
-        }
-        int size = right - left + 1;
-        int mid = left + size / 2;
-        int leftMid = left + size / 4;
-        int rightMid = leftMid + size / 2;
-        reverse(input, leftMid, mid - 1);
-        reverse(input, mid, rightMid - 1);
-        reverse(input, leftMid, rightMid - 1);
-        convert(input, left, left + 2 * (leftMid - left) - 1);
-        convert(input, left + 2 * (leftMid - left), right);
+private void convert(char[] input, int left, int right) {
+    if (right - left &lt;= 1) {
+        return;
     }
+    int size = right - left + 1;
+    int mid = left + size / 2;
+    int leftMid = left + size / 4;
+    int rightMid = leftMid + size / 2;
+    reverse(input, leftMid, mid - 1);
+    reverse(input, mid, rightMid - 1);
+    reverse(input, leftMid, rightMid - 1);
+    convert(input, left, left + 2 * (leftMid - left) - 1);
+    convert(input, left + 2 * (leftMid - left), right);
+}
 
-    private void reverse(char[] input, int left, int right) {
-        while (left &lt; right) {
-            char temp = input[left];
-            input[left++] = input[right];
-            input[right--] = temp;
-        }
+private void reverse(char[] input, int left, int right) {
+    while (left &lt; right) {
+        char temp = input[left];
+        input[left++] = input[right];
+        input[right--] = temp;
     }
+}
 </code></pre>
 <h2 id="Count-of-Smaller-Numbers-After-Self"><a href="#Count-of-Smaller-Numbers-After-Self" class="headerlink" title="Count of Smaller Numbers After Self"></a>Count of Smaller Numbers After Self</h2><p><a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self" target="_blank" rel="noopener">LeetCode 315 Count of Smaller Numbers After Self</a><br>经典题目。这道题也可以用 Segment Tree 和 Binary Indexed Tree 来做，这里就只贴 Merge Sort 的解法。</p>
 <pre><code class="lang-java">class Solution {
