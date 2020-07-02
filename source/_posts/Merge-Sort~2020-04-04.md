@@ -28,36 +28,36 @@ Merge Sort 应该对大部分人来说是小菜一碟。分分钟就写出来了
 
 ```java
 public String backMergeSort(String input) {
-        if (input == null || input.length() <= 1) {
-            return input;
-        }
-        char[] in = input.toCharArray();
-        convert(in, 0, in.length - 1);
-        return new String(in, 0, in.length);
+    if (input == null || input.length() <= 1) {
+        return input;
     }
+    char[] in = input.toCharArray();
+    convert(in, 0, in.length - 1);
+    return new String(in, 0, in.length);
+}
 
-    private void convert(char[] input, int left, int right) {
-        if (right - left <= 1) {
-            return;
-        }
-        int size = right - left + 1;
-        int mid = left + size / 2;
-        int leftMid = left + size / 4;
-        int rightMid = leftMid + size / 2;
-        reverse(input, leftMid, mid - 1);
-        reverse(input, mid, rightMid - 1);
-        reverse(input, leftMid, rightMid - 1);
-        convert(input, left, left + 2 * (leftMid - left) - 1);
-        convert(input, left + 2 * (leftMid - left), right);
+private void convert(char[] input, int left, int right) {
+    if (right - left <= 1) {
+        return;
     }
+    int size = right - left + 1;
+    int mid = left + size / 2;
+    int leftMid = left + size / 4;
+    int rightMid = leftMid + size / 2;
+    reverse(input, leftMid, mid - 1);
+    reverse(input, mid, rightMid - 1);
+    reverse(input, leftMid, rightMid - 1);
+    convert(input, left, left + 2 * (leftMid - left) - 1);
+    convert(input, left + 2 * (leftMid - left), right);
+}
 
-    private void reverse(char[] input, int left, int right) {
-        while (left < right) {
-            char temp = input[left];
-            input[left++] = input[right];
-            input[right--] = temp;
-        }
+private void reverse(char[] input, int left, int right) {
+    while (left < right) {
+        char temp = input[left];
+        input[left++] = input[right];
+        input[right--] = temp;
     }
+}
 ```
 
 ## Count of Smaller Numbers After Self
