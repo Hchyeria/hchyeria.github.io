@@ -230,9 +230,6 @@
   background: #10141b;
   color: #fff;
 }
-html {
-  font-size: 88%;
-}
 body {
   font-family: 'Frank Ruhl Libre', 'Noto Serif SC', '-apple-system', BlinkMacSystemFont, '游ゴシック', '游ゴシック体', "ヒラギノ角ゴ Pro W3", "メイリオ", "ＭＳ Ｐゴシック", 'Helvetica Neue', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif;
   background-color: #fefefe;
@@ -382,17 +379,17 @@ strong {
 .box-shadow:active {
   box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 6px 8px 24px 0px rgba(0,0,0,0.1);
 }
-.aplayer {
-  width: 60%;
-}
-h2 {
-  font-size: 1.8em;
-}
-h3 {
+h1 {
   font-size: 1.6em;
 }
-h4 {
+h2 {
   font-size: 1.4em;
+}
+h3 {
+  font-size: 1.2em;
+}
+h4 {
+  font-size: 1em;
 }
 #img-slide {
   height: 100%;
@@ -1068,6 +1065,7 @@ h4 {
   letter-spacing: normal !important;
   line-height: 1.5;
   font-family: 'Source Code Pro', monospace, Monaco, Consolas, Menlo, "PingFang SC", 'Helvetica Neue For Number' !important;
+  font-size: 0.92em;
 }
 pre,
 code,
@@ -1188,6 +1186,8 @@ blockquote::before {
   font-style: italic;
   font-weight: 300;
   margin-left: 2px;
+  position: relative;
+  left: -2px;
 }
 .record-content {
   margin-top: 5px;
@@ -1526,6 +1526,9 @@ blockquote::before {
   animation: showfrombottomleft 0.5s forwards;
 }
 @media screen and (max-width: 980px) {
+  html {
+    font-size: 88%;
+  }
   .home-page-header {
     width: 100%;
     height: 40px;
@@ -1644,9 +1647,6 @@ blockquote::before {
   #content-outer {
     min-height: 500px;
   }
-  .aplayer {
-    width: auto;
-  }
   .record-flex-row {
     flex-direction: column-reverse;
   }
@@ -1689,6 +1689,10 @@ blockquote::before {
   }
   .post-page-content {
     width: 86%;
+  }
+  .about-content {
+    width: 90%;
+    margin: 0 auto;
   }
 }
 @font-face {font-family: "iconfont";
