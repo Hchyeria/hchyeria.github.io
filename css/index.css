@@ -952,7 +952,7 @@ h4 {
 #acticle-posts {
   width: 46%;
   margin: 0 auto;
-  font-size: 88%;
+  font-size: 90%;
 }
 .article-postimg {
   overflow: hidden;
@@ -1527,7 +1527,7 @@ blockquote::before {
 }
 @media screen and (max-width: 980px) {
   html {
-    font-size: 88%;
+    font-size: 90%;
   }
   .home-page-header {
     width: 100%;
