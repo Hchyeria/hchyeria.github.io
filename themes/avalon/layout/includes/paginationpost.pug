@@ -1,0 +1,28 @@
+- 
+  function findPage(currentPage, type) {
+    if (!currentPage) {
+      return false
+    }
+    if (page.record === currentPage.record) {
+      return currentPage;
+    }
+    return findPage(currentPage[type], type)
+  }
+- var isPrev = findPage(page.prev, 'prev')
+- var isNext = findPage(page.next, 'next')
+#pagination
+  .pagination
+    if(isPrev)
+      .prev-post-page.pull-left(title=isPrev.title)
+        a(href=url_for(isPrev.path)) PREV
+          i.material-icons.pull-left arrow_back
+    else
+      .prev-post-page.pull-left  PREV
+        i.material-icons.pull-left arrow_back
+    if(isNext)
+      .next-post-page.pull-right(title=isNext.title)
+        a(href=url_for(isNext.path)) NEXT 
+          i.material-icons.pull-right arrow_forward
+    else
+      .next-post-page.pull-right NEXT
+        i.material-icons.pull-right arrow_forward

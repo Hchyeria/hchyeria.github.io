@@ -22,5 +22,11 @@ block content
             +music(page.music)
           != page.content
           #post-view
+          include includes/paginationpost.pug
+    .post-comment-contain
+      .comment-logo
+        img(src='/img/comments.png')
+      .comment-block#comment-block
+      include ./includes/postcomment.pug
 
 
