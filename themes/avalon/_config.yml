@@ -83,7 +83,7 @@ record_num: 5
 # ---------------
 cdn:
   css:
-    MaterialIcons: https://fonts.loli.net/icon?family=Material+Icons
+    MaterialIcons: https://cdn.bootcdn.net/ajax/libs/material-design-icons/3.0.2/iconfont/material-icons.min.css
     google_font: https://fonts.googleapis.com/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&display=swap&subset=chinese-simplified
   js:
     zepto: /js/assets/zepto.min.js
@@ -91,15 +91,15 @@ cdn:
 # ---------------
 
 social:
-  github: https://github.com/Hchyeria
-  email: mailto:hhh@hchyeria.com
+  instagram: https://www.instagram.com/hchyeria/
   weibo: https://weibo.com/u/3832129396
-  linkedin: https://www.linkedin.com/in/%E5%8D%83%E6%85%A7-%E9%BB%84-1ba88815a/
   twitter: https://twitter.com/ryoogikizuna
+  github: https://github.com/Hchyeria
+  linkedin: https://www.linkedin.com/in/%E5%8D%83%E6%85%A7-%E9%BB%84-1ba88815a/
   stackOverflow: 
   youtube: 
-  instagram: https://www.instagram.com/hchyeria/
   bilibili: 
+  email: mailto:hhh@hchyeria.com
   
 google_analytics:
   enable: true
