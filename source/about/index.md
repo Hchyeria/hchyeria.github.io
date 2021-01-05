@@ -47,5 +47,3 @@ Hello, I'm Hchyeria.
 2017级本科生
 Software Engineering in Tianjin University
 Mail: [hhh@hchyeria.com](mailto:hhh@hchyeria.com)
-
-私はちょど日本語がわがりて、アルトリア・ペンドラゴン大好き、プログラミングが好きの少女です。気楽に[ツイッター](https://twitter.com/ryoogikizuna)で連絡してください～
