@@ -1390,6 +1390,7 @@ blockquote::before {
 .comment-data {
   width: 80%;
   margin-left: 20px;
+  overflow: hidden;
 }
 .comment-text {
   font-style: italic;
@@ -1404,7 +1405,6 @@ blockquote::before {
 }
 .comment-content {
   margin-top: 5px;
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   letter-spacing: 0.6px;
