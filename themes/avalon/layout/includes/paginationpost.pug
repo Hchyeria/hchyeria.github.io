@@ -3,7 +3,7 @@
     if (!currentPage) {
       return false
     }
-    if (page.record === currentPage.record) {
+    if (page.layout=== currentPage.layout) {
       return currentPage;
     }
     return findPage(currentPage[type], type)
