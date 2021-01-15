@@ -1471,6 +1471,7 @@ blockquote::before {
   padding: 10px 5px 0 5px;
   width: fit-content;
   max-width: 24%;
+  min-width: 40px;
   z-index: 999;
 }
 .menu-bottom input {
