@@ -30,6 +30,10 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: $font-size
+}
+
 body {
     font-family: $font-family
     background-color: $theme-background-color;
@@ -80,7 +84,10 @@ figure {
     display: inline-block;
     padding-left: 15px;
 }
-
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
 .material-icons.toggle-menu {
     float: right 
     padding-top: 8px

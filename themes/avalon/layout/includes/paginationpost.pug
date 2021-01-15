@@ -13,16 +13,22 @@
 #pagination
   .pagination
     if(isPrev)
-      .prev-post-page.pull-left(title=isPrev.title)
-        a(href=url_for(isPrev.path)) PREV
-          i.material-icons.pull-left arrow_back
+      .prev-post-page(title=isPrev.title)
+        a.vertical-center(href=url_for(isPrev.path)) 
+          i.material-icons arrow_back
+          span PREV
     else
-      .prev-post-page.pull-left  PREV
-        i.material-icons.pull-left arrow_back
+      .prev-post-page
+        .vertical-center
+          i.material-icons arrow_back
+          span PREV
     if(isNext)
-      .next-post-page.pull-right(title=isNext.title)
-        a(href=url_for(isNext.path)) NEXT 
-          i.material-icons.pull-right arrow_forward
+      .next-post-page(title=isNext.title)
+        a.vertical-center(href=url_for(isNext.path))
+          span NEXT 
+          i.material-icons arrow_forward
     else
-      .next-post-page.pull-right NEXT
-        i.material-icons.pull-right arrow_forward
+      .next-post-page
+        .vertical-center
+          span NEXT
+          i.material-icons arrow_forward
