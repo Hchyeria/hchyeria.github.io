@@ -2,13 +2,16 @@
 #pagination
     .pagination
         if(page.prev)
-            .prev-post-page.pull-left
-                a(href=url_for(page.prev_link)) PREV
-                    i.material-icons.pull-left arrow_back
+            .prev-post-page
+                a.vertical-center(href=url_for(page.prev_link)) 
+                    i.material-icons arrow_back
+                    span PREV
         else
-            .prev-post-page.pull-left  PREV
-                i.material-icons.pull-left arrow_back
-        .pag-num.pull-left
+            .prev-post-page
+                .vertical-center
+                    i.material-icons arrow_back
+                    span PREV
+        .pag-num
             if (page.current === 1)
                 span.item-list-page-num.active(title=1) 1
                 - for (var i=2;i<=page.total;i++)
@@ -27,9 +30,12 @@
                     a(href=url_for(archivePath + i + '/'))
                         span.item-list-page-num(title=i)= i
         if (page.next && page.current !== page.total)
-            .next-post-page.pull-right
-                a(href=url_for(page.next_link)) NEXT 
-                    i.material-icons.pull-right arrow_forward
+            .next-post-page
+                a.vertical-center(href=url_for(page.next_link)) 
+                    span NEXT 
+                    i.material-icons arrow_forward
         else
-            .next-post-page.pull-right NEXT
-                i.material-icons.pull-right arrow_forward
+            .next-post-page
+                .vertical-center
+                    span NEXT
+                    i.material-icons arrow_forward
