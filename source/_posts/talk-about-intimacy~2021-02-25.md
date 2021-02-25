@@ -2,7 +2,7 @@
 title: 记最后一次深夜小作文：谈谈亲密关系
 record: true
 author: Hchyeria
-description: 深夜失眠，胡思乱想。
+description: 深夜失眠，胡思乱想。真的是最后一次了，遭不住遭不住了。
 tags:
   - Life
   - Intimacy
