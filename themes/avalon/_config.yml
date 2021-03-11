@@ -81,8 +81,8 @@ record_num: 5
 # ---------------
 cdn:
   css:
-    MaterialIcons: https://cdn.bootcdn.net/ajax/libs/material-design-icons/3.0.2/iconfont/material-icons.min.css
-    google_font: https://fonts.googleapis.com/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&display=swap&subset=chinese-simplified
+    MaterialIcons: https://fonts.loli.net/icon?family=Material+Icons
+    google_font: https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&display=swap&subset=chinese-simplified
   js:
     zepto: /js/assets/zepto.min.js
 
