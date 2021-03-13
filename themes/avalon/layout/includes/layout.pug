@@ -118,7 +118,7 @@ html(lang=config.language)
     if page.hasmath && theme.mathjax.enable
       script(src=url_for(theme.mathjax.cdn))
     if isAbout
-      script(src=url_for(theme.slide_img.scripts.skrollr))
+      //- script(src=url_for(theme.slide_img.scripts.skrollr))
       script(src=url_for('/js/about/about.js'))
     if isRecord
       script(src=url_for('/js/plugins/masonry.js'))

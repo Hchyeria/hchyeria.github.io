@@ -59,7 +59,7 @@ function_script:
 
 # img slide on about page setting
 slide_img:
-  enable: true
+  enable: false
   size: 4
   scripts:
     vegas: /js/assets/vegas.min.js
