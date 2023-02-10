@@ -1,5 +1,5 @@
 ---
-title: 记最后一次深夜小作文：谈谈亲密关系
+title: 记一次深夜小作文：谈谈亲密关系
 record: true
 author: Hchyeria
 description: 深夜失眠，胡思乱想。最后一次，真的是最后一次了，遭不住遭不住了。
@@ -9,6 +9,7 @@ tags:
   - Think
 photos:
   - /main.jpg
+isHide: true
 hasMusic: true
 music:
   - name: Hope There's Someone

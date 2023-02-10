@@ -16,10 +16,10 @@ music: [
 
 # About Me
 
-Hello, I'm Hchyeria. 
+Hello, I'm Hchyeria.
 热爱生活，喜欢 Code、读书、音乐、演奏乐器、电影、视觉艺术、音乐剧，还有健身。
 
-目标是成为优秀的 Software Engineer。
+目标是成为优秀的 Geeker。
 
 站名叫做 Avalon，意为遗世独立的理想乡。
 
@@ -34,7 +34,7 @@ Hello, I'm Hchyeria.
 但是会很无畏的面对世俗的恶意。
 严重路痴，自己能把自己气死的程度。
 但是最不迷茫的就是对自我的认知。
-非常容易陷入自卑。
+非常容易陷入自责。
 但是尝尝为能够完成常人无法完成和坚持的事而为自己鼓掌。
 拥有些小众爱好。比如喜欢听 OST、古典。
 
@@ -44,4 +44,4 @@ Hello, I'm Hchyeria.
 
 2017级本科生
 Software Engineering in Tianjin University
-Mail: [hhh@hchyeria.com](mailto:hhh@hchyeria.com)
+Mail: [Hchyeria@outlook.com](mailto:Hchyeria@outlook.com)
