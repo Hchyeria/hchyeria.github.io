@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="About"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="blog,avalon"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>About</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><div id="about-content" data-0="top:0px" data-100="top:-200px"><div class="about-content"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"/><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="aplayer"></div><script id="music-source" data-src="[{&quot;name&quot;:&quot;reflexion,allegretto,you&quot;,&quot;artist&quot;:&quot;牛尾憲輔&quot;,&quot;url&quot;:&quot;/music/reflexion,allegretto,you.mp3&quot;,&quot;cover&quot;:&quot;/music/reflexion,allegretto,you.jpg&quot;}]">document.addEventListener('DOMContentLoaded', function() { 
+    var data = JSON.parse($('#music-source')[0].dataset.src)
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        theme: '#fff100',
+        listFolded: true,
+        order: 'random',
+        audio: data
+    });
+})</script><h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><p>Hello, I’m Hchyeria.<br>热爱生活，喜欢 Code、读书、音乐、演奏乐器、电影、视觉艺术、音乐剧，还有健身。</p>
+<p>目标是成为优秀的 Geeker。</p>
+<p>站名叫做 Avalon，意为遗世独立的理想乡。</p>
+<p>是一个忽左忽右，对现实悲观对未来乐观的人。<br>一个耐心、温和、细水长流的人。<br>但是对讨厌的人极其无情冷漠。连一个敷衍的嗯字都不会回的那种。<br>也是一个蛮有毅力的人。<br>还有着不失幽默的正经儿。<br>热心好市民甲。通常是觉得无法坐视不管，当看到眼前的人需要帮助。<br>一个独自在小房间会被很大的声音（冲马桶的水流声、吹风机的轰轰声）吓得半死的胆小的人。打死都不会看恐怖片。<br>通常我会用唱歌来壮胆。<br>但是会很无畏的面对世俗的恶意。<br>严重路痴，自己能把自己气死的程度。<br>但是最不迷茫的就是对自我的认知。<br>非常容易陷入自责。<br>但是尝尝为能够完成常人无法完成和坚持的事而为自己鼓掌。<br>拥有些小众爱好。比如喜欢听 OST、古典。</p>
+<p>理想生活是每天能有时间读书、练琴、看电影、磕CP、健身、写代码。每年都能抽空出国旅游。<br>喜欢我的专业，喜欢编程，喜欢学习新技术。<br>努力实现梦想中…(ง •_•)ง</p>
+<p>Mail: <a href="mailto:Hchyeria@outlook.com">Hchyeria@outlook.com</a></p>
+<div class="personal-sign"><img src="/img/author.svg"></div></div><div id="social-content"><div class="social-content"><a href="https://www.instagram.com/hchyeria/" target="_blank" title="Instagram"><span class="iconfont icon-instagram"></span></a><a href="https://weibo.com/u/3832129396" target="_blank" title="Weibo"><span class="iconfont icon-weibo"></span></a><a href="https://twitter.com/ryoogikizuna" target="_blank" title="Twitter"><span class="iconfont icon-twitter"></span></a><a href="https://github.com/Hchyeria" target="_blank" title="Github"><span class="iconfont icon-github"></span></a><a href="https://www.linkedin.com/in/%E5%8D%83%E6%85%A7-%E9%BB%84-1ba88815a/" target="_blank" title="Linkedin"><span class="iconfont icon-linkedin"></span></a><a href="mailto:hhh@hchyeria.com" target="_blank" title="Email"><span class="iconfont icon-email"></span></a></div><div class="social-text">You can contact me by these ways</div></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/about/about.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

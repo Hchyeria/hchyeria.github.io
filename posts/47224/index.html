@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="树的最近公共祖先"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm,Tree"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Lowest Common Ancestor</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm/Tree</div><div class="post-page-title">Lowest Common Ancestor</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2019-09-05T16:00:00.000Z">September 6, 2019</div></div><div class="post-page-content"><p>这几天忙着做专业课程设计2。学习了很多有意思的算法和数据结构。在此记录一下。<br>这篇是关于 Lowest Common Ancestor。</p>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>题目要求<br>某个太空神秘国度中有很多美丽的小村，从太空中可以望见，小村间有路相连，更精确一点说，任意两村之间有且仅有一条路径。<br>小村A中有位年轻人爱上了自己村里的美丽姑娘。每天早晨，姑娘都要去小村B里的面包房工作，傍晚6点回到家。年轻人终于决定要向姑娘表白，他打算在小村C等着姑娘路过的时候把爱慕说出来。问题是，他不能确定小村C是否在小村B到小村A之间的路径上。你可以帮他解决这个问题吗？<br>输入要求：输入由若干组测试数据组成。<br>每组数据的第1行包含一正整数 N(1&lt;=N&lt;=50000），代表神秘国度中小村的个数，每个小村即从0到 N-1 编号。接下来有N-1行输人，每行包含一条双向道路的两个端点小村的编号，中间用空格分开。<br>之后一行包含一正整数 M(1&lt;=M&lt;=500000），代表着该组测试问题的个数。接下来M行，每行给出 A、B、C 三个小村的编号，中间用空格分开。<br>当N为0时，表示全部测试结束，不要对该数据做任何处理。<br>输出要求：对每一组测试给定的 A、B、C，在一行里输出答案<br>即：如果C在A和B之间的路径上，输出 Yes，否则输出 No<br>输入例子：<br>3<br>0 1<br>1 2<br>3<br>0 2 1<br>1 2 0<br>1 2 1<br>0<br>输出例子：<br>注意：该题目应设计大规模的测试数据，所以用C语言中的 scanf 和 printf 做输入输出会比用 cin 和 cout 快，可以避免因为输入输出而超时<br>这道题其实可以转化为求最近公共祖先。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="Primary"><a href="#Primary" class="headerlink" title="Primary"></a>Primary</h3><p>我们一般就最近公共祖先的方法，如下:<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">LeetCode 236 Lowest Common Ancestor of a Binary Tree</a></p>
+<pre><code class="lang-java">class Solution &#123;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123;
+        if (root == null || root == p || root == q) &#123;
+            return root;
+        &#125;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null &amp;&amp; right != null) &#123;
+            return root;
+        &#125;
+        return left == null ? right : left;
+    &#125;
+&#125;
+</code></pre>
+<p>但是这道题用了比较特殊的方法求。</p>
+<h3 id="Special"><a href="#Special" class="headerlink" title="Special"></a>Special</h3><p>两个问题：</p>
+<ol>
+<li>如何快速判断一个点是否是另外一个点的祖先？</li>
+<li>如果 C 是 A、B 两点的共同祖先，如何快速判断它是否是最低的?</li>
+</ol>
+<p>对于第一个问题，可以用深度优先搜索遍历一遍，记录每个节点的入栈时间及出栈时间，然后判断其包含关系。<br>例如：下图是一棵深度优先搜索树，每个节点左下角的数字表示第一次访问该节点即入栈时间，右下角数字表示离开该节点即出栈时间。要判断点A是否是点C的祖先，只要判断区间 [1，20] 是否包含了区间 [4，15]，因此每次判断的复杂度是 O（1）的。</p>
+<p><div align=center><img class="post-img-middle" src="/posts/47224/1.png" /></p>
+<p><div align=center class="img-undertext">DFS 入栈及出栈时间<div class="img-undertext-divi"></p>
+<p>对于第二个问题，例如要判断 A 是否是 G 和 J 的最低公共祖先，其实就是看是否有比A更低的祖先，如果有则说明A不是最低的。由于 A 下面还有 C 这个节点，因此可以得出 A 不是 G 和 J 的最低公共祖先，而C则找不到这样的一个儿子节点，因此它是最低的。<br>很自然想到的方法是遍历 A 的所有儿子节点，逐个判断它是否是 G 和 J 的公共祖先。但是这样有可能退化成 O(N) 的复杂度。<br>仔细观察这棵深度优先搜索树，又可以发现一个非常有趣的规律：<br>如果从左到右列出A的四个儿子节点 B、C、D、E的入栈时间及出栈时间：[2，3]、[4,15]、[16,17]、[18,19]，不难发现这个区间数列是递增的。于是得到了一个更快的方法：只要在这个递增的区间数列中 Binary Search 是否有 [6,12] 这个区间即可（6是G的人栈时间，12是J的出栈时间），因此复杂度就降到了 O(log2N)。</p>
+<pre><code class="lang-python">import queue
+from collections import deque
+
+import math
+
+# 定义节点类
+# 节点有 入栈 in_stack 和出栈 out_stack 的时间信息
+# next 数组 记录邻接节点
+# val 记录村落编号
+class Node:
+    def __init__(self, val):
+        self.in_stack = 0
+        self.out_stack = 0
+        self.next = []
+        self.val = val
+
+    def __repr__(self):
+        return repr((self.val, self.in_stack, self.out_stack))
+
+
+# 定义一个图类
+# 村落之间任意两个都有一条路可以连通
+# 实际上就是一颗树 特殊的图
+class Graph:
+    def __init__(self, n):
+        self.root = Node
+        # 储存所有节点信息
+        self.node = [None for i in range(n)]
+
+        # 储存深度信息
+        # 便于能够过滤一些邻接节点
+        self.deep = [0] * n
+
+    # 添加节点的函数
+    def add(self, u: int, v: int):
+        # 如果不存在 则创建一个
+        if not self.node[u]:
+            self.node[u] = Node(u)
+        if not self.node[v]:
+            self.node[v] = Node(v)
+        # 添加相应节点的邻接节点
+        if self.node[v] not in self.node[u].next:
+            self.node[u].next.append(self.node[v])
+        if self.node[u] not in self.node[v].next:
+            self.node[v].next.append(self.node[u])
+
+    # 广度优先设置深度信息
+    def bfs(self):
+        # 利用队列的先进先出的特点 方便实现广度优先遍历
+        q = queue.Queue()
+        # 起点深度为 1
+        self.deep[self.node[0].val] = 1
+        q.put(0)
+        while not q.empty():
+            ptr = q.get()
+            front = self.node[ptr]
+            first = self.node[ptr].next
+            # 将还没有深度值的子节点的深度值更新
+            for item in first:
+                if not self.deep[item.val]:
+                    self.deep[item.val] = self.deep[front.val] + 1
+                    q.put(item.val)
+
+    # 设置 出入栈 的时间
+    def set_stack_time(self):
+        # 利用 deque 实现
+        my_stack = deque()
+        set_stack_time(0, my_stack, 1, self.deep, self.node)
+
+    # 判断 c 是否在 a b 路径上
+    def judge_same(self, a, b, c):
+        # 如果等于其中一个 返回 True
+        if c == a or c == b:
+            return True
+        # 取出 a b c 的入栈出栈时间值
+        a_in = self.node[a].in_stack
+        a_out = self.node[a].out_stack
+        b_in = self.node[b].in_stack
+        b_out = self.node[b].out_stack
+        c_in = self.node[c].in_stack
+        c_out = self.node[c].out_stack
+        c_deep = self.deep[self.node[c].val]
+        # 保证 a 始终在左边
+        if a_in &gt; b_in:
+            b_out, a_out = a_out, b_out
+            b_in, a_in = a_in, b_in
+        # 考虑边缘情况 如果 a b 紧邻 那么 c 肯定不在 ab 路径上 返回 False
+        if a_in == b_in - 1:
+            return False
+        # 如果  c 是 a 的祖先节点 并且不是 b 的祖先节点 返回 True
+        if c_in &lt; a_in and c_out &lt; b_in:
+            return True
+        # 如果  c 是 b 的祖先节点 并且不是 a 的祖先节点 返回 True
+        if c_in &gt; a_out and c_out &gt; b_out:
+            return True
+        # 如果 c 是 a b 的共同祖先节点
+        # 那么 c 必须是最近的共同祖先节点 才能返回 True
+        # 我们只需证明 c 的子节点里面 没有 ab 的共同祖先节点 即可
+        elif c_in &lt; a_in and c_out &gt; b_out:
+            # 过滤掉深度值不够的节点 即不是 c 的子节点的节点
+            array = list(filter(
+                lambda x: self.deep[x.val] &gt; c_deep,
+                self.node[c].next
+            ))
+            # 因为子节点入栈出栈时间区间也是呈递增的 可以使用二分查找
+            return True if binary_search(a_in, b_out, array) else False
+        # 考虑边缘情况 当 b 是 a 的祖先的时候 即 a b c 呈一条直线
+        elif c_in &gt; a_in and c_in &lt; b_in:
+            return True
+        else:
+            return False
+
+
+# 递归调用 深度优先 返回 count 值为下一个节点所用
+# count 是用来递增的记录节点的出栈和入栈值
+def set_stack_time(index, my_stack, count, deep, node_array):
+    # 获取当前节点 如果是空直接返回 count
+    node = node_array[index]
+    if not node:
+        return count
+    # 更新当前节点的入栈值 并且 count + 1
+    node.in_stack = count
+    count += 1
+    # 压入栈中
+    my_stack.append(node)
+    front = node.next
+    parent_deep = deep[node.val]
+    # 循环取出邻接节点
+    for item in front:
+        # 当邻接节点的深度值更大才进行递归
+        if deep[item.val] &gt; parent_deep:
+            # 递归调用 邻接节点
+            count = set_stack_time(item.val, my_stack, count, deep, node_array)
+    # 出栈
+    temp = my_stack.pop()
+    # 更新出栈时间值 并且 count + 1
+    temp.out_stack = count
+    count += 1
+    # 返回 count 值
+    return count
+
+
+# 二分查找 每次搜索范围减半
+def binary_search(a_in, b_out, array):
+    left = 0
+    right = len(array) - 1
+    mid = left + ((right - left) // 2)
+    while left &lt;= right:
+        mid_node = array[mid]
+        m_in = mid_node.in_stack
+        m_out = mid_node.out_stack
+        # 如果存在 ab的共同祖先节点 返回 False
+        if m_in &lt; a_in and m_out &gt; b_out:
+            return False
+        elif m_out &lt; a_in:
+            left = mid + 1
+        else:
+            right = mid - 1
+    # 没有找到 返回 True
+    return True
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/Hchyeria/some-data-structure-and-algorithm">Github 源码地址</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Union Find"><a class="vertical-center" href="/posts/57807/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Backpack Problem"><a class="vertical-center" href="/posts/11971/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Question"><span class="toc-text">Question</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Primary"><span class="toc-text">Primary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Special"><span class="toc-text">Special</span></a></li></ol></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="巧用 Merge Sort 解决一些难题"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm,Sort"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Merge-Sort</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm/Sort</div><div class="post-page-title">Merge-Sort</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2020-03-24T16:00:00.000Z">March 25, 2020</div></div><div class="post-page-content"><p>Merge Sort 应该对大部分人来说是小菜一碟。分分钟就写出来了。但是 Merge Sort 也能变得很难，难点在它的精髓。<br>那么 Merge Sort 的精髓是什么？是递归分治？是每对元素只比较一次？是稳定排序？<br>以上都是，哈哈哈。但是要吃透还是很难的。下面我们来看几道题就懂了</p>
+<h2 id="Merge-Sort-倒着来"><a href="#Merge-Sort-倒着来" class="headerlink" title="Merge Sort 倒着来"></a>Merge Sort 倒着来</h2><p>先来个开胃的。<br>怎样实现 “ABCDE12345” -&gt; “A1B2C3D4E5”？<br>可能大家都会 “A1B2C3D4E5” -&gt; “ABCDE12345”，sort 一下就好了，但是怎么反过来呢？<br>先想5分钟。<br>好，5分钟到了。看标题，就是倒着来 Merge Sort。<br>注意：</p>
+<ul>
+<li>奇偶数的情况</li>
+<li>交换完，必须保证始终是配对的<br>上 code</li>
+</ul>
+<pre><code class="lang-java">public String backMergeSort(String input) &#123;
+    if (input == null || input.length() &lt;= 1) &#123;
+        return input;
+    &#125;
+    char[] in = input.toCharArray();
+    convert(in, 0, in.length - 1);
+    return new String(in, 0, in.length);
+&#125;
+
+private void convert(char[] input, int left, int right) &#123;
+    if (right - left &lt;= 1) &#123;
+        return;
+    &#125;
+    int size = right - left + 1;
+    int mid = left + size / 2;
+    int leftMid = left + size / 4;
+    int rightMid = leftMid + size / 2;
+    reverse(input, leftMid, mid - 1);
+    reverse(input, mid, rightMid - 1);
+    reverse(input, leftMid, rightMid - 1);
+    convert(input, left, left + 2 * (leftMid - left) - 1);
+    convert(input, left + 2 * (leftMid - left), right);
+&#125;
+
+private void reverse(char[] input, int left, int right) &#123;
+    while (left &lt; right) &#123;
+        char temp = input[left];
+        input[left++] = input[right];
+        input[right--] = temp;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="Count-of-Smaller-Numbers-After-Self"><a href="#Count-of-Smaller-Numbers-After-Self" class="headerlink" title="Count of Smaller Numbers After Self"></a>Count of Smaller Numbers After Self</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-of-smaller-numbers-after-self">LeetCode 315 Count of Smaller Numbers After Self</a><br>经典题目。这道题也可以用 Segment Tree 和 Binary Indexed Tree 来做，这里就只贴 Merge Sort 的解法。</p>
+<pre><code class="lang-java">class Solution &#123;
+    public List&lt;Integer&gt; countSmaller(int[] nums) &#123;
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        if (nums == null || nums.length == 0) &#123;
+            return res;
+        &#125;
+        int n = nums.length;
+        int[] helper = new int[n];
+        int[] indexArray = new int[n];
+
+        for (int i = 0; i &lt; n; ++i) &#123;
+            indexArray[i] = i;
+            res.add(0);
+        &#125;
+        mergeSort(nums, 0, n - 1, res, indexArray, helper);
+
+        return res;
+    &#125;
+
+    private void mergeSort(int[] nums, int start, int end, List&lt;Integer&gt; res, 
+                           int[] indexArray, int[] helper) &#123;
+        if (start &gt;= end) &#123;
+            return;
+        &#125;
+        int mid = start + (end - start) / 2;
+        mergeSort(nums, start, mid, res, indexArray, helper);
+        mergeSort(nums, mid + 1, end, res, indexArray, helper);
+        merge(nums, start, mid, end, res, indexArray, helper);
+    &#125;
+
+    private void merge(int[] nums, int start, int mid, 
+                       int end, List&lt;Integer&gt; res, int[] indexArray, int[] helper) &#123;
+        System.arraycopy(indexArray, start, helper, start, end - start + 1);
+        int left = start;
+        int right = mid + 1;
+        int p = start;
+
+        while (left &lt;= mid) &#123;
+            if (right &gt; end || nums[helper[left]] &lt;= nums[helper[right]]) &#123;
+                indexArray[p++] = helper[left];
+                res.set(helper[left], res.get(helper[left]) + right - (mid + 1));
+                left++;
+            &#125; else &#123;
+                indexArray[p++] = helper[right++];
+            &#125;
+        &#125;
+    &#125;
+    // Time Complexity: O(n * log(n))
+    // Space Complexity: O(n)
+&#125;
+</code></pre>
+<p>是不是非常巧妙</p>
+<h2 id="Count-of-Range-Sum"><a href="#Count-of-Range-Sum" class="headerlink" title="Count of Range Sum"></a>Count of Range Sum</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/count-of-range-sum">LeetCode 327 Count of Range Sum</a><br>同样，其实和上面的是一道题，换了个马甲</p>
+<pre><code class="lang-java">class Solution &#123;
+    public int countRangeSum(int[] nums, int lower, int upper) &#123;
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        int n = nums.length;
+        // pay attention, must n + 1
+        // otherwise, will miss the case , the first i sum
+        // the first i sum is preSum[i], not need to -preSum[j], j &lt; i
+        long[] preSum = new long[n + 1];
+        for (int i = 0; i &lt; n; ++i) &#123;
+            preSum[i + 1] = i == 0 ? nums[i] : preSum[i] + nums[i];
+        &#125;
+        long[] helper = new long[n + 1];
+        return mergeSort(preSum, 0, n, lower, upper, helper);
+    &#125;
+
+    private int mergeSort(long[] sum, int start, int end, int lower, int upper, long[] helper) &#123;
+        if (start &gt;= end) &#123;
+            return 0;
+        &#125;
+        int mid = start + (end - start) / 2;
+        int left = mergeSort(sum, start, mid, lower, upper, helper);
+        int right = mergeSort(sum, mid + 1, end, lower, upper, helper);
+        return merge(sum, start, mid, end, lower, upper, helper) + left + right;
+    &#125;
+
+    private int merge(long[] sum, int start, int mid, int end, int lower, int upper, long[] helper) &#123;
+        int left = start, right = mid + 1, p = mid + 1, k = mid + 1, t = start;
+        System.arraycopy(sum, start, helper, start, end - start + 1);
+        int count = 0;
+        while (left &lt;= mid) &#123;
+            while (k &lt;= end &amp;&amp; helper[k] - helper[left] &lt; lower) ++k;
+            while (p &lt;= end &amp;&amp; helper[p] - helper[left] &lt;= upper) ++p;
+            while (right &lt;= end &amp;&amp; helper[right] &lt; helper[left]) &#123;
+                sum[t++] = helper[right++];
+            &#125;
+            sum[t++] = helper[left++];
+            count += p - k;
+        &#125;
+
+        return count;
+    &#125;
+    // Time = O(n * log(n))
+    // Space = O(n helper, preSum + log(n) call-stack)
+&#125;
+</code></pre>
+<h2 id="Reverse-Pairs"><a href="#Reverse-Pairs" class="headerlink" title="Reverse Pairs"></a>Reverse Pairs</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/reverse-pairs">LeetCode 493 Reverse Pairs</a><br>依然是相似的类型</p>
+<pre><code class="lang-java">class Solution &#123;
+    public int reversePairs(int[] nums) &#123;
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        int n = nums.length;
+        int[] helper = new int[n];
+        return mergeSort(nums, 0, n - 1, helper);
+    &#125;
+
+    private int mergeSort(int[] nums, int start, int end, int[] helper) &#123;
+        if (start &gt;= end) &#123;
+            return 0;
+        &#125;
+        int res  = 0;
+        int mid = start + (end - start) / 2;
+        res += mergeSort(nums, start, mid, helper);
+        res += mergeSort(nums, mid + 1, end, helper);
+        System.arraycopy(nums, start, helper, start, end - start + 1);
+        int l = start, r = mid + 1;
+        int p = start, t = mid + 1;
+        long temp = 0L; // 2 * helper[t] maybe overflow
+        while (l &lt;= mid) &#123;
+            // can&#39;t write like this
+            // int t = end;
+            // while (t &gt; mid &amp;&amp; ((temp = 2L * helper[t]) &gt;= helper[l])) &#123;
+            //     t--;
+            // &#125;
+            // res += t - mid;
+            // because t is monotonic changed, during while loop
+            // if we use t--, we should initial t as end every loop
+            // the time will be n^2, will cause TLE
+            while (t &lt;= end &amp;&amp; ((temp = 2L * helper[t]) &lt; helper[l])) &#123;
+                t++;
+            &#125;
+            if (t &gt; mid + 1) &#123;
+                res += t - (mid + 1);
+            &#125;
+            while (r &lt;= end &amp;&amp; helper[r] &lt; helper[l]) &#123;
+                nums[p++] = helper[r++];
+            &#125;
+            nums[p++] = helper[l++];
+        &#125;
+        return res;
+    &#125;
+    // Time = O(n * log(n))
+    // Space = O(n + log(n))
+&#125;
+</code></pre>
+<h2 id="Max-Sum-of-Rectangle-No-Larger-Than-K"><a href="#Max-Sum-of-Rectangle-No-Larger-Than-K" class="headerlink" title="Max Sum of Rectangle No Larger Than K"></a>Max Sum of Rectangle No Larger Than K</h2><p>比较难的一道题，Merge Sort 在里面只是一个 helper function。更难的还有其他的知识点，下次有机会再说吧。</p>
+<pre><code class="lang-java">class Solution &#123;
+    // Solution 1: use TreeSet to do Binary Search
+    public int maxSumSubmatrix(int[][] matrix, int k) &#123;
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) &#123;
+            return 0;
+        &#125;
+        int row = matrix.length, col = matrix[0].length;
+        int m = Math.min(row, col);
+        int n = Math.max(row, col);
+        boolean isColBig = n == col;
+        long[] sum = new long[n + 1];
+        int res = Integer.MIN_VALUE;
+        TreeSet&lt;Long&gt; set = new TreeSet&lt;&gt;();
+        for (int i = 0; i &lt; m; ++i) &#123;
+            long[] preSum = new long[n];
+            for (int j = i; j &lt; m ; ++j) &#123;
+                set.clear();
+                set.add(0L);
+                for (int p = 0; p &lt; n; ++p) &#123;
+                    preSum[p] += isColBig ? matrix[j][p] : matrix[p][j];
+                    sum[p + 1] = sum[p] + preSum[p];
+                    Long cur = set.ceiling(sum[p + 1] - k);
+                    if (cur != null) &#123;
+                        res = Math.max(res, (int) (sum[p + 1] - cur));
+                        if (res == k) &#123;
+                            return k;
+                        &#125;
+                    &#125;
+                    set.add(sum[p + 1]);
+                &#125;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+    // min = min(m, n), max = max(m, n)
+    // Time = O(min ^ 2 * max*loh(max))
+    // Space = O(max)
+
+    // Solution 2: use mergeSort
+    public int maxSumSubmatrix2(int[][] matrix, int k) &#123;
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) &#123;
+            return 0;
+        &#125;
+        int row = matrix.length, col = matrix[0].length;
+        int m = Math.min(row, col);
+        int n = Math.max(row, col);
+        boolean isColBig = n == col;
+        long[] sum = new long[n + 1];
+        int res = Integer.MIN_VALUE;
+        long[] helper = new long[n + 1];
+        for (int i = 0; i &lt; m; ++i) &#123;
+            long[] preSum = new long[n];
+            for (int j = i; j &lt; m ; ++j) &#123;
+                long sub = Integer.MIN_VALUE;
+                long curMax = Integer.MIN_VALUE;
+                for (int p = 0; p &lt; n; ++p) &#123;
+                    preSum[p] += isColBig ? matrix[j][p] : matrix[p][j];
+                    sum[p + 1] = sum[p] + preSum[p];
+
+                    sub = Math.max(sub + preSum[p], preSum[p]);
+                    curMax = Math.max(curMax, sub);
+                &#125;
+                if (curMax &lt;= k) &#123;
+                    res = Math.max(res, (int) curMax);
+                &#125; else &#123;
+                    res = Math.max(res, mergeSort(sum, 0, n, k, helper));
+                &#125;
+                if (res == k) &#123;
+                    return k;
+                &#125;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+
+    private int mergeSort(long[] sum, int start, int end , int k, long[] helper) &#123;
+        if (start &gt;= end) &#123;
+            return Integer.MIN_VALUE;
+        &#125;
+        int mid = start + (end - start) / 2;
+        int left = mergeSort(sum, start, mid, k, helper);
+        if (left == k) &#123;
+            return k;
+        &#125;
+        int right = mergeSort(sum, mid + 1, end, k, helper);
+        if (right == k) &#123;
+            return k;
+        &#125;
+        int l = start, r = mid + 1;
+        int p = start, t = mid + 1;
+        System.arraycopy(sum, start, helper, start, end - start + 1);
+        int res = Math.max(left, right);
+        while (l &lt;= mid) &#123;
+            while (t &lt;= end &amp;&amp; helper[t] - helper[l] &lt;= k) &#123;
+                t++;
+            &#125;
+            if (t - 1 &gt; mid) &#123;
+                res = Math.max(res, (int) (helper[t - 1] - helper[l]));
+                if (res == k) &#123;
+                    return k;
+                &#125;
+            &#125;
+            while (r &lt;= end &amp;&amp; helper[r] &lt; helper[l]) &#123;
+                sum[p++] = helper[r++];
+            &#125;
+            sum[p++] = helper[l++];
+        &#125;
+        return res;
+    &#125;
+    // min = min(m, n), max = max(m, n)
+    // Time = O(min ^ 2 * max*log(max))
+    // Space = O(max + log(max))
+&#125;
+</code></pre>
+<p>不得不赞叹 Merge Sort 真是太牛逼了。它的思想也值得借鉴。</p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Backpack Problem"><a class="vertical-center" href="/posts/11971/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Re: 2020"><a class="vertical-center" href="/posts/48430/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge-Sort-%E5%80%92%E7%9D%80%E6%9D%A5"><span class="toc-text">Merge Sort 倒着来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Count-of-Smaller-Numbers-After-Self"><span class="toc-text">Count of Smaller Numbers After Self</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Count-of-Range-Sum"><span class="toc-text">Count of Range Sum</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reverse-Pairs"><span class="toc-text">Reverse Pairs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Max-Sum-of-Rectangle-No-Larger-Than-K"><span class="toc-text">Max Sum of Rectangle No Larger Than K</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

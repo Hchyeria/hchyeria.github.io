@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="网络流算法"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm,Graph"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>NetWork Flow</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm/Graph</div><div class="post-page-title">NetWork Flow</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2019-09-02T16:00:00.000Z">September 3, 2019</div></div><div class="post-page-content"><p>这几天忙着做专业课程设计2。学习了很多有意思的算法和数据结构。在此记录一下。<br>这篇是关于 NetWork-Flow（网络流）。<br>啥是网络流呢，网上有很多教程，这里我就不赘诉了。直接上题目。</p>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>网络流:宇宙旅行<br>题目要求<br>在走遍了地球上的所有景点以后，旅游狂人开始计划他的宇宙旅行项目。经过谨慎调查，他目前掌握了一张各卫星空间站可以临时容纳的旅客人数的列表。当旅客从一个星球飞往另一个星球时，需要在若干卫星空间站临时停靠中转，而这些空间站不能接待任何旅客驻留，旅客必须立刻转乘另一艘飞船离开，所以空间站不能接待超过自己最大容量的旅客流。为了估计预算，现在旅游狂人需要知道终点星球的接待站应该设计多大容量，才能使得每艘飞船在到达时都可以保证让全部旅客下船。<br>输入要求：<br>输人由若干组测试数据组成。<br>每组测试数据的第1行包含旅行的起点星球和终点星球的名称和一个不超过500的正整数N(N为0标志全部测试结束，不要对该数据做任何处理)。<br>接下来的N 行里，数据格式为： source, destination, capacity，其中 source 和 destination 是卫星空间站的名称或起点、终点星球的名称，正整数 capacity 是飞船从 source 到 dest­nation —次能运载的最大旅客流量。每个名称是由 A 〜Z 之间 3 个大写字母组成的字符串，例如ZJU。<br>测试数据中不包含任何到达起点星球的信息以及任何从终点星球出发的信息。<br>输出要求：<br>对每一组测试，在一行里输出终点星球接待站应具有的最小容量，使得每艘飞船在到达时都可以保证让全部旅客下船。<br>输入例子：<br>EAR MAR 8<br>EAR AAA 300<br>EAR BBB 200<br>AAA BBB 100<br>AAA CCC 300<br>BBB DDD 200<br>AAA DDD 400<br>CCC MAR 200<br>DDD MAR 300<br>EAR MAR 8<br>EAR AAA 300<br>AAA BBB 400<br>EAR DDD 200<br>AAA DDD 100<br>AAA CCC 300<br>DDD BBB 200<br>CCC MAR 200<br>BBB MAR 300<br>ABC DEF 0<br>输出例子：<br>500<br>500</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>这道题还得写个生成大量测试数据的程序脚本。<br>我觉得代码注释已经很详细了。</p>
+<pre><code class="lang-python"># -*- coding:utf-8 -*-
+&quot;&quot;&quot;
+    Network flows: the universal tour
+    Question 3
+    Author: Hchyeria
+&quot;&quot;&quot;
+import queue
+
+# 定义图的边的类
+class Edge:
+    def __init__(self, u: int, v: int, w: int):
+        self.u = u
+        self.v = v
+        self.w = w
+
+
+# 运用 Dinik 网络流算法解决
+# 比起传统的 Ff 算法 Dinik 算法能够利用 图的deep的概念 选择增广路径的时候只能选择 deep 递增的一条
+# 优化了寻找增广路径的算法
+# 该算法理论时间复杂度可以达到 O(n*2)
+# 但本题经过了一些性能优化 实际上运行的效果不错 速度也快
+# 具体优化的细节:
+# 1：当前弧优化; 对于一些已经找过的节点 它的前面几条路径已经访问过了 那么我们再次访问到这个节点
+#     的时候可以从没有访问过的路径开始 减少每次循环的次数
+# 2: 多路增广优化; 利用递归 将相对节点的所有路径的流相加之后 再让该节点的流减去相加后的流 避免一条一条的减 浪费时间
+# 3: 炸点优化; 当这个节点可流的流量已经为 0 了 直接让其对应 deep 变为 -2 让广度优先寻找增广路径的时候不可能再访问到它
+#     相当于把这个节点隔绝掉一样
+class Dinik:
+    def __init__(self, s: int, t: int, n: int):
+        # 起点
+        self.s = s
+        # 终点
+        self.t = t
+        # 节点总数
+        self.n = n
+        # 最大流
+        self.max_flow = 0
+        # 存储边数据
+        self.edge_array = []
+        # 图的信息 用 graph[u][v] 可以访问到对应边的数组下标 edge_array[graph[u][v]]
+        # graph[u][v] ^ 1  可以访问到对应边的临边的数组下标edge_array[graph[u][v] ^ 1]
+        self.graph = [[]]*n
+        # 储存深度信息
+        self.deep = []
+
+    # 添加节点的函数
+    def add(self, u: int, v: int, w: int):
+        # edge_array存储所有边的信息 临边的权重为0
+        # 边必须以偶数开始 临边存储在相邻位置 才能用 异或1 取到临边信息
+        self.edge_array.append(Edge(u, v, w))
+        self.edge_array.append(Edge(v, u, 0))
+        size = len(self.edge_array)
+        # grapg保存下标信息
+        if self.graph[u]:
+            self.graph[u].append(size-2)
+        else:
+            self.graph[u] = [size - 2]
+
+        if self.graph[v]:
+            self.graph[v].append(size - 1)
+        else:
+            self.graph[v] = [size - 1]
+
+    # 广度优先遍历图 更新 deep 信息
+    # 并返回能否找到增广路径
+    # 也就是有没有路到从起点到终点
+    def bfs(self):
+        # 每次都需要重新设置 deep
+        self.deep = [0] * self.n
+        # 利用队列的先进先出的特点 方便实现广度优先遍历
+        q = queue.Queue()
+        # 起点深度为 1
+        self.deep[self.s] = 1
+        q.put(self.s)
+        while not q.empty():
+            ptr = q.get()
+            size = len(self.graph[ptr])
+            for i in range(size):
+                edg = self.edge_array[self.graph[ptr][i]]
+                if not self.deep[edg.v] and edg.w &gt; 0:
+                    # 将相邻的节点深度加1
+                    self.deep[edg.v] = self.deep[edg.u] + 1
+                    q.put(edg.v)
+        # 返回能否找到增广路径
+        return self.deep[self.t] &gt; 0
+
+    # Dinik 算法核心
+    # min_flow 代表当前路径的最小容量
+    def dfs(self, x, min_flow, cur):
+        # 如果找到终点 或者 当前最小流量已经为 0 了 直接返回 min_flow
+        if x == self.t or min_flow == 0:
+            return min_flow
+        # 保存流量值
+        fl = 0
+        # 遍历节点分支的路径
+        for i in range(cur[x], len(self.graph[x])):
+            # 当前弧优化 记录下次从没有访问过的开始遍历
+            cur[x] = i
+            if not min_flow:
+                break
+            edg = self.edge_array[self.graph[x][i]]
+            # Dinik 算法 路径必须是深度递增的
+            if self.deep[edg.v] == self.deep[edg.u] + 1 and edg.w:
+                # 多路增广优化
+                child_flow = self.dfs(edg.v, min(min_flow, edg.w), cur)
+                # 当前边权重- 反边+
+                self.edge_array[self.graph[x][i]].w -= child_flow
+                self.edge_array[self.graph[x][i] ^ 1].w += child_flow
+                min_flow -= child_flow
+                fl += child_flow
+        # 炸点优化
+        if not fl:
+            self.deep[x] = -2
+        return fl
+
+    # 找出最大流函数
+    def find_max_flow(self):
+        res = 0
+        # 当还有增广路径 说明还可以增流 继续找
+        while self.bfs():
+            cur = [0]*len(self.edge_array)
+            res += self.dfs(self.s, float(&quot;inf&quot;), cur)
+        return res
+</code></pre>
+<p>网络最大流算法还能解决一些配对问题，通过图建模转化为网络流算法。<br><a target="_blank" rel="noopener" href="https://github.com/Hchyeria/some-data-structure-and-algorithm">Github 源码地址</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Comparison of Different Binary Search Tree"><a class="vertical-center" href="/posts/32481/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Union Find"><a class="vertical-center" href="/posts/57807/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Question"><span class="toc-text">Question</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-text">Solution</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

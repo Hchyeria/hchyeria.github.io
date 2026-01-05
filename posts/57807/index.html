@@ -1,0 +1,783 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="并查集算法"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm,Data Structure"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Union Find</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm/Data Structure</div><div class="post-page-title">Union Find</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2019-09-03T16:00:00.000Z">September 4, 2019</div></div><div class="post-page-content"><p>这几天忙着做专业课程设计2。学习了很多有意思的算法和数据结构。在此记录一下。<br>这篇是关于 Union-Find（并查集）。</p>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>Union-Find is a special tree structure (child point to parent), fast to check the connect in a network.<br>Method:</p>
+<ol>
+<li>union(p, q)          -&gt;     O(h)</li>
+<li>isConnected(p, q)  -&gt;    O(h)<br>Worse case, it may be union to a linked list, so we should use <strong>size</strong> to optimize.</li>
+</ol>
+<h3 id="Optimize-size"><a href="#Optimize-size" class="headerlink" title="Optimize size"></a>Optimize size</h3><p><code>size[i]</code>: represents the size of a union find set. But use size may be uncorrected in some situations, for example, the tree with smaller size but has large depth. So we can use <code>height</code> to decide which one to merge.</p>
+<h3 id="Optimize-rank"><a href="#Optimize-rank" class="headerlink" title="Optimize rank"></a>Optimize rank</h3><p><code>rank[i]</code>: represent the height of a union find set</p>
+<pre><code class="lang-java">public void unionElements(int p, int q) &#123;
+    int pRoot = find(p);
+    int qRoot = find(q);
+    if (pRoot == qRoot) &#123;
+        return;
+    &#125;
+
+    if (rank[pRoot] &lt; rank[qRoot]) &#123;
+        parent[pRoot] = qRoot;
+    &#125; else if (rank[qRoot] &lt; rank[pRoot]) &#123;
+        parent[qRoot] = pRoot;
+    &#125; else &#123; // rank[pRoot] == rank[qRoot]
+        parent[qRoot] = pRoot;
+        rank[pRoot] += 1; // notation!
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Path-Compression"><a href="#Path-Compression" class="headerlink" title="Path Compression"></a>Path Compression</h3><ol>
+<li>union(p, q)            -&gt;         O(log*n) —&gt; log* : iterated logarithm </li>
+<li>isConnected(p, q)    -&gt;      O(log*n)</li>
+</ol>
+<p>O(log*n) ~= O(1), faster than O(log(n))</p>
+<pre><code class="lang-java">private int find(int p) &#123;
+    if (p &lt; 0 &amp;&amp; p &gt;= parent.length) &#123;
+        throw new IllegalArgumentException(&quot;p is out of bound.&quot;);
+    &#125;
+    while (p != parent[p]) &#123;
+        parent[p] = parent[parent[p]];
+        p = parent[p];
+    &#125;
+    return p;
+&#125;
+</code></pre>
+<p>another path compression: compress set to a 2 height of tree</p>
+<pre><code class="lang-java">private int find(int p) &#123;
+    if (p &gt; 0 &amp;&amp; p &gt;= parent.length) &#123;
+        throw new IllegalArgumentException(&quot;p is out of bound.&quot;)
+    &#125;
+    if (p != parent[p]) &#123;
+        parent[p] = find(parent[p]);
+    &#125;
+    return p;
+&#125;
+</code></pre>
+<h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><h3 id="课设的题目"><a href="#课设的题目" class="headerlink" title="课设的题目"></a>课设的题目</h3><p>题目要求<br>“熊猫烧香”是在网络中传播的一种著名病毒，因为图标是一只可爱的熊猫而得名。该病毒比较难以处理的一个原因是它有很多变种。<br>现在某实验室的网络就不幸感染了这种病毒。从下图中可以看到，实验室的机器排列为一个M行N列的矩阵，每台机器只和它相邻的机器直接相连。开始时有T台机器被感染，每台遭遇的熊猫变种类型都不同，分别记为Type1，Type2，… Typer，每台机器都具有一定级别的防御能力，将防御级别记为L(0 &lt; L &lt;1000）。<br>“熊猫烧香”按照下列规则迅速在网络中传播：</p>
+<ul>
+<li>病毒只能从一台被感染的机器传到另一台没有被感染的机器。</li>
+<li>如果一台机器已经被某个变种的病毒感染过，就不能再被其他变种感染。</li>
+<li>病毒的传播能力每天都在增强。第1天，病毒只能感染它可以到达的、防御级别为1的机器，而防御级别大于1的机器可以阻止它从自己处继续传播。第D天，病毒可以感染它可以到达的、防御级别不超过D的机器，而只有防御级别大于的机器可以阻止它从自己处继续传播。</li>
+<li>在同一天之内，Type1变种的病毒先开始传播，感染所有它可能感染的机器，然后是Type2变种、Type3变种……依次进行传播。<br>用一个矩阵表示网络中机器的状态，用负整数-L表示未被感染的、防御级别为L的机器，正整数Typei表示该机器被Typei类型的病毒变种感染，则初始状态有矩阵：<br>\begin{bmatrix}<br>1 &amp; -3 &amp; -2 &amp; -3 \\<br>-2 &amp; -1 &amp; -2 &amp; 2 \\<br>-3 &amp; -2 &amp; -1 &amp; -1<br>\end{bmatrix}<br>病毒传播1天后，1号变种无法传播，2号变种攻下了第3行中2台防御级别为1的机器，矩阵变为<br>\begin{bmatrix}<br>1 &amp; -3 &amp; -2 &amp; -3 \\<br>-2 &amp; -1 &amp; -2 &amp; 2 \\<br>-3 &amp; -2 &amp; 2 &amp; 2<br>\end{bmatrix}<br>第2天，1号变种攻下了所有未被感染的、防御级别为1或2的机器，2号变种则无事可做，因为它唯一可以接触到的未被感染的机器，其防御级别是3。这时矩阵变为：<br>\begin{bmatrix}<br>1 &amp; -3 &amp; 1 &amp; -3 \\<br>1 &amp; 1 &amp; 1 &amp; 2 \\<br>-3 &amp; 1 &amp; 2 &amp; 2<br>\end{bmatrix}<br>第3天,1号病毒继续发威，攻下了剩下的3台防御级别为3的机器，则整个网络全被感染，矩阵变为<br>\begin{bmatrix}<br>1 &amp; 1 &amp; 1 &amp; 1 \\<br>1 &amp; 1 &amp; 1 &amp; 2 \\<br>1 &amp; 1 &amp; 2 &amp; 2<br>\end{bmatrix}<br>本题的任务是：当整个网络被感染后，计算有多少台机器被某个特定变种所感染。<br>输入要求：<br>输入由若干组测试数据组成。<br>每组数据的第1行包含2个整数M和N(1&lt;=M，N&lt;=500），接下来是一个M*N的矩阵表示网络的初始感染状态，其中的正、负整数的意义如题目描述中所定义。<br>下面一行给出一个正整数Q，是将要查询的变种的个数。接下去的Q行里，每行给出一个变种的类型。<br>当M或N为0时，表示全部测试结束，不要对该数据做任何处理。<br>输出要求：<br>对每一组测试，在一行里输出被某个特定变种所感染的机器数量。<br>输入例子：<br>3 4<br>1 -3 -2 -3<br>-2 -1 -2 2<br>-3 -2 -1 -1<br>2<br>1<br>2<br>0 0<br>输出例子：<br>9<br>3</li>
+</ul>
+<p>这道题有多种解法广度优先 O(M*N*L)，修改 Dijkstra 算法 O(MNlog(MN))，并查集 O(MNlog*(MN))。<br>并查集的实现。</p>
+<pre><code class="lang-python"># 并查集算法(没带路径压缩)
+class DisjointSet:
+    def __init__(self, n: int):
+        self.disjoint_set = [-1] * n
+
+    # 找寻该节点的根节点
+    def find_root(self, x):
+        # 如果值小于 0 返回下标
+        # 否则继续寻找 知道小于 0 为止
+        if self.disjoint_set[x] &lt; 0:
+            return x
+        next_x = x
+        while self.disjoint_set[next_x] &gt;= 0:
+            next_x = self.disjoint_set[next_x]
+        return next_x
+
+    # 合并
+    def union(self, root1, root2):
+        # 如果root2 的集合数目更多
+        # 将 root1 指向 root2 即可
+        if self.disjoint_set[root2] &lt; self.disjoint_set[root1]:
+            self.disjoint_set[root1] = root2
+        else:
+            # 否则 如果相同 self.disjoint_set[root1] -1
+            if self.disjoint_set[root2] == self.disjoint_set[root1]:
+                self.disjoint_set[root1] -= 1
+            # 将 root2 指向 root2 即可
+            self.disjoint_set[root2] = root1
+
+    # 为了第 7 题 新增的方法
+    # 熊猫病毒感染合并的时候 不需要比较哪个集合的数目多
+    # 之间强制合并 指向病毒 即可
+    def force_union(self, root1, root2):
+        self.disjoint_set[root2] = root1
+</code></pre>
+<pre><code class="lang-python"># 定义表示每台计算机类
+class Entry:
+    def __init__(self, m, n, val):
+        self.m = m
+        self.n = n
+        self.val = val
+        self.next = None
+
+    def __repr__(self):
+        return repr((self.m, self.n, self.val))
+
+
+class Nimaya:
+    def __init__(self, m, n):
+        # 使用矩阵存储图
+        self.graph = [[0 for clo in range(n)] for row in range(m)]
+        # 图的行数和列数
+        self.m = m
+        self.n = n
+        # 引用第四题写好的 并查集 类
+        self.union_find_set = DisjointSet(m * n)
+        # 病毒最多的天数感染全部
+        self.max_day = -99999
+        # 储存病毒信息
+        self.virus = []
+
+    # 添加函数
+    def add(self, m, n, val):
+        self.graph[m][n] = val
+        # 如果是病毒 添加到数组
+        if val &gt; 0:
+            for i in range(len(self.virus)):
+                if val == self.virus[i].val:
+                    root1 = self.union_find_set.find_root(self.virus[i].m * self.n +self.virus[i]. n)
+                    root2 = self.union_find_set.find_root(m * self.n + n)
+                    self.union_find_set.union(root1, root2)
+                    return
+            self.virus.append(Entry(m, n, val))
+        else:
+            # 根据计算机的防御级别 找出最大的防御级别即是最多需要的天数
+            self.max_day = max(self.max_day, abs(val))
+
+    # 获取某一台电脑或者病毒 附近没有被病毒感染的函数
+    def get_adjacent(self, m, n):
+        # 注意四边的边界情况即可
+        res = []
+        if m != 0:
+            if not self.is_virused(m - 1, n):
+                res.append((m - 1, n))
+        if n != 0:
+            if not self.is_virused(m, n - 1):
+                res.append((m, n - 1))
+        if m != (self.m - 1):
+            if not self.is_virused(m + 1, n):
+                res.append((m + 1, n))
+        if n != self.n - 1:
+            if not self.is_virused(m, n + 1):
+                res.append((m, n + 1))
+        return res
+
+    # 分组 防御级别相同的为一组 并为这个组选择一个虚拟根节点
+    def group(self, m, n, visited):
+        # 递归结束条件 所有的节点都已经访问过
+        if 0 not in visited:
+            return
+        visited[m * self.n + n] = 1
+        adjacent = self.get_adjacent(m, n)
+        root1 = self.union_find_set.find_root(m * self.n + n)
+        # 循环附近的节点
+        for item in adjacent:
+            x, y = item
+            root2 = self.union_find_set.find_root(x * self.n + y)
+            # 如果虚拟根节点不相等
+            if root1 != root2:
+                # 如果防御能力相同并且 是电脑 则合并
+                if self.graph[x][y] == self.graph[m][n] and self.graph[m][m] &lt; 0:
+                    self.union_find_set.union(root1, root2)
+            # 如果节点没有被访问过 递归该节点
+            if not visited[x * self.n + y]:
+                self.group(x, y, visited)
+
+    # 判断是否被病毒感染的函数
+    # 比较该节点的虚拟根节点是否指向其中一种病毒即可
+    def is_virused(self, m, n):
+        root2 = self.union_find_set.find_root(m * self.n + n)
+        for virus in self.virus:
+            root1 = self.union_find_set.find_root(virus.m * self.n + virus.n)
+            if root1 == root2:
+                return True
+        return False
+
+    # 感染函数
+    def infect(self):
+        # 按照病毒的种类排序 小的先开始感染
+        temp = sorted(self.virus, key=lambda x: x.val)
+        self.virus = temp
+        # 从第一天开始 最多不超过 最大防御级别的天数
+        for day in range(1, self.max_day+1):
+            for virus in self.virus:
+                ptr = virus
+                val = virus.val
+                # 找出该病毒感染过的所有节点
+                temp = list(
+                    filter(
+                        lambda item: self.union_find_set.find_root(item[0]) == (virus.m * self.n + virus.n),
+                        enumerate(self.union_find_set.disjoint_set)
+                    ))
+                # 挨个开始感染
+                for index, p in temp:
+                    t_n = index % self.n
+                    t_m = (index - t_n)//self.n
+                    root1 = self.union_find_set.find_root(t_m * self.n + t_n)
+                    adjacent = self.get_adjacent(t_m, t_n)
+                    for item in adjacent:
+                        x, y = item
+                        root2 = self.union_find_set.find_root(x * self.n + y)
+                        # 如果还没有被感染
+                        if not self.is_virused(x, y):
+                            # 并且防御级别小于天数 则该电脑可以被感染
+                            if abs(self.graph[x][y]) &lt;= day:
+                                self.union_find_set.force_union(root1, root2)
+                                self.graph[x][y] = val
+                                # 加入到感染数组
+                                temp.append((x * self.n + y, val))
+
+    # 获取指定哪种病毒种类的个数
+    def get_virus_res(self, type_name):
+        # 自需要找出 并查集里面根节点指向该病毒的节点 即可
+        for virus in self.virus:
+            val = virus.val
+            if val == type_name:
+                x, y = virus.m, virus.n
+                break
+        temp = list(
+            filter(
+                lambda item: self.union_find_set.find_root(item[0]) == (x*self.n + y),
+                enumerate(self.union_find_set.disjoint_set)
+            ))
+        # 返回长度
+        return len(temp)
+</code></pre>
+<h3 id="LeetCode"><a href="#LeetCode" class="headerlink" title="LeetCode"></a>LeetCode</h3><h4 id="827-Making-A-Large-Island"><a href="#827-Making-A-Large-Island" class="headerlink" title="827 Making A Large Island"></a>827 Making A Large Island</h4><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/making-a-large-island/">827 Making A Large Island</a><br>实际上这道题还有更好的解法，这里只是做一个并查集的练习。</p>
+<pre><code class="lang-java">class Solution &#123;
+    // I just want practice union find set
+    // actually, this method isn&#39;t good
+    // we can change grid node value to their index (index id partition identify id)
+    // and use Hash map to store the size
+    // both can be done in DFS
+    // then loop every 0
+    private static class UnionFind &#123;
+        int[] parent;
+        int[] rank;
+
+        UnionFind(int n) &#123;
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i &lt; n; ++i) &#123;
+                parent[i] = i;
+            &#125;
+        &#125;
+        // with path compression
+        int find(int index) &#123;
+            while (parent[index] != index) &#123;
+                parent[index] = parent[parent[index]];
+                index = parent[index];
+            &#125;
+
+            return index;
+        &#125;
+
+        boolean isConnected(int x, int y) &#123;
+            return find(x) == find(y);
+        &#125;
+
+        void union(int x, int y) &#123;
+            int p = find(x);
+            int q = find(y);
+            if (rank[p] &lt; rank[q]) &#123;
+                parent[p] = q;
+            &#125; else if (rank[p] &gt; rank[q]) &#123;
+                parent[q] = parent[p];
+            &#125; else &#123;
+                parent[p] = q;
+                rank[q] += 1;
+            &#125;
+        &#125;
+
+    &#125;
+
+    private int m;
+    private int n;
+    private static final int[][] dirs = &#123;&#123;-1, 0&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;0, 1&#125;&#125;;
+    public int largestIsland(int[][] grid) &#123;
+        m = grid.length;
+        n = grid[0].length;
+        UnionFind unionFind = new UnionFind(m * n);
+        int globalMax = 0;
+        Set&lt;Integer&gt; visited = new HashSet&lt;&gt;();
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; m; ++i) &#123;
+            for (int j = 0; j &lt; n; ++j) &#123;
+                if (grid[i][j] == 1
+                    &amp;&amp; !visited.contains(i * n + j)) &#123;
+                    int size = dfs(grid, visited, unionFind, i, j);
+                    map.put(unionFind.find(i * n + j), size);
+                    globalMax = Math.max(globalMax, size);
+                &#125;
+            &#125;
+        &#125;
+
+
+       for (int i = 0; i &lt; m; ++i) &#123;
+            for (int j = 0; j &lt; n; ++j) &#123;
+                if (grid[i][j] == 0) &#123;
+                    int curSize = 0;
+                    // need set to deduplicate
+                    Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+                    for (int[] d : dirs) &#123;
+                        int x = i + d[0];
+                        int y = j + d[1];
+                        if (isArea(x ,y) 
+                            &amp;&amp; grid[x][y] == 1) &#123;
+                            int root = unionFind.find(x * n + y);
+                            if (!seen.contains(root)) &#123;
+                                curSize += map.get(root);
+                                seen.add(root);
+                            &#125;
+                        &#125;
+                    &#125;
+                    curSize++;
+                    globalMax = Math.max(globalMax, curSize);
+                &#125;
+            &#125;
+        &#125;
+        return globalMax;
+    &#125;
+
+    private int dfs(int[][] grid, Set&lt;Integer&gt; visited, 
+                    UnionFind unionFind, int x, int y) &#123;
+        int count = 1;
+        visited.add(x * n + y);
+        for (int[] d : dirs) &#123;
+            int i = x + d[0];
+            int j = y + d[1];
+            if (isArea(i ,j)
+                &amp;&amp; grid[i][j] == 1
+                &amp;&amp; !visited.contains(i * n + j)) &#123;
+                count += dfs(grid, visited, unionFind, i, j);
+                unionFind.union(x * n + y, i * n + j);
+            &#125; 
+        &#125;
+
+        return count;
+    &#125;
+
+    private boolean isArea(int x, int y) &#123;
+        return x &gt;= 0 &amp;&amp; x &lt; m &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; n;
+    &#125;
+
+&#125;
+</code></pre>
+<h4 id="128-Longest-Consecutive-Sequence"><a href="#128-Longest-Consecutive-Sequence" class="headerlink" title="128 Longest Consecutive Sequence"></a>128 Longest Consecutive Sequence</h4><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/longest-consecutive-sequence">LeetCode 128 Longest Consecutive Sequence</a></p>
+<pre><code class="lang-java">class Solution &#123;
+    // Solution 1: HashMap
+    public int longestConsecutive(int[] nums) &#123;
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int sum = 0, res = 0;
+        for (int num : nums) &#123;
+            if (map.containsKey(num)) &#123;
+                continue;
+            &#125;
+            int left = map.getOrDefault(num - 1, 0);
+            int right = map.getOrDefault(num + 1, 0);
+            sum = left + right + 1;
+            res = Math.max(res, sum);
+
+            if (left &gt; 0) &#123;
+                map.put(num - left, sum);
+            &#125;
+            if (right &gt; 0) &#123;
+                map.put(num + right, sum);
+            &#125;
+            map.put(num, sum);
+        &#125;
+        return res;
+    &#125;
+    // Time = O(n)
+    // Space = O(n)
+
+    private static class UnionFind &#123;
+        int[] parent;
+
+        UnionFind(int n) &#123;
+            parent = new int[n];
+            Arrays.fill(parent, -1);
+        &#125;
+
+        void union(int i, int j) &#123;
+            int m = find(i);
+            int n = find(j);
+            if (parent[m] &lt;= parent[n]) &#123;
+                parent[m] += parent[n];
+                parent[n] = m;
+            &#125; else &#123;
+                parent[n] += parent[m];
+                parent[m] = n;
+            &#125;
+        &#125;
+
+        int find(int i) &#123;
+            while (parent[i] &gt;= 0) &#123;
+                int temp = parent[i];
+                if (parent[temp] &lt; 0) &#123;
+                    i = temp;
+                    break;
+                &#125;
+                parent[i] = parent[temp];
+                i = parent[i];
+            &#125;
+            return i;
+        &#125;
+
+        int maxSize() &#123;
+            int res = 0;
+            for (int i : parent) &#123;
+                res = Math.min(res, i);
+            &#125;
+            return -res;
+        &#125;
+
+    &#125;
+    // Solution 2: UnionFind
+    public int longestConsecutive2(int[] nums) &#123;
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();
+        int n = nums.length;
+        UnionFind unionFind = new UnionFind(n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            if (map.containsKey(nums[i])) &#123;
+                continue;
+            &#125;
+            map.put(nums[i], i);
+            Integer left = map.get(nums[i] - 1);
+            if (left != null) &#123;
+                unionFind.union(i, left);
+            &#125;
+            Integer right = map.get(nums[i] + 1);
+            if (right != null) &#123;
+                unionFind.union(i, right);
+            &#125;
+        &#125;
+        return unionFind.maxSize();
+    &#125;
+
+    // Time = O(n * log*(n))
+    // Space = O(n)
+&#125;
+</code></pre>
+<h4 id="Number-of-Islands-II"><a href="#Number-of-Islands-II" class="headerlink" title="Number of Islands II"></a>Number of Islands II</h4><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/number-of-islands-ii">LeetCode 305 Number of Islands II</a></p>
+<pre><code class="lang-java">public class Solution &#123;
+    /**
+     * @param n: An integer
+     * @param m: An integer
+     * @param operators: an array of point
+     * @return: an integer array
+     */
+
+    private static class UnionFind &#123;
+        int[] parent;
+        int count;
+
+        UnionFind(int n) &#123;
+            parent = new int[n];
+        &#125;
+
+        void addLand(int i) &#123;
+            if (parent[i] &gt; 0) &#123;
+                return;
+            &#125;
+            parent[i] = i;
+            count++;
+        &#125;
+
+        int find(int i) &#123;
+            while (parent[i] != i) &#123;
+                parent[i] = parent[parent[i]];
+                i = parent[i];
+            &#125;
+            return i;
+        &#125;
+
+        void union(int i, int j) &#123;
+            int q = find(i);
+            int p = find(j);
+            if (q != p) &#123;
+                parent[q] = p;
+                count--;
+            &#125;
+        &#125; 
+
+        int numberOfLand() &#123;
+            return count;
+        &#125;
+
+        boolean isLand(int i) &#123;
+            return parent[i] &gt; 0;
+        &#125;
+    &#125;
+
+    private static final int[][] DIRS = &#123;&#123;-1, 0&#125;, &#123;1, 0&#125;, &#123;0, -1&#125;, &#123;0, 1&#125;&#125;;
+    private int row, col;
+    public List&lt;Integer&gt; numIslands2(int n, int m, Point[] operators) &#123;
+        // write your code here
+        if ((n == 0 &amp;&amp; m == 0) || operators == null || operators.length == 0) &#123;
+            return Collections.emptyList();
+        &#125;
+        row = n;
+        col = m;
+        UnionFind uf = new UnionFind(row * col + 1);
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for (Point p : operators) &#123;
+            int position = p.x * col + p.y + 1;
+            uf.addLand(position);
+
+            for (int[] d : DIRS) &#123;
+                int x = p.x + d[0];
+                int y = p.y + d[1];
+                if (isArea(x, y) &amp;&amp; uf.isLand(x * col + y + 1)) &#123;
+                    uf.union(position, x * col + y + 1);
+                &#125; 
+            &#125; 
+            res.add(uf.numberOfLand());
+        &#125;
+
+        return res;
+    &#125;
+
+    private boolean isArea(int x, int y) &#123;
+        return x &gt;= 0 &amp;&amp; x &lt; row &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; col;
+    &#125;
+
+    // Time = O(n * 4 * log*(n))
+    // Space = O(n)
+&#125;
+</code></pre>
+<h4 id="Connecting-Graph-III"><a href="#Connecting-Graph-III" class="headerlink" title="Connecting Graph III"></a>Connecting Graph III</h4><p><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/connecting-graph-iii/description">LeetCode 591 Connecting Graph III</a></p>
+<pre><code class="lang-java">public class ConnectingGraph3 &#123;
+    /**
+     * @param a: An integer
+     * @param b: An integer
+     * @return: nothing
+     */
+
+    private int[] parent;
+    private int count;
+
+    private int find(int i) &#123;
+        while (parent[i] != i) &#123;
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        &#125;
+        return i;
+    &#125;
+
+    public ConnectingGraph3(int n) &#123;
+        // initialize your data structure here.
+        parent = new int[n + 1];
+        count = n;
+        for (int i = 0; i &lt;= n; ++i) &#123;
+            parent[i] = i;
+        &#125;
+    &#125;
+
+    public void connect(int a, int b) &#123;
+        // write your code here
+        int i = find(a);
+        int j = find(b);
+        if (i == j) &#123;
+            return;
+        &#125;
+        parent[i] = j;
+        count--;
+    &#125;
+
+    /**
+     * @return: An integer
+     */
+    public int query() &#123;
+        // write your code here
+        return count;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Redundant-Connection"><a href="#Redundant-Connection" class="headerlink" title="Redundant Connection"></a>Redundant Connection</h4><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/redundant-connection/">LeetCode 684 Redundant Connection</a></p>
+<pre><code class="lang-java">class Solution &#123;
+
+    private int[] parent;
+
+    private int find(int i) &#123;
+        while (parent[i] != i) &#123;
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        &#125;
+        return i;
+    &#125;
+
+    boolean union(int i, int j) &#123;
+        int q = find(i);
+        int p = find(j);
+        if (q == p) &#123;
+            return false;
+        &#125;
+        parent[q] = p;
+
+        return true;
+    &#125;
+
+    public int[] findRedundantConnection(int[][] edges) &#123;
+        if (edges == null || edges.length == 0) &#123;
+            return new int[2];
+        &#125;
+        int m = edges.length;
+        int n = edges[0].length;
+        parent = new int[m * n + 1];
+        for (int i = 1; i &lt;= m * n; ++i) &#123;
+            parent[i] = i;
+        &#125;
+
+        for (int[] edge : edges) &#123;
+            if (!union(edge[0], edge[1])) &#123;
+                return edge;
+            &#125;
+        &#125;
+
+        return new int[2];
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Redundant-Connection-II"><a href="#Redundant-Connection-II" class="headerlink" title="Redundant Connection II"></a>Redundant Connection II</h4><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/redundant-connection-ii/">LeetCode 685 Redundant Connection II</a></p>
+<pre><code class="lang-java">class Solution &#123;
+
+    private int[] parent;
+
+    public int[] findRedundantDirectedConnection(int[][] edges) &#123;
+        int m = edges.length;
+        int n = edges[0].length;
+
+        parent = new int[m * n + 1];
+
+        int[] can1 = &#123;-1, -1&#125;;
+        int[] can2 = &#123;-1, -1&#125;;
+
+        for (int[] edge : edges) &#123;
+            if (parent[edge[1]] == 0) &#123;
+                parent[edge[1]] = edge[0];
+            &#125; else &#123;
+                can2 = new int[] &#123;edge[0], edge[1]&#125;;
+                can1 = new int[] &#123;parent[edge[1]], edge[1]&#125;;
+                edge[1] = 0;
+            &#125;
+        &#125;
+
+        for (int i = 1; i &lt;= m * n; ++i) &#123;
+            parent[i] = i;
+        &#125;
+
+        for (int[] edge : edges) &#123;
+            if (find(edge[0]) == edge[1]) &#123;
+                if (can1[0] == -1) &#123;
+                    return edge;
+                &#125;
+                return can1;
+            &#125;
+            parent[edge[1]] = edge[0];
+        &#125;
+        return can2;
+    &#125;
+
+    private int find(int i) &#123;
+        while (parent[i] != i) &#123;
+            parent[i] = parent[parent[i]];
+            i = parent[i];
+        &#125;
+        return i;
+    &#125;
+&#125;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/Hchyeria/some-data-structure-and-algorithm">Github 源码地址</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="NetWork Flow"><a class="vertical-center" href="/posts/6331/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Lowest Common Ancestor"><a class="vertical-center" href="/posts/47224/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-text">Intro</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimize-size"><span class="toc-text">Optimize size</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimize-rank"><span class="toc-text">Optimize rank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Path-Compression"><span class="toc-text">Path Compression</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Question"><span class="toc-text">Question</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BE%E8%AE%BE%E7%9A%84%E9%A2%98%E7%9B%AE"><span class="toc-text">课设的题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LeetCode"><span class="toc-text">LeetCode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#827-Making-A-Large-Island"><span class="toc-text">827 Making A Large Island</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#128-Longest-Consecutive-Sequence"><span class="toc-text">128 Longest Consecutive Sequence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Number-of-Islands-II"><span class="toc-text">Number of Islands II</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Connecting-Graph-III"><span class="toc-text">Connecting Graph III</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redundant-Connection"><span class="toc-text">Redundant Connection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redundant-Connection-II"><span class="toc-text">Redundant Connection II</span></a></li></ol></li></ol></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

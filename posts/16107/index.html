@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="第一篇博客，记录搭建历程。"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Tech,Feeling"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Hello World</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/posts/16107/main.jpg"></div><div id="title-data"><div class="post-page-tags">Tech/Feeling</div><div class="post-page-title">Hello World</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2018-08-06T16:00:00.000Z">August 7, 2018</div></div><div class="post-page-content"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"/><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="aplayer"></div><script id="music-source" data-src="[{&quot;name&quot;:&quot;décalcomanie noise＊&quot;,&quot;artist&quot;:&quot;牛尾憲輔&quot;,&quot;url&quot;:&quot;/music/décalcomanie noise＊.mp3&quot;,&quot;cover&quot;:&quot;/music/reflexion,allegretto,you.jpg&quot;}]">document.addEventListener('DOMContentLoaded', function() { 
+    var data = JSON.parse($('#music-source')[0].dataset.src)
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        theme: '#fff100',
+        listFolded: true,
+        order: 'random',
+        audio: data
+    });
+})</script><h1 id="Causation"><a href="#Causation" class="headerlink" title="Causation"></a>Causation</h1><p>早就想建个人博客写点什么了，选择了Hexo。可惜找了半天没找到自己想要的主题，无奈只好自己写一个。在网上搜罗了教程，看了文档，开始陆陆续续写。先出了些设计图，再开始动工。写的过程中也是觉得不满意然后再重新设计，或者直接写出来看效果。总之，我感觉设计图真不该一开始做的特别认真，一些细节能省就省，能快速出效果就好。最终的效果和设计图相差甚多。</p>
+<div align=center><img class="post-img-middle" src="/posts/16107/1.png" /></div>
+<div align=center class="img-undertext">初版设计图</div>
+
+<p>从零开始写一个主题，工程量真的很庞大。我断断续续写了快一年，上学的时间没写，也就一个寒暑假时间，但是相当折磨人。还好坚持写完了。<br>本次主题最大的挑战是增加了<span class="text-highlight">Record</span>板块，因为我想记录一些生活上值得记录的事，比如参加的比赛，做过的海报等。这些不足以写一篇博客文章来记录，而且我希望博客文章最好全是关于学习的记录总结。于是索性新开了一个板块。具体实现是从 Post 文章里面筛选一部分出来，本质上是 Post 的子集。</p>
+<p>但是这么瞎操作就会导致站内一些变量的 inconsistence，比如文章返回的应该是不包括 Record 的内容，但是实际上会全部返回。这会连带其他页面也会出现相应的问题。我找了半天解决办法，最终写了一个脚本利用 Hexo 的<span class="text-highlight">template_locals</span>钩子，更新相应的变量。使他们保持一致。</p>
+<pre><code class="lang-javascript">var page_num = hexo.config.per_page
+var record;
+var archiveDir = hexo.config.archive_dir
+var archiveDirRe = new RegExp(hexo.config.archive_dir + &#39;(/([0-9])+)+(/)?&#39;)
+
+hexo.extend.filter.register(&#39;template_locals&#39;, function(locals) &#123;
+    var posts = locals.site.posts
+    var page = locals.page
+    var real_posts = posts.filter(ele =&gt; !ele.record).sort(&#39;date&#39;, -1)
+    var record_posts = posts.filter(ele =&gt; ele.record)
+    locals.site.posts = real_posts
+    var real_length = real_posts.length
+
+    if (page.base === &#39;&#39;) &#123;
+        locals.page.posts = real_posts.slice(0, page_num)
+    &#125;
+    if (page.base === archiveDir + &#39;/&#39;) &#123;
+        page.total = Math.ceil(real_length / page_num)
+        locals.page.posts = real_posts.slice((page.current - 1) * page_num, page.current * page_num)
+    &#125;
+    if (archiveDirRe.test(page.base)) &#123;
+        locals.page.posts = page.posts.filter(ele =&gt; !ele.record).sort(&#39;date&#39;, -1)
+        if (!page.posts.length) &#123;
+            delete locals[page]
+        &#125;
+    &#125;
+
+    if (record_posts.length &gt; 0) &#123;
+        locals.record = record_posts
+        record = record_posts
+    &#125; else &#123;
+        locals.record = record
+    &#125;
+    return locals;
+&#125;);
+</code></pre>
+<p>这样就好了。</p>
+<h1 id="FrontEnd"><a href="#FrontEnd" class="headerlink" title="FrontEnd"></a>FrontEnd</h1><p>本次开发的经历，我学到了不少知识。这次目的本来就是想提升自己的水平。从一开始学习 Stylus, Pug, Node.js，到开发过程中学到了一些原生 JS 替代 jQuery 的方法，手动实现了 throttle，debounce 等 helper 函数，一些 CSS 的神奇操作，尝试着写 polyfill，还有一些插件比如图片懒加载，瀑布流也是我自己实现的。在原来功能上，还增加定制了我需要的一些功能，比如基于瀑布流的触底加载更多，而且是图片分块加载。怎么实现的呢，当然参考了不少源码，在阅读源码过程中，一边是真的能感觉自己进步飞速，另一边是自己真的是菜的不行的事实。顺便因为读源码常常遇到正则表达式，便狠下心好好的学了正则表达式（真香）。这里推荐一本 JavaScript 版的正则入门教程 -&gt;<a target="_blank" rel="noopener" href="https://github.com/qdlaoyao/js-regex-mini-book">《JS正则迷你书》)</a>，这里面还讲了正则的原理和性能优化，令人恍然大悟的感觉。</p>
+<h1 id="BackEnd"><a href="#BackEnd" class="headerlink" title="BackEnd"></a>BackEnd</h1><p>后端的部分主要是评论系统和数据统计。这里我没有选择第三方的服务，而是自己用 Spring Boot 搭建的一个后台系统。虽然功能不是很强大，已经满足我的需求了。为什么自己写后台呢？主要是我没发现，样式跟整个网站风格比较搭的库。并不是想要很强大的功能，够用就行。还有一些服务可能要收费，搭建起来麻烦，不如自己写一个快。</p>
+<p>接下来打算再随缘增加一些功能，现阶段没有需求就不改了。</p>
+<h1 id="Feeling"><a href="#Feeling" class="headerlink" title="Feeling"></a>Feeling</h1><p>累死我了呜呜呜</p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page"><div class="vertical-center"><i class="material-icons">arrow_back</i><span>PREV</span></div></div><div class="next-post-page" title="Compressor Algorithm"><a class="vertical-center" href="/posts/62841/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Causation"><span class="toc-text">Causation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FrontEnd"><span class="toc-text">FrontEnd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BackEnd"><span class="toc-text">BackEnd</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Feeling"><span class="toc-text">Feeling</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

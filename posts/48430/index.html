@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="2020年终总结。Un-stacking my load."><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Feeling,Life"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Re: 2020</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/posts/48430/main.jpg"></div><div id="title-data"><div class="post-page-tags">Feeling/Life</div><div class="post-page-title">Re: 2020</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2020-12-30T16:00:00.000Z">December 31, 2020</div></div><div class="post-page-content"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"/><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><div id="aplayer"></div><script id="music-source" data-src="[{&quot;name&quot;:&quot;Re: Stacks&quot;,&quot;artist&quot;:&quot;Bon Iver&quot;,&quot;url&quot;:&quot;/music/Bon Iver - Re： Stacks.mp3&quot;,&quot;cover&quot;:&quot;/music/For Emma, Forever Ago.jpg&quot;},{&quot;name&quot;:&quot;Apocalypse&quot;,&quot;artist&quot;:&quot;CAS&quot;,&quot;url&quot;:&quot;/music/CAS - Apocalypse.mp3&quot;,&quot;cover&quot;:&quot;/music/Cigarettes After Sex.jpg&quot;}]">document.addEventListener('DOMContentLoaded', function() { 
+    var data = JSON.parse($('#music-source')[0].dataset.src)
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        theme: '#fff100',
+        listFolded: true,
+        order: 'random',
+        audio: data
+    });
+})</script><p>终于开始动手写这篇总结了，从12月初我就不停提醒自己，今年再也没有什么借口咕咕咕了。我已经在脑中预演了无数次这篇总结会变成什么样，但是始终没有尽头，因为我想写的实在太多太多了。写作之难，需要将网状的思考通过树状的结构用线性的语言进行清晰的表达。但是管他呢，这是写给我自己的啊，就想到哪儿写哪儿吧。</p>
+<h3 id="Work-or-Postgraduate-Study"><a href="#Work-or-Postgraduate-Study" class="headerlink" title="Work or Postgraduate Study"></a>Work or Postgraduate Study</h3><p>这个我打算放在第一个说。因为今年最大的人生决定可能就是这个吧。关于这个，我也从来没有向朋友倾述过我的心声，即使是在我们有分歧的时候。<br>最终我选择了去工作，放弃了读研。有同学对我说，“很可惜“，是的，我也觉得自己很遗憾。遗憾的是，以前，在我想要变得特别，觉得只要努力就一定会成功的时候，我想成为一名科学家，想做很 cool 的事，想掌握着世界的秘密，能够真正推动科学哪怕一点点的前进。而事实是，我放弃了我的月亮。现实不及理想。我不在乎错失了更高的学历，错失了可能得到更高的薪水更好的职位的机会。<br>唯一遗憾的是，我让过去的自己失望了。<br>但是我并不后悔我的决定，这是最正确的，毋庸置疑。</p>
+<p>To tell the truth, I’m really sick about school.</p>
+<p>Sick about 不择手段追求高绩点的竞争，sick about 学习只是为了冰冷的分数，甚至可以不惜作弊，sick about 教条主义的领导，sick about 无数次团队合作任务的划水，sick about 无聊的充数的但是又强制的课程，sick about 评奖现场做做样子而已的履历，sick about 强制出勤的考核。国内学校根本不在乎个体、个性、效率、质量，只是 follow the rules，无意义的角逐。</p>
+<p>我不觉得自己很特殊，就是适应不了而已。我会永远选择最优效率的方案，但它不是一定都得按照学校的规定执行的，这可能会导致我的分数低。我会选择下午用2倍速看老师的直播录屏，而不是早上听着他慢悠悠的语速从新手村开始教起同时我还得和瞌睡打架。出勤分占60%。Who care. 如果自学更有效率我会选择自学不听课，如果课上40多分钟的效果，比自己私下死磕有效率多了，我会选择认认真真上课跟着老师理解消化，比如编译原理，操作系统，计算机组成原理等等的课程。取决于这门课的难度，原本对相关知识的掌握程度，和老师的教学水平。<br>每年的选课，我会以我是否感兴趣来选择，我认为是可以多多尝试的大好机会。一旦选择之后就会保证能够真正学到什么，至少 figure out 自己是不是真的适合这个方向。即使可能会导致，课选的太多，或者课程比较难，这学期会变得很累，可是我还是觉得值得。我不会以作业容易，得分高的要求来选择 ‘pop’ 课程。Who care.<br>我会很认真很认真的完成课程的大作业，可以连续4天熬到凌晨5点来做一个最后只占10分的项目。Who care.<br>最后，就是考试，如果我觉得这门课很重要的话，比如计算机网络，我会把所有知识点从头到尾都理解掌握，而不会只去复习圈出来的考点。Who care.</p>
+<p>大学不应该是提供更好机会吗？让大家能够在这段旅途中大胆尝试，释放青春，find yourself, find the purpose, find the spark of your life, find the true love. 认清自己之后，才能沉稳的走向未来。我们不可能永远待在象牙塔里，自我感觉良好。到了泡泡破灭的时候，才发现自己还没有准备好出去，还没有想好自己喜欢做什么，这四年时间不知道在干嘛，既不喜欢现在的专业，想转也不知道转到哪里。我身边有不少同学有这样的焦虑，不乏有些是排名前矛的同学。于是他们选择了读研。缓一年，再看看。而真正想为科研奉献的能有几个呢。</p>
+<p>这就是我，不天才，不优秀，靠努力和大量的时间投入，很愚蠢、又偏执，沉浸于折磨自己。I’m not proud of myself，但是真的无法在学校如鱼得水。<br>I fucking hate school.<br>而学校，这个社会，是不可能轻易改变运作。再让我在国内读研，我会疯掉。<br>其实还可以选择留学，是的，我从高中开始就一直想去日本留学，早在那个时候就开始准备，过了语言考试。谁知计划赶不上变化。我已经对日本没有那么向往了（日本社会真的太压抑了），在加上2019年发生了一些家庭变故。我决定留在国内，留在故土，留在母亲身边。<br>而且就算读研了，我也没有自信能真正做出点什么。我是普通人，想要有所成就，就需要投入大量的时间和精力，但是同时我不想因为这个失去生活其它的乐趣。如果我因为工作研究，而冷落了我的口琴、书籍、车票，任它们在角落里暗沉积灰，我不知道这样下去是否还值得。</p>
+<p>再说工作。我得到了一个很满意的 offer。同时，如果我真的对 AI 研究有热情的话，不一定非要在实验室里，我也可以在工作之余自学进行研究。在真实的工业界见识见识，也肯定是一种优势。最重要的一点是，独立了，自由了。</p>
+<p>以上都是安慰自己的废话，我知道，不论何时我回头看一定会为没有出国留学而感到遗憾。</p>
+<h3 id="Home"><a href="#Home" class="headerlink" title="Home"></a>Home</h3><p>一说起2020，脑海里第一个蹦出来的绝对是，疫情。疫情让我在家待了从来没有这么久的整整一年多的时间。也让我想明白了一件事情。<br>只有身在远方，家才是最好的模样。<br>我知道这么说，显得很消极。我是很爱我的家人的，也很爱出生长大的小县城。但是对于我和我母亲的关系，这样的亲人之间真的很需要距离感。我从来不会向她吐露我的心声，从青春期就开始了，长大后报喜不报忧。我十分怀念小时候和母亲的无所不谈，我也万分羡慕别人和父母的亲密无间。<br>我也不是没有尝试沟通，他们是真的不会理解。真的不会像电影一样，只要鼓起勇气去沟通，一股脑倾诉出来，一定会传达到的。就像是成长，不是突然的改过自新和清脆的醒悟。<br>我站在今天新时代独立女性思潮，女性意识觉醒的风口浪尖上，思想观念自然和以前大不相同。我曾经和她提起，不想结婚生孩子，她表示无法理解，并且劝我一定要养儿防老。<br>再次感概，如果性别平等意识无法深入到我母亲这辈人的话，那么真的还有很长的路要走。</p>
+<p>我认真思考过，我母亲的人生经历，她的激情与追求，她和父亲的爱情，她和我的关系，她的一切。<br>我不想变成她，我害怕有一天发现我的身上有她的影子，我害怕别人说我像她。<br>但是我爱她，她给了我所有，确保我健康长大，时时刻刻牵挂着我，也为家庭牺牲付出了很多。只要我一说想吃什么，立马就准备一箩筐让我吃个够。初中的时候，每晚都会在校门口，风雨无阻，骑着那个破旧的老式自行车来接我回家。可我那个时候是多么得不懂事、叛逆，伤了她的心。她做的一切都是为了这个家为了我，总是把自己排在后面。可是，母亲，我不想让你一辈子只为这个家，我只想让你为自己而活。</p>
+<p>每次在电影里看到、在书里读到母女关系，我都心想，不是这样的。我的家庭不是这样的。现实要复杂复杂很多。It’ really very warm and suck.  我的父母认为他们应当无条件支持我，给我充足的物质条件，但是却不怎么关心我的心理，或者是不善交流。他们觉得说几句明话就能让我心安，可是我在乎你们的每个眼神、语气、动作，看似不经意的玩笑、回答的迟钝和谎言的味道。<br>表面上不给我压力，实际上无数次暗示希望我去努力奋斗。多次不经意间的提起他们老了就完全指望我了，半开玩笑得问我工作了该给他们每个月打多少钱，仿佛给我一种错觉，他们的爱是有条件的。为什么不能仅仅是因为我是你的女儿，因为你是我的母亲，所以爱你，所以照顾你？我常常怀疑他们莫名陷入一种自我感动中，我并没有要求他们什么。<br>有一次，订错了飞机票，要改签的话，需要再出500元，我当时心里一边责怪自己犯这么低级的错误，一边特别害怕、焦虑、纠结要不要和母亲说，就这样折磨了一晚上。后来和我母亲谈起这件事，她特别触动，觉得我们母女之间怎么会变成这样，她很自责，没有给我安全感，要是我们家在富裕一点的话就不会这样了。我不知道该说什么，她不明白，这根本不是物质条件的问题，而是精神层面的。从小，为了让妈妈开心，我一直顺着她的意思。我觉得根本没什么，也不 care 家里的情况，我懂事，所有人都夸我懂事。后来，在我父亲的葬礼上，我母亲的一位好朋友，过来找我谈心，谈起我母亲父亲是多么了不起，全款买下来一套房子。之后，我才得知原来我们家庭一直是他们同学圈子里羡慕的对象。<br>我可能也一直误会了我的父母，像我说的，不善沟通。真的太 fucking suck 了。</p>
+<p>我的母亲和父亲。我看不见他们眼里的火花，嗅不到爱情的残息。我认真问过母亲，关于爱情，直勾勾盯着她的眼珠的那种认真，她从来不以为然，轻描淡写为当时看你父亲老实顾家就嫁了，仿佛从来没有在意过。以至于，我一直不敢向她袒露自己。<br>我和父亲，更不交流。哪怕是在我见到他的最后一面。我感觉我就像局外人中的加缪，下一秒就要被宣判有罪，理由是我在我生父的葬礼上没有哭。<br>说到那个傻逼葬礼，是的，傻逼葬礼，我要再骂一遍。我真的是搞不懂，葬礼为什么要搞得忙天忙地、晕头转向的宴请宾客。大多的我还不认识，见面就很尴尬。因为他们会 judge 你为什么表现的不悲伤、不憔悴？？我被轰轰隆隆、震得耳膜疼的唢呐声和跪了一整天的酸痛、疲惫弄得无暇悲伤了。我不能放空自己去回忆、去思念。我丧失了悲伤的能力。我想取出一把骨灰，撒到父亲小时候，他的老家那条他最爱嬉戏游玩的小溪，我想以自己的方式说再见，但是所有人都叫我只能跪在灵堂前。我只想听张叔叔王阿姨，爸爸的好朋友们，讲述他的趣事，可是为什么出现那么多无关紧要的人，他们甚至连悲伤都懒得假装。<br>很久之后，有一次回家，我看到门顶上挂着一只可爱得红火的小灯笼。那是我和父亲在某次春节的时候，一起挂上去的，他扶着椅子，我站在椅子上。也只有他愿意陪我整这些有的没的，也只有他，在我兴奋得抢着要去挂灯笼的时候，一直夸小小的我长的好高好高好高。回忆涌来，昔日的景象历历在目，我一下子绷不住了。我才明白，葬礼的目的从来都不是为了告别，因为根本不可能告别。</p>
+<p>对于我来说，家是世上最温暖的地方，亲情是最伟大的馈赠，但也是真的 suck。明年我就正式入职开始工作了，也需要搬到另一个城市，我知道，我一定一定会非常想家，想到辗转反侧，想到泪流满面，但是我不会 go back。也只有这样，回忆里的家，仿佛所有的不愉快、悲伤、挣扎、压抑都蒸发了，只剩下清晨奶奶煮好的鸡蛋醪糟的稠甜和像时钟一样准时出现在窗口护送着我上学的目光。就这样的距离，刚刚好。</p>
+<p>近来几个月，我和母亲的关系有了微妙的好转。是从我们各种从对对方隐瞒一些不好的事，报喜不报忧，到现在坦诚的说出自己的需求开始的。母亲开始和我倾诉她的压力，生活琐事，亲戚之间的矛盾等等。我会告诉她我要去看牙医，我病了，我脆弱了，我感到不舒服了。</p>
+<h3 id="Transform"><a href="#Transform" class="headerlink" title="Transform"></a>Transform</h3><p>今年真的，我转变了好多。从以前的偏执狂，到现在，我也不知道该怎么形容。以前的我一直沉浸在自己的小世界里，不怎么在意外面，觉得很充实快乐。可能很多人对我还停留在，专注又难以接近的印象。<br>然后，今年确定好了毕业去向，拿到了 offer。意味着，我不用再专注于学业，不用再神经紧绷，不用一定要用各种事情 occupy myself 才心安。有更多的时间，读书、思考、休息。我才明白自己已经走入下一个阶段了。之前的我太注重学业、效率，而忽略掉了很多东西。比如，人际关系。干什么都要讲效率，现在回想起来真的很可笑，mad人际交往还要讲效率的吗。我居然错过了我的两个好朋友的生日，这让我十分懊悔，对方都是会每年准时给我送上生日祝福的人。我一直觉得这些没有必要刻意记这些，但是就是这些琐事、小细节才反映了一种温度，不是吗。今年（可能是今年吧），我的一位好朋友来电，她是向我倾诉烦恼，而我却脑海飞速运转想想出一个理性的解决方案，然后告诉她。我真的害怕失去她，所以想表现出自己对她很有用，想表现的成熟稳重一点。我不断建议她该怎么怎么做，我说你该去和父母谈谈你真正的想法，他们就不会硬要你去考公务员了。现在想起来真是后悔，可是在当时我还深信自己做得没错。之前我觉得自己的精神世界还蛮丰富，其实根本就是自负。这世界还有好多值得一去的地方，还有好多乐趣等着我发掘，还有很多和我息息相关的知识沃土。应该永远保持谦卑的态度，汲取营养，应该试着走出舒适圈，打碎再重组，应该保持着对新事物的好奇心，尝试平时不会做的事。我知道，这些道理都说烂了，但是还是不能好好的生活。我终于有闲暇时间来练钢琴、看书、健身、追剧，磕CP！！我开始学习了解艺术、古典乐领域。而且开始关注政治、时事、心理、经济，这让我的生活重新活了起来。有些事情，是真的自己得突然有个转变，你才意识到以前深信不疑的东西，其实不然。所以，我希望自己以后不要停留在一个状态太久了。</p>
+<p>以前，我做什么事情非要找到什么意义不可，不能一无所获，不能虚度光阴，即使是在娱乐的时候。我讨厌肤浅，颜控无脑追星，没营养的剧。比如说，看电影的时候，拒绝看烂片，我会想，看完这个电影，我一定要能获得什么东西才行。可以是引人深思的主题，喜欢上了什么打开了新世界的大门，导演的个人风格怎样，配乐怎样，运镜怎样，再不济也要学会几个单词。可以是 anything，但是一定是要有所收获。如果是双语字幕，经常要暂停来记下不认识的语法单词。这样真的很累。为什么就不能单纯的娱乐一下呢？？我讨厌大家为了脱单而脱单，仿佛需要别人的关注来证明自己多么特殊。为什么要寄托于他人、投射到他人呢，为什么不能就专注于个人价值的实现呢？我常常感到孤独，因为我无法向朋友们倾述。我和她们没有共同的爱好，我总是把什么东西最后都弄得很认真，总是拒绝虚度。表面上在迎合，实际上我在封闭自己，我害怕表露自己内心的真实。之后，一下子放松下来，就像突然结束了持续了整个三年的长跑。我一下不知道该怎么深呼吸。并且开始质疑我的生活意义，开始质疑很多事情、观点、方式。小世界开始崩塌，我应该多走出去看看。现在，我已经缓过来了，告别之前的苦行僧生活。我更快乐了，可以单纯为了某个演员去看某个烂片，可以为了磕C P 而去看一些又长又臭的剧。</p>
+<p>Fuck off，我怎么开心就怎么来。</p>
+<h3 id="Show-Movie-Music-Book"><a href="#Show-Movie-Music-Book" class="headerlink" title="Show, Movie, Music, Book"></a>Show, Movie, Music, Book</h3><p>今年收获了好多好多宝藏。具体可以去回顾豆瓣啦。举几个例子，我看了冰雪奇缘，由此发现了有一版百老汇的音乐剧，看了之后，爱上了音乐剧，从此打开了新世界的大门，有了新的爱好。我看了 <a target="_blank" rel="noopener" href="https://movie.douban.com/subject/28427782/">My Brilliant Friend</a> 这部剧，了解到了女性主义，对女性主义的其他作品产生了兴趣，也对女权主义产生了兴趣，并且收获到了超好听的OST，还发现了随机波动这个播客节目。这部剧真的超超超超超好看！年度最佳剧情我一定选它，zero hesitation。原版小说那不勒斯四部曲也啃完了，年度最佳书籍。真的引发了我的好多共鸣和思考，要写下可就太多了。那不勒斯这次真的是深深刻在我的脑髓里了，以后有机会一定去旅游。</p>
+<p>今年有很多时间都在听播客，播客简直拯救了坐地铁，做家务，还有等待代码 build 完的无聊时间。绝对是新潮流趋势啦。我最喜欢听<a target="_blank" rel="noopener" href="https://www.stovol.club/episodes">随机波动</a>和<a target="_blank" rel="noopener" href="https://buzaichang.xyz/">不在场</a>了。希望以后还能发现更多好玩有趣的播客。</p>
+<p>年度最佳电影是<a target="_blank" rel="noopener" href="https://movie.douban.com/subject/1292217/">穆赫兰道</a>，目前也是我心目中的影史最佳。这部电影，通常都会被放到史上最烧脑、人生必看悬疑、看得懂算我输系列片单里面，还会和精神分析学挂钩。可是我对悬疑烧脑、理性分析一点都不感兴趣。真正打动我的是，这部电影给我带来的感受。即便第一次看的时候，没有全部看懂细节，也是完全能够感受到震撼。在电影结尾处，是我最喜欢的一幕，Diane 和 Camilla 的笑脸，那些美好的梦闪回地浮现在屏幕上，背景是光怪陆离的好莱坞夜景，微微泛蓝流动的灯光，配上电影主旋律的BGM。看到这一幕，我止不住的流泪，心绞痛到了窒息的程度。最后，BGM fade out，镜头切回到那个剧场，蓝光和烟雾逐渐褪去，只剩下空无一人的舞台、幕布、一盏小灯，随后切到一个蓝发女歌手，轻轻说了一句“Silencio”（寂静），电影结束。此后这部电影便在我脑海中挥之不去。写到这里，发现自己写了很多“蓝”这个字，实际上蓝色在这个电影里面有很特殊的寓意。而且这个蓝色，运用的真的很奇妙，选的不是那种灰度比较高的低调好看的蓝，而是那种比较诡异一点的，心理恐惧很有林奇的风格。这个电影也让娜奥米·沃茨一举成名，演技真的太太太震撼了，我爱闹米阿姨！！<br>目前在我看来，没有哪个导演像大卫林奇一样，能把梦境拍得如此完美。诺兰的盗梦空间，本来是在梦里，却那么理性。今敏的梦，又太过天马行空。而林奇的，合情合理又细思极恐。<br>还有一部电影 <a target="_blank" rel="noopener" href="https://movie.douban.com/subject/10757577/">Carol</a>，镜头、构图、配乐精准完美的戳中我的审美。以后怕是每年圣诞都要重温一遍。</p>
+<p>年度最佳歌曲必然是梶浦妈的<a target="_blank" rel="noopener" href="https://open.spotify.com/track/50M0nvkvTrMVuBiOIBCHxu?si=Ure0oGuqTMCsKXfmyuM92A">雲雀</a>，长笛和大提琴简直太美了。还有竹内まりや的<a target="_blank" rel="noopener" href="http://music.163.com/song?id=659423&amp;userid=124358086">プラスティック・ラブ</a>，这首歌的编曲太牛逼了。<br>今年还喜欢上了一个乐队，CAS(Cigarettes After Sex)，我太喜欢这 ambient风格的慢摇啦。通过听播客不在场，还喜欢上了Bon Iver，喜欢大叔真的是一位很伟大的艺术家。现在一边听他的歌，一边跨年，一边写总结。</p>
+<p>年度最佳CP，必然是 WayHaught !! 真的磕得我哦，昼夜颠倒，丧心病狂，已经魔怔了。这对 sweet 得太恐怖，我从B站看完所有的采访，到微博一条条翻到超话最后一条，再到油管，看了好多好多的 panel，感觉自己英语听力突飞猛进，以至于脑子受到创伤里面不自觉的在蹦出各种英文。我是坚决不跳真人坑的，可是，可是，可是，这这这这这不是爱情是什么！？😭 已经在真人坑底躺平，呜呜呜我的命就一条都给你。</p>
+<p>最后，进击的巨人牛逼！创哥永远的神！</p>
+<h3 id="Intimate-Relationship"><a href="#Intimate-Relationship" class="headerlink" title="Intimate Relationship"></a>Intimate Relationship</h3><p>结束了一段两年的恋爱关系。终于结束了，我真的如释重负，舒了一口气。<br>感谢这次经历，让我更清楚的认识自己。今年做过的最大胆的事，向我的一个最好的朋友出柜了。<br>Shit, I’m gay.</p>
+<h3 id="Regrets"><a href="#Regrets" class="headerlink" title="Regrets"></a>Regrets</h3><p>其实我之前觉得遗憾的事，现在想起来已经觉得不怎么了。因为我觉得现状就蛮好了，因为它们的没有实现才会有现在。<br>最大的遗憾就是因为疫情，音乐剧法红黑的成都场延期到不知道多久，明年我就不在成都了啊。不过我可以去明年10月的杭州场嘻嘻（可以去现场听夫人的嗓音了，夫人我爱你啊）。而且因为无法巡演，才有了官摄！然后就是梶浦妈今年的 live 没有开成，不过今年有线上的 live，而且线上音响效果不错，我能很清楚的看到每位歌姬！再就是，没办法去公司 onsite 实习，不过我发现待在家里真的很舒服（也就不想去 onsite 了）。还有，我本来是想去 Google 实习的，也一直在为此准备，结果简历被拒了很难过很伤心很怀疑人生，最后原因是因为疫情 Google 今年不招实习生了。这样也挺好，因为这样我才有现在的这个公司，我也很喜欢。</p>
+<p>这么说起来没有什么遗憾了。</p>
+<h3 id="Prospect"><a href="#Prospect" class="headerlink" title="Prospect"></a>Prospect</h3><p>今年是值得纪念的一年。<br>我还是很感谢过去努力的自己，虽然也牺牲了很多，但是不能贪得无厌。我只是在一个阶段做了应该做的事情，没有辛苦付出，也就没有今天的我。没有哪段时光是完美的。😌</p>
+<p>希望明年顺利毕业。唉，本来我可以选一个轻松的毕设，不费吹灰之力就可以完成。但是我偏偏主动给自己设计了一个蛮有挑战的题目。不过转念一想这才是我，不折磨自己就不是我了。</p>
+<p>我是一个从来不会主动麻烦别人，但是别人要来麻烦我，我一定是在所不辞的人。在听一个播客节目的时候，我听到一个嘉宾说，其实现在职场里成人之间的人际关系很多就是靠找别人帮忙，麻烦别人建立的，不然大家各忙各的。我觉得说的很有道理，但是不确定自己是否有勇气，明年就要正式入职了，希望 everything will be ok。</p>
+<p>刚进入大学的时候，所有人都在告诉我应该怎么怎么做。我也陷入一种焦虑之中，害怕虚度光阴，害怕走弯路。于是迫切的向前辈请教，学习经验吸取教训，想找到一个能够效仿的目标。我一直安分守己，做着普遍认为的“正确”的事情，而忽略了自我。明年，我希望，我不再受任何人的影响，只有去碰壁了再反弹，无数次过程中才能摸索清楚自己的形状。现代社会，赞同的观点是别人的，吸收的知识是二手的，个性签名是引用的，就连感受也是借来的。到底什么才是自我呢？<br>明年工作了，我不会再 follow 前辈，我希望能找到属于自己的意义。欲望并不可耻，反而是真实的投影，越压抑越会侵入到在潜意识里深层的梦境。想去纹身就去纹身，想去喝酒就去喝酒，fuck off morality。</p>
+<p>这个博客的主题模板，我本来打算精校一下 code 再加些功能再发布的。但是我已经不想折腾了😓（回看了一下 code 真的像坨…），所以就这样吧。<br>预计明年会把 about 的幻灯片展示，换成更有设计感一点的，我已经有 idea 了。然后再都换成我的照片，嗯。</p>
+<p>希望明年多读一些小说以外的书籍，划掉我冗长的读书清单。<br>希望明年琴技进步，并且开始学其他乐器啦。<br>希望厨艺进步。<br>希望多去了解接触艺术领域。<br>希望多去旅游，多走走多看看。好想去国外，冰岛、京都、伦敦、巴黎、LA。并且尝试拍 Vlog 啦。<br>希望能多去听音乐会，演唱会，Live house，音乐剧能引进多一点。明年有魅影好期待啊啊啊啊<br>希望拥有一台黑胶唱片机。<br>希望我的 CP 都圆满！<br>希望鼓起勇气去表白，不要再怂了！！<br>希望不要再害怕发表自己的想法。<br>希望收获一段亲密关系。<br>希望消除焦虑和不自信。</p>
+<p>希望世界越来越好。<br>Hello, 2021 !</p>
+<hr>
+<p>封面来自我最爱的艺术家、画家 <a target="_blank" rel="noopener" href="http://laurelholloman.net/">Laurel Holloman</a>。Title is Coeur Libre，很符合今天的主题 😉<br>关于 Bon Iver:<br><a target="_blank" rel="noopener" href="https://buzaichang.xyz/episodes/Bon-Iver">EP10 冬天好</a><br><a target="_blank" rel="noopener" href="https://buzaichang.xyz/episodes/Bonus-re-stacks">Bonus 关于：堆</a><br><a target="_blank" rel="noopener" href="https://buzaichang.xyz/zhong-yi-trevor-hagenwei-bon-iverde-for-emma-for-b67a55a8">翻译 | Trevor Hagen为Bon Iver的For Emma, Forever Ago十周年再版撰写的文章</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Merge-Sort"><a class="vertical-center" href="/posts/27188/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="记一次深夜小作文：谈谈亲密关系"><a class="vertical-center" href="/posts/14265/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Work-or-Postgraduate-Study"><span class="toc-text">Work or Postgraduate Study</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Home"><span class="toc-text">Home</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transform"><span class="toc-text">Transform</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Show-Movie-Music-Book"><span class="toc-text">Show, Movie, Music, Book</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intimate-Relationship"><span class="toc-text">Intimate Relationship</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regrets"><span class="toc-text">Regrets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prospect"><span class="toc-text">Prospect</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="总结一波背包问题的动态规划解法"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm,Dynamic Programming"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Backpack Problem</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm/Dynamic Programming</div><div class="post-page-title">Backpack Problem</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2019-12-01T16:00:00.000Z">December 2, 2019</div></div><div class="post-page-content"><h2 id="Backpack-0-1-knapsack-problem"><a href="#Backpack-0-1-knapsack-problem" class="headerlink" title="Backpack (0-1 knapsack problem)"></a>Backpack (0-1 knapsack problem)</h2><p><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/backpack/description">LintCode 92 Backpack</a><br>单次选择，最大体积。<br><strong>Question</strong><br>Given n items with size Ai, an integer m denotes the size of a backpack. How full you can fill this backpack?<br><strong>Notice</strong><br>You can not divide any item into small pieces.<br><strong>Example</strong><br>If we have 4 items with size [2, 3, 5, 7], the backpack size is 11, we can select [2, 3, 5], so that the max size we can fill this backpack is 10. If the backpack size is 12. we can select [2, 3, 7] so that we can fulfill the backpack.<br>You function should return the max size we can fill in the given backpack.<br><strong>Challenge</strong><br>O(n x m) time and O(m) memory.<br>O(n x m) memory is also acceptable if you do not know how to optimize memory.</p>
+<p>这个比较简单。直接上 Code。<br>这里将 2D-array 优化到了 1D-array。需要<strong>倒序内层循环</strong>。<br>在第 i 层循环初 dp[j] 存的相当于 dp[i - 1][j] 的值，因为在更新dp[j]时用到了 dp[j - A[i]], 由于<strong>内层循环倒序</strong><br>dp[j - A[i]] 未更新，代表了dp[i-1][j - A[i]]，也就是 Old 的值。</p>
+<pre><code class="lang-java">public int backPack(int m, int[] A) &#123;
+    if (m &lt;= 0) &#123;
+        return m;
+    &#125;
+
+    if (A == null || A.length == 0) &#123;
+        return 0;
+    &#125;
+    int n = A.length;
+    boolean[] dp = new boolean[m + 1];
+    dp[0] = true;
+
+    int res = 0;
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        for (int j = m; j &gt;= 0; --j) &#123;
+            if (j - A[i - 1] &gt;= 0) &#123;
+                dp[j] = dp[j] || dp[j - A[i - 1]];
+            &#125;
+            if (dp[j]) &#123;
+                res = Math.max(res, j);
+            &#125;
+        &#125;
+    &#125;
+    return res;
+&#125;
+</code></pre>
+<h2 id="Backpack-II-0-1-knapsack-problem"><a href="#Backpack-II-0-1-knapsack-problem" class="headerlink" title="Backpack II (0-1 knapsack problem)"></a>Backpack II (0-1 knapsack problem)</h2><p>单次选择，最大价值。出现了，经典背包问题。<br><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/backpack-ii/description">LintCode 125 Backpack II</a><br>最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放，也即0 or 1。<br>子问题定义状态：即 F[i, v] 表示前 i 件物品放入一个容量为 v 的背包可以获得 的最大价值<br>其状态转移方程便是： F[i, v] = max{F[i − 1, v], F[i − 1, v − Ci ] + Wi}</p>
+<pre><code class="lang-java">// 1D DP space Optimized
+public int backPackII(int m, int[] A, int[] V) &#123;
+    if (m == 0 || A == null || A.length == 0
+        || V == null || V.length == 0) &#123;
+        return 0;
+    &#125;
+    int n = A.length;
+    int[] dp = new int[m + 1];
+
+    for (int i = 1; i &lt;= n; ++i) &#123;
+        for (int j = m; j &gt;= 0; --j) &#123;
+            if (j - A[i - 1] &gt;= 0) &#123;
+                dp[j] = Math.max(dp[j], dp[j - A[i - 1]] + V[i - 1]);
+            &#125;
+        &#125;
+    &#125;
+    return dp[m];
+&#125;
+</code></pre>
+<h2 id="Backpack-III-unbounded-knapsack-problem-UKP"><a href="#Backpack-III-unbounded-knapsack-problem-UKP" class="headerlink" title="Backpack III (unbounded knapsack problem (UKP))"></a>Backpack III (unbounded knapsack problem (UKP))</h2><p><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/backpack-iii/description">完全背包问题</a><br><strong>Description</strong><br>Givenn_kind of items with size Aiand value Vi(each item has an infinite number available) and a backpack with size_m. What’s the maximum value can you put into the backpack?<br>You cannot divide item into small pieces and the total size of items you choose should smaller or equal to m.<br><strong>Example</strong><br>Given 4 items with size[2, 3, 5, 7]and value[1, 5, 2, 4], and a backpack with size10. The maximum value is15.</p>
+<p>将其视为多重背包变形，每种物品取的上限是 m / A[i]。<br>可以无限使用物品, 就失去了 last i, last unique item 的意义: 因为可以重复使用. 所以可以转换一个角度:</p>
+<ol>
+<li>用 i 种 物品, 拼出 j 大小, 并且满足题目条件 (max value)。 这里因为item i可以无限次使用, 所以考虑使用了多少次K。</li>
+<li>k虽然可以无限, 但是也被 k * A[i] 所限制: 最大不能超过背包大小。<br>dp[i][j]: 前i种物品, fill weight j 的背包, 最大价值是多少。<br>dp[i][j] = max {dp[i - 1][j - k*A[i-1]] + k*V[i-1]}, k &gt;= 0, k &lt;= j / A[i-1]</li>
+</ol>
+<p>Time: O(nmk)<br>如果k = 0 或者 1, 其实就是 Backpack II: 0-1背包，拿或者不拿</p>
+<h3 id="时间复杂度优化"><a href="#时间复杂度优化" class="headerlink" title="时间复杂度优化"></a>时间复杂度优化</h3><p>优化时间复杂度, 通过画图或者数学公式递推发现:<br>所计算的 (dp[i - 1][j - k*A[i - 1]] + k * V[i - 1]) ，其实跟同一行的 dp[i][j-A[i-1]] 那个格子相比, 就多出了 V[i-1]<br>所以没必要每次都 loop over k times<br>简化: dp[i][j] 其中一个可能就是: dp[i][j - A[i - 1]] + V[i - 1]<br>Time: O(mn)<br>Space: O(mn)</p>
+<h3 id="空间复杂度优化"><a href="#空间复杂度优化" class="headerlink" title="空间复杂度优化"></a>空间复杂度优化</h3><p>空间优化到1维数组<br>根据上一个优化的情况, 画出 2 rows 网格<br>发现 dp[i][j] 取决于: </p>
+<ol>
+<li>dp[i - 1][j]</li>
+<li>dp[i][j - A[i - 1]]<br>其中: dp[i - 1][j] 是上一轮 (i-1) 的结算结果, dp[i][j - A[i - 1]] 是这轮已经算好的结果。所以我们只需要<strong>正序内层循环</strong>即可。<br>Time: O(mn)<br>Space: O(m)</li>
+</ol>
+<pre><code class="lang-java">/**
+Optimization1: 
+- Optimise time:
+- by draw dp array grid 
+- dp[i - 1][j - k*A[i - 1]] + k * V[i - 1] actually equal to dp[i][j - A[i - 1]] + V[i - 1]
+- so it&#39;s not necessary to loop k times
+- Optimise Space:
+- can compress to 1-D array
+*/
+
+public class Solution &#123;
+    // optimise time
+    public int backPackIII(int[] A, int[] V, int m) &#123;
+        if (A == null || A.length == 0 || m == 0) &#123;
+            return 0;
+        &#125;
+
+        int n = A.length;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            for (int j = 0; j &lt;= m; ++j) &#123;
+                dp[i][j] = dp[i - 1][j];
+                if (j - A[i - 1] &gt;= 0) &#123;
+                    dp[i][j] = Math.max(dp[i][j], dp[i][j - A[i - 1]] + V[i - 1]);
+                &#125;
+            &#125;
+        &#125;
+        return dp[n][m];
+    &#125;
+
+    // optimise space
+    public int backPackIII2(int[] A, int[] V, int m) &#123;
+        if (A == null || A.length == 0 || m == 0) &#123;
+            return 0;
+        &#125;
+
+        int n = A.length;
+        int[] dp = new int[m + 1];
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            for (int j = 0; j &lt;= m; ++j) &#123;
+                if (j - A[i - 1] &gt;= 0) &#123;
+                    dp[j] = Math.max(dp[j], dp[j - A[i - 1]] + V[i - 1]);
+                &#125;
+            &#125;
+        &#125;
+        return dp[m];
+    &#125;
+&#125;
+</code></pre>
+<p>详细可以参考<a target="_blank" rel="noopener" href="https://aaronice.gitbooks.io/lintcode/content/dynamic_programming/backpack-iii.html">这篇文章</a></p>
+<h2 id="Backpack-IV-UKP-Coin-Change-II"><a href="#Backpack-IV-UKP-Coin-Change-II" class="headerlink" title="Backpack IV (UKP) / Coin Change II"></a>Backpack IV (UKP) / Coin Change II</h2><p><strong>Description</strong><br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/coin-change-2/">LeetCode 518 Coin Change 2</a><br>Given n items with size nums[i] which an integer array and all positive numbers, no duplicates. An integer target denotes the size of a backpack. Find the number of possible fill the backpack.<br>Each item may be chosen unlimited number of times</p>
+<pre><code class="lang-java">public int change(int amount, int[] coins) &#123;
+        if (coins == null) &#123;
+            return 0;
+        &#125;
+
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            for (int j = 0; j &lt;= amount; ++j) &#123;
+                if (j - coins[i - 1] &gt;= 0) &#123;
+                    dp[j] += dp[j - coins[i - 1]];    
+                &#125;
+
+            &#125;
+        &#125;
+        return dp[amount];
+
+    &#125; 
+    // Time = O(m * n)
+    // Space = O(n)
+</code></pre>
+<h2 id="Backpack-V-0-1-Knapsack-Problem"><a href="#Backpack-V-0-1-Knapsack-Problem" class="headerlink" title="Backpack V (0/1 Knapsack Problem)"></a>Backpack V (0/1 Knapsack Problem)</h2><p>单次选择, 装满可能性总数<br><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/backpack-v/description">LintCode 563 Backpack V</a></p>
+<pre><code class="lang-java">public int backPackV(int[] nums, int target) &#123;
+        // write your code here
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        int n = nums.length;
+        int[] dp = new int[target + 1];
+
+        dp[0] = 1;
+        for (int i = 1; i &lt;= n; ++i) &#123;
+            for (int j = target; j &gt;= 0; --j) &#123;
+                if (j - nums[i - 1] &gt;= 0) &#123;
+                    dp[j] += dp[j - nums[i - 1]];
+                &#125;
+            &#125;
+        &#125;
+        return dp[target];
+    &#125;
+</code></pre>
+<h2 id="Backpack-VI-Combination-Sum-IV"><a href="#Backpack-VI-Combination-Sum-IV" class="headerlink" title="Backpack VI / Combination Sum IV"></a>Backpack VI / Combination Sum IV</h2><p>重复选择, 不同排列, 装满可能性总数<br><a target="_blank" rel="noopener" href="https://leetcode.com/problems/combination-sum-iv/">LeetCode 377 Combination Sum IV</a></p>
+<pre><code class="lang-java">    // dp
+    // dp[i] = dp[i - A[0]] + dp[i - A[1]] ... + dp[i - A[n]], A[0..n] &lt;= i
+    // can&#39;t pick the first number then pick second number
+    // because the order is not matter 
+    // (1, 1, 2), (1, 2, 1) regarded as different result not one
+    // so we should try each number at each loop
+    public int combinationSum4(int[] nums, int target) &#123;
+        if (nums == null || nums.length == 0) &#123;
+            return 0;
+        &#125;
+        int n = nums.length;
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i &lt;= target; ++i) &#123;
+            for (int j = 0; j &lt; n; ++j) &#123;
+                if (i &gt;= nums[j]) &#123;
+                    dp[i] += dp[i - nums[j]];
+                &#125;
+            &#125;
+        &#125;
+        return dp[target];
+    &#125;
+
+    // Time = O(n * target)
+    // Space = O(target)
+</code></pre>
+<h2 id="Backpack-VII-bounded-knapsack-problem-BKP"><a href="#Backpack-VII-bounded-knapsack-problem-BKP" class="headerlink" title="Backpack VII (bounded knapsack problem (BKP))"></a>Backpack VII (bounded knapsack problem (BKP))</h2><p><a target="_blank" rel="noopener" href="https://www.lintcode.com/problem/backpack-ix/description">800. Backpack IX</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Lowest Common Ancestor"><a class="vertical-center" href="/posts/47224/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Merge-Sort"><a class="vertical-center" href="/posts/27188/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-0-1-knapsack-problem"><span class="toc-text">Backpack (0-1 knapsack problem)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-II-0-1-knapsack-problem"><span class="toc-text">Backpack II (0-1 knapsack problem)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-III-unbounded-knapsack-problem-UKP"><span class="toc-text">Backpack III (unbounded knapsack problem (UKP))</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%BC%98%E5%8C%96"><span class="toc-text">时间复杂度优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%BC%98%E5%8C%96"><span class="toc-text">空间复杂度优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-IV-UKP-Coin-Change-II"><span class="toc-text">Backpack IV (UKP) &#x2F; Coin Change II</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-V-0-1-Knapsack-Problem"><span class="toc-text">Backpack V (0&#x2F;1 Knapsack Problem)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-VI-Combination-Sum-IV"><span class="toc-text">Backpack VI &#x2F; Combination Sum IV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpack-VII-bounded-knapsack-problem-BKP"><span class="toc-text">Backpack VII (bounded knapsack problem (BKP))</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>

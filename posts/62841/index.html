@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"><meta name="renderer" content="webkit"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><meta name="applicable-device" content="pc, mobile"><meta name="MobileOptimized" content="width"><meta name="HandheldFriendly" content="true"><meta name="description" content="压缩技术领域的 Huffman 算法和 LZ77 算法"><meta name="theme-color" content="#000000"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="Algorithm"><meta name="author" content="Hchyeria"><meta name="copyright" content="Hchyeria"><title>Compressor Algorithm</title><link rel="shortcut icon" href="/avalon-favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://fonts.loli.net/icon?family=Material+Icons"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC:wght@300;400;500;600;700|Frank+Ruhl+Libre:wght@300;400;500;700|Source+Code+Pro&amp;display=swap&amp;subset=chinese-simplified"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="page-header header-shadow" id="page-header"><span class="pull-left"> <a id="site-name" href="/"><div class="logo-contain" id="logo-normal"><img src="/avalon-logo.svg" height="25"></div></a></span><i class="material-icons toggle-menu" aria-hidden="1">menu</i><span class="pull-right" id="site-nav"><span class="menus"><a href="/"><li class="site-page">HOME</li></a><a href="/archive"><li class="site-page">ARCHIVE</li></a><a href="/record"><li class="site-page">RECORD</li></a><a href="/about"><li class="site-page">ABOUT</li></a></span></span></div><div class="hidden" id="menu-mobile"><div class="pull-right"><a href="/"><li class="site-mobile-page">HOME</li></a><a href="/archive"><li class="site-mobile-page">ARCHIVE</li></a><a href="/record"><li class="site-mobile-page">RECORD</li></a><a href="/about"><li class="site-mobile-page">ABOUT</li></a></div></div><style class="remove-item">#loading {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  height: 1000%;
+  opacity: 0.8
+}
+.load-container {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  color: #ff3333;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+#load-text {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 2em;
+  margin-right: 20px;
+}
+#taiji{
+  width: 0;
+  height: 50px;
+  border-left: 25px solid #fff;
+  border-right: 25px solid #ff3333;
+  border-radius: 100%;
+  box-shadow: 0px 0px rgba(0,0,0,0.05) inset, 2px 3px 10px 0px rgba(0,0,0,0.14);
+  animation: spinAround2 2s linear infinite;
+  align-self: flex-end;
+}
+#yin{
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #ff3333;
+  margin: 0px 0 0 -12.5px;
+}
+#yin:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang{
+  position: absolute;
+  margin: 25px 0 0 -12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  background: #fff;
+}
+#yang:after{
+  position: absolute;
+  margin: 6.25px 0 0 6.25px;
+  content: " ";
+  width: 12.5px;
+  height: 12.5px;
+  border-radius: 100%;
+  background: #ff3333;
+}
+#load-process {
+  width: 0;
+  height: 4px;
+  background-color: #ff3333;
+  position: fixed;
+  border-radius: 2px;
+  transition: width .2s
+}
+
+@keyframes spinAround2 {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style><div id="loading"><div id="load-process"></div><div class="load-container"><div id="load-text">少女祈祷中...</div><div id="taiji"><div id="yin"></div><div id="yang"></div></div></div></div><script class="remove-item">document.getElementById("load-process").style.width = '20%'</script><div id="content-outer"><div id="content-inner"><article id="post"><div class="post-page-top-img"><img src="/img/page-default.jpg"></div><div id="title-data"><div class="post-page-tags">Algorithm</div><div class="post-page-title">Compressor Algorithm</div><div class="dividded-sm"></div></div><div class="post-page-date"><div class="article-date" datetime="2019-06-08T16:00:00.000Z">June 9, 2019</div></div><div class="post-page-content"><p>博主最近完成了程序设计实践3。选择的题目是编写一个压缩软件。借此机会学习了Huffman 算法和 LZ77 算法。</p>
+<h2 id="Huffman-压缩算法"><a href="#Huffman-压缩算法" class="headerlink" title="Huffman 压缩算法"></a>Huffman 压缩算法</h2><h3 id="Huffman-编码介绍"><a href="#Huffman-编码介绍" class="headerlink" title="Huffman 编码介绍"></a>Huffman 编码介绍</h3><p>Huffman编码就是一种效率很高的编码方式，该方法完全依据字符出现概率来构造异字头的平均长度最短的码字。<br>相比较使用固定长度的<strong>定长编码</strong>方式，使用<strong>变长的编码</strong>方式能够节省很多空间。而使用变长编码可能会导致歧义，比如字母 a 用0表示，字母b用1表示，字母 c 用01表示，那么 abc 可以表示为0101，而0101可以解析成 cab，abab，这就会引起分歧。于是又引入了<strong>前缀码</strong>的概念。前缀码定义：任何一个字符的编码都不能是其它任何字符的编码的前缀。Huffman 编码就是一种能够使用最短的位数来编码文件的前缀码 。<br>Huffman编码需要牺牲一部分体积来储存 Huffman 编码树的信息。</p>
+<h3 id="如何构建-Huffman-编码树"><a href="#如何构建-Huffman-编码树" class="headerlink" title="如何构建 Huffman 编码树"></a>如何构建 Huffman 编码树</h3><p>Huffman 编码为每个字母分配编码，编码长度取决于在被压缩文件中对应字母的出现的频率，也就是权重（weight）。Huffman 编码树是满二叉树，有最小外部路径权重。每一个叶节点对应于一个字母，叶节点的权重就是对应的字母出现的频率。下图将解释一下什么是最小外部路径权重，并且 Huffman 编码的过程。</p>
+<div align=center><img class="post-img-big" src="/posts/62841/1.png" /></div>
+<div align=center class="img-undertext">最小外部路径权重</div>
+
+<p>构建Huffman编码树的算法过程：</p>
+<ol>
+<li>创建n个初始化的 Huffman 树（只有一个叶子点），叶节点纪录对应的字母和该字母出现的频率（weight）</li>
+<li>按照 weight 从小到大对所有的Huffman树进行排序，取出其中 weight 最小的两棵树，构造一个新的 Huffman树，新的 Huffman 树的 weight 等于两棵子树的 weight 之和，然后再加入到原来的 Huffman 树数组当中</li>
+<li>反复上面的ii操作，直到该数组当中只剩下一棵Huffman树，那么最后剩下来的那棵 Huffman 树就是我们构造好的Huffman编码树<div align=center><img class="post-img-big" src="/posts/62841/2.png" /></div>
+<div align=center class="img-undertext">构建过程</div>
+
+</li>
+</ol>
+<h2 id="LZ77-压缩算法"><a href="#LZ77-压缩算法" class="headerlink" title="LZ77 压缩算法"></a>LZ77 压缩算法</h2><h3 id="几个术语介绍"><a href="#几个术语介绍" class="headerlink" title="几个术语介绍"></a>几个术语介绍</h3><p>lookahead buffer 等待编码的区域。search buffer 已经编码的区域，搜索缓冲区。滑动窗口指定大小的窗，包含“搜索缓冲区”（左） + “待编码区”（右）。游标 cursor 编码位置</p>
+<h3 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a>编码过程</h3><p><strong>主要步骤：</strong></p>
+<ol>
+<li>设置游标为输入流的开始</li>
+<li>在待编码区查找搜索缓冲区中的最大匹配字符串</li>
+<li>如果匹配命中，输出(偏移值, 匹配长度)，窗口向前滑动匹配长度大小</li>
+<li>如果没有匹配未命中，输出(0, 0, 待编码区的第一个字符)，窗口向前滑动一个单位</li>
+<li>如果待编码区不为空，回到步骤2</li>
+</ol>
+<pre><code class="lang-python">import math
+from bitarray import bitarray
+
+
+class LZ77Compressor:
+
+    # 设置 window_size 上限
+    MAX_WINDOW_SIZE = 400
+    # 保存输出流`
+    output_buffer = None
+
+    def __init__(self, window_size=20):
+        # 初始化需要传入 window_size 参数 默认为20
+        self.window_size = min(window_size, self.MAX_WINDOW_SIZE)
+        # 待匹配窗口大小
+        self.lookahead_buffer_size = 15
+
+    def canculateRate (self, input_file_path, debug=False):
+        print(&quot;Canculateing LZ77......&quot;)
+        # 获取文件名称 类型(扩展名)
+        input_file_name, input_file_type = input_file_path.split(&#39;/&#39;)[-1].split(&#39;.&#39;)
+        # 游标位置
+        i = 0
+        # 定义输出 bitarray 流
+        output_buffer = bitarray(endian=&#39;big&#39;)
+
+        # 读取文件
+        try:
+            with open(input_file_path, &#39;rb&#39;) as input_file:
+                data = input_file.read()
+        except IOError:
+            print(&#39;Could not open input file ...&#39;)
+            raise
+        input_file.close()
+        # 获取文件总字节数
+        pre_len = len(data)
+        # 标识文件是用何种压缩算法 h 代表 Huffman l 代表 LZ77
+        output_buffer.frombytes(&#39;l&#39;.encode(&#39;utf-8&#39;))
+        # 储存文件的扩展名信息
+        output_buffer.frombytes(input_file_type.encode(&#39;utf-8&#39;))
+        # 补充扩展名信息到 4 bytes
+        while len(output_buffer) &lt; 40:
+            output_buffer.frombytes(b&#39;0&#39;)
+        # 当游标没有超出总字节数范围 继续编码
+        while i &lt; pre_len:
+            # 调用 findLongestMatch() 返回 最长匹配的 偏移量 和 长度 信息
+            match = self.findLongestMatch(data, i)
+
+            if match:
+                # 添加 1 bit flag 信息为 b&#39;1&#39; 代表匹配命中 12 bits 偏移量信息 4 bits 长度信息
+                # 这里为了节约空间 待匹配窗口大小 self.lookahead_buffer_size 已经定义为 15 那么长度信息 4 bits 就够用了
+                # 剩余的 4 bits 可以分配给 偏移量信息 使用 节省空间
+
+                (longestMatchDistance, longestMatchLength) = match
+                output_buffer.append(True)
+                output_buffer.frombytes((longestMatchDistance &gt;&gt; 4).to_bytes(1, byteorder=&#39;big&#39;))
+                output_buffer.frombytes((((longestMatchDistance &amp; 0x0f) &lt;&lt; 4) | longestMatchLength).to_bytes(1, byteorder=&#39;big&#39;))
+
+                if debug:
+                    print(&quot;&lt;1, %i, %i&gt;&quot; % (longestMatchDistance, longestMatchLength))
+                # 游标移动匹配的长度
+                i += longestMatchLength
+
+            else:
+                # 添加 1 bit flag 信息为 b&#39;0&#39; 代表匹配未命中 跟着 8 bits 的未匹配字符信息
+                output_buffer.append(False)
+                output_buffer.frombytes(data[i].to_bytes(1, byteorder=&#39;big&#39;))
+                # 如果 debug=True 打印调试信息
+                if debug:
+                    print(&quot;&lt;0, %s&gt;&quot; % data[i])
+                # 游标移动 1 个单位
+                i += 1
+
+        # 用 0 填充 output_buffer 使它成为8的倍数
+        output_buffer.fill()
+        # 保留self.output_buffer属性 以便 compress() 函数使用
+        self.output_buffer = output_buffer
+        # 返回压缩率
+        after_len = len(output_buffer)
+        fraction = (after_len / (pre_len*8)) * 100
+        return fraction
+
+    def compress(self, input_file_path, output_file_path=None):
+        print(&quot;Compressing ......&quot;)
+        # 获取文件名称 类型(扩展名)
+        input_file_name, input_file_type = input_file_path.split(&#39;/&#39;)[-1].split(&#39;.&#39;)
+        # 如果没有计算过并且保留self.output_buffer输出流 则执行canculateRate操作
+        if not self.output_buffer:
+            self.canculateRate(input_file_path)
+        # 写入文件 如果提供了 output_file_path 就在提供的 output_file_path 下写入 如果没有就同在 input_file_path 当前目录下写入文件
+        if output_file_path:
+            output_file_path_final = output_file_path + (
+                &quot;&quot; if output_file_path[-1] == &quot;/&quot; else &quot;/&quot;) + input_file_name + &quot;.hchy&quot;
+        else:
+            output_file_path_final = &#39;/&#39;.join(input_file_path.split(&#39;/&#39;)[0:-1]) + &quot;/&quot; + input_file_name + &quot;.hchy&quot;
+        try:
+            with open(output_file_path_final, &#39;wb&#39;) as output_file:
+                output_file.write(self.output_buffer.tobytes())
+                print(&quot;File was LZ77 compressed successfully and saved to output path %s&quot; % output_file_path_final)
+                # 输出成功 关闭输出流
+                output_file.close()
+                return None
+        except IOError:
+            print(&#39;Eroor! Could not write to output file path %s&#39; % output_file_path_final)
+            raise
+
+    def decompress(self, input_file_path, output_file_path=None):
+        print(&quot;Decompressing ......&quot;)
+        # 获取文件名称 类型(扩展名)
+        input_file_name, input_file_type = input_file_path.split(&#39;/&#39;)[-1].split(&#39;.&#39;)
+        # 如果类型(扩展名)不是 hchy 则不是本软件压缩的文件无法解压缩
+        if input_file_type == &quot;hchy&quot;:
+            # 定义读取文件的 bitarray 流
+            data = bitarray(endian=&#39;big&#39;)
+            # 定义输出流
+            output_buffer = []
+
+            # 读取文件
+            try:
+                with open(input_file_path, &#39;rb&#39;) as input_file:
+                    data.fromfile(input_file)
+            except IOError:
+                print(&#39;Could not open input file ...&#39;)
+                raise
+            # 删除前面 1 byte 记录压缩算法类型的信息
+            del data[0:8]
+            # 取出前面 4 bytes 的扩展名信息 再删除
+            type_byte = data[0:32].tobytes()
+            del data[0:32]
+            type_name = type_byte.decode(&#39;utf-8&#39;)
+            # 除去不需要的为了填充为 4 bytes 的 0字符信息
+            raw_index = type_name.find(&#39;0&#39;)
+            if raw_index &gt;= 0:
+                type_name = type_name[0:raw_index]
+            # 获取文件总的bit数
+            pre_len = len(data)
+            # 当大于 1 byte 继续解码
+            while len(data) &gt;= 9:
+                # 打印解压进度消息
+                process = ((pre_len - len(data))/pre_len)*100
+                print(&quot;process %.2f%% ...&quot; % process)
+                # 取出标志匹配是否命中的标志位 若未命中 直接写入后面的 8 bits 字符信息
+                # 若命中 则根据 12 bits 偏移量 和 4 bits 长度 信息 获取字符信息
+                flag = data.pop(0)
+
+                if not flag:
+                    # 写入后面的 8 bits 字符信息 再删除
+                    byte = data[0:8].tobytes()
+                    output_buffer.append(byte)
+                    del data[0:8]
+                else:
+                    # 获取后面的 两个 Bytes 再删除
+                    byte1 = int.from_bytes(data[0:8].tobytes(), &quot;big&quot;)
+                    byte2 = int.from_bytes(data[8:16].tobytes(), &quot;big&quot;)
+                    del data[0:16]
+
+                    # 偏移处理 获取 偏移量 和 长度 信息
+                    distance = (byte1 &lt;&lt; 4) | (byte2 &gt;&gt; 4)
+                    length = (byte2 &amp; 0x0f)
+
+                    for i in range(length):
+                        output_buffer.append(output_buffer[-distance])
+            # 连接 bytes list
+            out_data = b&#39;&#39;.join(output_buffer)
+            # 输出文件 如果提供了 output_file_path 就在提供的 output_file_path 下写入 如果没有就同在 input_file_path 当前目录下写入文件
+            if output_file_path:
+                output_file_path_final = output_file_path + (&quot;&quot; if output_file_path[-1] == &quot;/&quot; else &quot;/&quot;) + input_file_name+ &quot;.&quot; + type_name
+            else:
+                output_file_path_final = &#39;/&#39;.join(input_file_path.split(&#39;/&#39;)[0:-1]) + &quot;/&quot; + input_file_name + &quot;.&quot; + type_name
+            try:
+                with open(output_file_path_final, &#39;wb&#39;) as output_file:
+                    output_file.write(out_data)
+                    print(&#39;File was decompressed successfully and saved to output path %s&#39; % output_file_path_final)
+                    # 输出成功 关闭输出流
+                    output_file.close()
+                    return None
+            except IOError:
+                print(&#39;Could not write to output file path %s&#39; % output_file_path_final)
+
+                raise
+        else:
+            print(&quot;Error file type! It isn&#39;t .hchy. So can&#39;t be decompressed&quot;)
+
+    def findLongestMatch(self, data, current_position):
+        &quot;&quot;&quot;
+        获取最大匹配字符串函数
+        &quot;&quot;&quot;
+        # 待匹配字符串末端
+        end_of_buffer = min(current_position + self.lookahead_buffer_size, len(data) + 1)
+
+        long_match_distance = -1
+        long_match_length = -1
+
+        # 只有子字符串长度大于等于 2 才执行
+        # 因为 未命中的 8 bits 压缩比 16 bits 的要好
+        for j in range(current_position + 2, end_of_buffer):
+
+            start_index = max(0, current_position - self.window_size)
+            # 待匹配的子字符串
+            substring = data[current_position:j]
+
+            for i in range(start_index, current_position):
+                # 可能会重复匹配 当待匹配的子字符串长度大于游标位置与偏移量指针距离
+                repetitions = int(len(substring) / (current_position - i))
+                # 重复匹配完后剩下的 也是没有重复匹配情况下的
+                last = len(substring) % (current_position - i)
+                # 匹配到的字符串
+                matched_string = data[i:current_position] * repetitions + data[i:i + last]
+                # 匹配成功 不断更新最大值
+                if matched_string == substring and len(substring) &gt; long_match_length:
+                    long_match_distance = current_position - i
+                    long_match_length = len(substring)
+        # 匹配成功 返回 偏移量 和 长度 信息
+        if long_match_distance &gt; 0 and long_match_length &gt; 0:
+            return long_match_distance, long_match_length
+        return None
+</code></pre>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p><a target="_blank" rel="noopener" href="https://github.com/Hchyeria/Compressor-software">Github 源码地址</a></p>
+<div id="post-view"> </div><div id="pagination"><div class="pagination"><div class="prev-post-page" title="Hello World"><a class="vertical-center" href="/posts/16107/"><i class="material-icons">arrow_back</i><span>PREV</span></a></div><div class="next-post-page" title="Comparison of Different Binary Search Tree"><a class="vertical-center" href="/posts/32481/"><span>NEXT</span><i class="material-icons">arrow_forward</i></a></div></div></div></div><div class="post-comment-contain"><div class="comment-logo"><img src="/img/comments.png"></div><div class="comment-block" id="comment-block"></div><script defer src="/js/comment/comment.js"></script><div class="post-send-comment"><div class="comment-text">有什么想说的？欢迎留言。</div><textarea id="comment-data" rows="10"></textarea><div class="user-data"><div class="user-name"><input id="user-name" placeholder="*用户名"></div><div class="user-contact"><input id="user-contact" placeholder="联系方式"></div></div><div class="find-more" id="send-comment"><span>提交评论</span></div></div></div></article><div class="menu-bottom"><input type="checkbox" id="menu-bottom-icon"><div class="tag-box"><div class="tag-list-title"> <i class="material-icons">view_list</i><span>Contents</span></div><div class="tag-list-container"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Huffman-%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="toc-text">Huffman 压缩算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Huffman-%E7%BC%96%E7%A0%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">Huffman 编码介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA-Huffman-%E7%BC%96%E7%A0%81%E6%A0%91"><span class="toc-text">如何构建 Huffman 编码树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LZ77-%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="toc-text">LZ77 压缩算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E6%9C%AF%E8%AF%AD%E4%BB%8B%E7%BB%8D"><span class="toc-text">几个术语介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E8%BF%87%E7%A8%8B"><span class="toc-text">编码过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-text">源码</span></a></li></ol></div></div><div class="menu-icon-bottom"><label for="menu-bottom-icon"><div></div><div></div><div></div></label></div></div></div></div><i class="material-icons hidden" id="go-up" aria-hidden="1">expand_less</i><script class="remove-item">document.getElementById("load-process").style.width = '40%'</script><footer><div id="page-footer"><div class="footer-first"><div class="pull-left">Hchyeria © <span id="id-yer">2019</span></div><div class="pull-right">Power by<span><a href="http://hexo.io" target="_blank"> Hexo</a></span><span> with theme<a href="https://github.com/Hchyeria/hchyeria.github.io" target="_blank"> Avalon</a></span></div></div><div class="footer-first"> <div class="pull-left">推荐使用 Chrome / Safari/ New Edge 访问</div><div class="pull-right"> <span><a href="http://www.beian.miit.gov.cn" target="_blank">津ICP备19010863号</a></span></div></div><div class="footer-first">欢迎反馈BUG Orz</div></div></footer><script class="remove-item">document.getElementById("load-process").style.width = '50%'</script><script src="/js/assets/zepto.min.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '65%'</script><script src="/js/utils.js"></script><script src="/js/plugins/lazyImg.js"></script><script src="/js/core.js"></script><script class="remove-item">document.getElementById("load-process").style.width = '80%'</script><script src="/js/postpage/postpage.js"></script><script src="/js/assets/highlight.pack.js"></script><script src="/js/assets/highlightjs-line-numbers.min.js"></script><script src="/js/function/highlight/hljs.js"></script><script class="remove-item">document.addEventListener('DOMContentLoaded',function() {
+  document.getElementById("load-process").style.width = '100%'
+  $("#loading").remove()
+  $(".remove-item").remove()
+})</script><!-- Global site tag (gtag.js) - Google Analytics --><script src="https://www.googletagmanager.com/gtag/js?id=UA-162425093-1" async=""></script><script id="google-analytics" data-uid="UA-162425093-1">window.dataLayer = window.dataLayer || []
+var uid = $('#google-analytics')[0].dataset.uid
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', uid)</script></body></html>
