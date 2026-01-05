@@ -831,7 +831,7 @@ h4 {
 .recent-index-item {
   display: flex;
   align-items: center;
-  margin: 45px 0;
+  margin: 55px 0;
   flex: 1 0 auto;
 }
 .recent-index-item:not(.no-img):hover img {
@@ -841,7 +841,7 @@ h4 {
 .recent-article-content {
   max-height: 180px;
   padding: 0;
-  margin-bottom: 80px;
+  margin-bottom: 45px;
 }
 .article-indeximg {
   overflow: hidden;
