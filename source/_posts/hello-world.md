@@ -24,8 +24,8 @@ date: August 7, 2018
 # Causation
 
 早就想建个人博客写点什么了，选择了Hexo。可惜找了半天没找到自己想要的主题，无奈只好自己写一个。在网上搜罗了教程，看了文档，开始陆陆续续写。先出了些设计图，再开始动工。写的过程中也是觉得不满意然后再重新设计，或者直接写出来看效果。总之，我感觉设计图真不该一开始做的特别认真，一些细节能省就省，能快速出效果就好。最终的效果和设计图相差甚多。
-<div align=center><img class="post-img-middle" src="/posts/16107/1.png" />
-<div align=center class="img-undertext">初版设计图<div class="img-undertext-divi">
+<div align=center><img class="post-img-middle" src="/posts/16107/1.png" /></div>
+<div align=center class="img-undertext">初版设计图</div>
 
 从零开始写一个主题，工程量真的很庞大。我断断续续写了快一年，上学的时间没写，也就一个寒暑假时间，但是相当折磨人。还好坚持写完了。
 本次主题最大的挑战是增加了<span class="text-highlight">Record</span>板块，因为我想记录一些生活上值得记录的事，比如参加的比赛，做过的海报等。这些不足以写一篇博客文章来记录，而且我希望博客文章最好全是关于学习的记录总结。于是索性新开了一个板块。具体实现是从 Post 文章里面筛选一部分出来，本质上是 Post 的子集。
@@ -45,11 +45,11 @@ hexo.extend.filter.register('template_locals', function(locals) {
     var record_posts = posts.filter(ele => ele.record)
     locals.site.posts = real_posts
     var real_length = real_posts.length
-    
+
     if (page.base === '') {
         locals.page.posts = real_posts.slice(0, page_num)
     }
-    if (page.base === archiveDir + '/') {  
+    if (page.base === archiveDir + '/') {
         page.total = Math.ceil(real_length / page_num)
         locals.page.posts = real_posts.slice((page.current - 1) * page_num, page.current * page_num)
     }

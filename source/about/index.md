@@ -42,6 +42,4 @@ Hello, I'm Hchyeria.
 喜欢我的专业，喜欢编程，喜欢学习新技术。
 努力实现梦想中...(ง •_•)ง
 
-2017级本科生
-Software Engineering in Tianjin University
 Mail: [Hchyeria@outlook.com](mailto:Hchyeria@outlook.com)

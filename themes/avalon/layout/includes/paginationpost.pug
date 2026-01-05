@@ -1,4 +1,4 @@
-- 
+-
   function findPage(currentPage, type) {
     if (!currentPage) {
       return false
@@ -8,13 +8,15 @@
     }
     return findPage(currentPage[type], type)
   }
-- var isPrev = findPage(page.prev, 'prev')
-- var isNext = findPage(page.next, 'next')
+
+//- Prev/Next define by created time of post, the 'next' post in array is the 'prev' time.
+- var isPrev = findPage(page.next, 'next')
+- var isNext = findPage(page.prev, 'prev')
 #pagination
   .pagination
     if(isPrev)
       .prev-post-page(title=isPrev.title)
-        a.vertical-center(href=url_for(isPrev.path)) 
+        a.vertical-center(href=url_for(isPrev.path))
           i.material-icons arrow_back
           span PREV
     else
@@ -25,7 +27,7 @@
     if(isNext)
       .next-post-page(title=isNext.title)
         a.vertical-center(href=url_for(isNext.path))
-          span NEXT 
+          span NEXT
           i.material-icons arrow_forward
     else
       .next-post-page

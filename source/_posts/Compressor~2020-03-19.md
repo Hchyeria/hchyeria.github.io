@@ -18,15 +18,15 @@ Huffman编码就是一种效率很高的编码方式，该方法完全依据字�
 Huffman编码需要牺牲一部分体积来储存 Huffman 编码树的信息。
 ### 如何构建 Huffman 编码树
 Huffman 编码为每个字母分配编码，编码长度取决于在被压缩文件中对应字母的出现的频率，也就是权重（weight）。Huffman 编码树是满二叉树，有最小外部路径权重。每一个叶节点对应于一个字母，叶节点的权重就是对应的字母出现的频率。下图将解释一下什么是最小外部路径权重，并且 Huffman 编码的过程。
-<div align=center><img class="post-img-big" src="/posts/62841/1.png" />
-<div align=center class="img-undertext">最小外部路径权重<div class="img-undertext-divi">
+<div align=center><img class="post-img-big" src="/posts/62841/1.png" /></div>
+<div align=center class="img-undertext">最小外部路径权重</div>
 
 构建Huffman编码树的算法过程：
 1. 创建n个初始化的 Huffman 树（只有一个叶子点），叶节点纪录对应的字母和该字母出现的频率（weight）
 2. 按照 weight 从小到大对所有的Huffman树进行排序，取出其中 weight 最小的两棵树，构造一个新的 Huffman树，新的 Huffman 树的 weight 等于两棵子树的 weight 之和，然后再加入到原来的 Huffman 树数组当中
 3. 反复上面的ii操作，直到该数组当中只剩下一棵Huffman树，那么最后剩下来的那棵 Huffman 树就是我们构造好的Huffman编码树
-<div align=center><img class="post-img-big" src="/posts/62841/2.png" />
-<div align=center class="img-undertext">构建过程<div class="img-undertext-divi">
+<div align=center><img class="post-img-big" src="/posts/62841/2.png" /></div>
+<div align=center class="img-undertext">构建过程</div>
 
 ## LZ77 压缩算法
 ### 几个术语介绍
